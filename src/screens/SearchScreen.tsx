@@ -22,6 +22,48 @@ import { useLanguage } from '@contexts/LanguageContext';
 type SearchScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 type SearchScreenRouteProp = RouteProp<RootStackParamList, 'Search'>;
 
+// Helper functions for search logic
+const safeStringIncludes = (str: string | undefined, searchTerm: string): boolean => {
+  return str ? str.toLowerCase().includes(searchTerm) : false;
+};
+
+const safeArrayIncludes = (arr: string[] | undefined, searchTerm: string): boolean => {
+  return Array.isArray(arr) && arr.some(item => item && item.toLowerCase().includes(searchTerm));
+};
+
+const searchPointsByText = (point: AcupressurePoint, searchTerm: string, language: string): boolean => {
+  return (
+    safeStringIncludes(point.name?.[language], searchTerm) ||
+    safeStringIncludes(point.code, searchTerm) ||
+    safeArrayIncludes(point.symptoms, searchTerm) ||
+    safeArrayIncludes(point.conditions, searchTerm) ||
+    searchInBodyPart(point.bodyPart, searchTerm) ||
+    safeStringIncludes(point.location?.[language], searchTerm) ||
+    searchInIndications(point.indications, searchTerm, language) ||
+    searchInChineseNames(point.chineseName, searchTerm)
+  );
+};
+
+const searchInBodyPart = (bodyPart: string | string[] | undefined, searchTerm: string): boolean => {
+  if (!bodyPart) return false;
+  return Array.isArray(bodyPart) 
+    ? bodyPart.some(bp => bp && bp.toLowerCase().includes(searchTerm))
+    : bodyPart.toLowerCase().includes(searchTerm);
+};
+
+const searchInIndications = (indications: any[] | undefined, searchTerm: string, language: string): boolean => {
+  return Array.isArray(indications) && indications.some(indication => 
+    indication && indication[language] && indication[language].toLowerCase().includes(searchTerm)
+  );
+};
+
+const searchInChineseNames = (chineseName: any, searchTerm: string): boolean => {
+  return chineseName && (
+    (chineseName.traditional && chineseName.traditional.includes(searchTerm)) ||
+    (chineseName.pinyin && chineseName.pinyin.toLowerCase().includes(searchTerm))
+  );
+};
+
 const SearchScreen: React.FC = () => {
   const navigation = useNavigation<SearchScreenNavigationProp>();
   const route = useRoute<SearchScreenRouteProp>();
@@ -34,42 +76,105 @@ const SearchScreen: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
 
+  // Separate effect for search query changes
   useEffect(() => {
     if (searchQuery) {
       handleSearch(searchQuery);
+    } else if (!activeFilter) {
+      setSearchResults([]);
     }
   }, [searchQuery, currentLanguage]);
 
+  // Separate effect for filter changes
+  useEffect(() => {
+    if (activeFilter) {
+      handleSearch(searchQuery);
+    } else if (!searchQuery) {
+      setSearchResults([]);
+    }
+  }, [activeFilter, currentLanguage]);
+
   const handleSearch = useCallback(async (query: string) => {
-    if (!query.trim()) {
+    if (!query.trim() && !activeFilter) {
       setSearchResults([]);
       return;
     }
 
     setLoading(true);
     try {
+      console.log('🔍 Starting search with query:', query, 'filter:', activeFilter);
+      
       // For now, use local search. In production, use Algolia
-      const filteredPoints = samplePoints.filter(point => {
-        const searchTerm = query.toLowerCase();
-        return (
-          point.name[currentLanguage].toLowerCase().includes(searchTerm) ||
-          point.code.toLowerCase().includes(searchTerm) ||
-          point.conditions.some(condition => 
-            condition.toLowerCase().includes(searchTerm)
-          ) ||
-          point.bodyPart.toLowerCase().includes(searchTerm) ||
-          point.location[currentLanguage].toLowerCase().includes(searchTerm)
-        );
+      let filteredPoints = samplePoints.filter(point => {
+        try {
+          // Safety check for required fields
+          if (!point || !point.name || !point.location) {
+            console.warn('⚠️ Skipping invalid point:', point?.id || 'unknown');
+            return false;
+          }
+          
+          // If no search query, don't filter by text
+          const matchesSearch = !query.trim() || searchPointsByText(point, query.toLowerCase(), currentLanguage);
+          
+          return matchesSearch;
+        } catch (pointError) {
+          console.error('❌ Error processing point:', point?.id, pointError);
+          return false;
+        }
       });
+
+      // Apply active filter with safety checks
+      if (activeFilter) {
+        filteredPoints = filteredPoints.filter(point => {
+          try {
+            switch (activeFilter) {
+              case 'beginner':
+                return point.difficulty && point.difficulty.toLowerCase() === 'beginner';
+              case 'head':
+                return point.bodyPart && (
+                  Array.isArray(point.bodyPart) 
+                    ? point.bodyPart.some(bp => bp && bp.toLowerCase().includes('head'))
+                    : point.bodyPart.toLowerCase().includes('head')
+                );
+              case 'hand':
+                return point.bodyPart && (
+                  Array.isArray(point.bodyPart)
+                    ? point.bodyPart.some(bp => bp && bp.toLowerCase().includes('hand'))
+                    : point.bodyPart.toLowerCase().includes('hand')
+                );
+              case 'foot':
+                return point.bodyPart && (
+                  Array.isArray(point.bodyPart)
+                    ? point.bodyPart.some(bp => bp && bp.toLowerCase().includes('foot'))
+                    : point.bodyPart.toLowerCase().includes('foot')
+                );
+              default:
+                return true;
+            }
+          } catch (filterError) {
+            console.error('❌ Error applying filter:', activeFilter, 'to point:', point?.id, filterError);
+            return false;
+          }
+        });
+      }
+      
+      console.log('✅ Search completed. Found', filteredPoints.length, 'points');
       
       setSearchResults(filteredPoints);
     } catch (error) {
-      console.error('Search error:', error);
-      Alert.alert('Error', 'Failed to search points');
+      console.error('💥 Search error:', error);
+      console.error('Query:', query, 'Filter:', activeFilter, 'Language:', currentLanguage);
+      
+      // Provide helpful error message to user
+      Alert.alert(
+        'Search Error', 
+        'There was an issue searching points. Please try a different search term.',
+        [{ text: 'OK', onPress: () => setSearchResults([]) }]
+      );
     } finally {
       setLoading(false);
     }
-  }, [currentLanguage]);
+  }, [currentLanguage, activeFilter]);
 
   const handleSuggestionPress = (suggestion: string) => {
     setSearchQuery(suggestion);
@@ -98,7 +203,6 @@ const SearchScreen: React.FC = () => {
       onPress={() => {
         const newFilter = activeFilter === item.id ? null : item.id;
         setActiveFilter(newFilter);
-        // Apply filter logic here
       }}
     >
       <Text

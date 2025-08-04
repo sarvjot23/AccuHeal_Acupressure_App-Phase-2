@@ -14,29 +14,56 @@
       "@/*": [
         "./src/*"
       ],
+      "@components": [
+        "./src/components"
+      ],
       "@components/*": [
         "./src/components/*"
+      ],
+      "@screens": [
+        "./src/screens"
       ],
       "@screens/*": [
         "./src/screens/*"
       ],
+      "@services": [
+        "./src/services"
+      ],
       "@services/*": [
         "./src/services/*"
+      ],
+      "@types": [
+        "./src/types"
       ],
       "@types/*": [
         "./src/types/*"
       ],
+      "@utils": [
+        "./src/utils"
+      ],
       "@utils/*": [
         "./src/utils/*"
+      ],
+      "@constants": [
+        "./src/constants"
       ],
       "@constants/*": [
         "./src/constants/*"
       ],
+      "@data": [
+        "./src/data"
+      ],
       "@data/*": [
         "./src/data/*"
       ],
+      "@localization": [
+        "./src/localization"
+      ],
       "@localization/*": [
         "./src/localization/*"
+      ],
+      "@contexts": [
+        "./src/contexts"
       ],
       "@contexts/*": [
         "./src/contexts/*"

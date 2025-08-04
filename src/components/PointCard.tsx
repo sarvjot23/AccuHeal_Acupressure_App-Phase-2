@@ -24,7 +24,7 @@ export const PointCard: React.FC<PointCardProps> = ({
   return (
     <Card onPress={onPress} padding={isCompact ? 'sm' : 'md'}>
       <View style={[styles.container, isCompact && styles.compactContainer]}>
-        {point.images.length > 0 && (
+        {point.images && point.images.length > 0 && (
           <View style={[styles.imageContainer, isCompact && styles.compactImageContainer]}>
             <Image
               source={{ uri: point.images[0] }}
@@ -36,7 +36,7 @@ export const PointCard: React.FC<PointCardProps> = ({
         
         <View style={styles.content}>
           <View style={styles.header}>
-            <Text style={[styles.title, isCompact && styles.compactTitle]}>
+            <Text style={[styles.title, isCompact && styles.compactTitle]} numberOfLines={2}>
               {point.name[currentLanguage]}
             </Text>
             <View style={styles.codeContainer}>
@@ -52,8 +52,13 @@ export const PointCard: React.FC<PointCardProps> = ({
             <View style={styles.conditionsContainer}>
               <Text style={styles.conditionsLabel}>Helps with:</Text>
               <Text style={styles.conditions} numberOfLines={2}>
-                {point.conditions.slice(0, 3).join(', ')}
-                {point.conditions.length > 3 && '...'}
+                {/* Use new symptoms array first, fallback to legacy conditions */}
+                {point.symptoms 
+                  ? point.symptoms.slice(0, 3).join(', ') + (point.symptoms.length > 3 ? '...' : '')
+                  : point.conditions 
+                    ? point.conditions.slice(0, 3).join(', ') + (point.conditions.length > 3 ? '...' : '')
+                    : 'Various conditions'
+                }
               </Text>
             </View>
           )}
@@ -61,7 +66,13 @@ export const PointCard: React.FC<PointCardProps> = ({
           <View style={styles.metadata}>
             <View style={styles.metadataItem}>
               <Text style={styles.metadataLabel}>Duration:</Text>
-              <Text style={styles.metadataValue}>{point.duration} min</Text>
+              <Text style={styles.metadataValue}>
+                {/* Handle both new string format and legacy number format */}
+                {typeof point.duration === 'string' 
+                  ? point.duration 
+                  : `${point.duration} min`
+                }
+              </Text>
             </View>
             <View style={styles.metadataItem}>
               <Text style={styles.metadataLabel}>Pressure:</Text>
@@ -109,6 +120,7 @@ const styles = StyleSheet.create({
 
   content: {
     flex: 1,
+    minWidth: 0, // Prevents text overflow
   } as ViewStyle,
 
   header: {
@@ -116,6 +128,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     marginBottom: Spacing.xs,
+    width: '100%',
   } as ViewStyle,
 
   title: {
@@ -123,6 +136,7 @@ const styles = StyleSheet.create({
     color: Colors.text.primary,
     flex: 1,
     marginRight: Spacing.sm,
+    flexWrap: 'wrap',
   } as TextStyle,
 
   compactTitle: {
@@ -135,6 +149,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.sm,
     paddingVertical: Spacing.xs,
     borderRadius: BorderRadius.sm,
+    flexShrink: 0, // Prevents shrinking of code container
   } as ViewStyle,
 
   code: {
@@ -147,6 +162,7 @@ const styles = StyleSheet.create({
     ...Typography.body2,
     color: Colors.text.secondary,
     marginBottom: Spacing.sm,
+    flexWrap: 'wrap',
   } as TextStyle,
 
   compactLocation: {
@@ -167,16 +183,19 @@ const styles = StyleSheet.create({
   conditions: {
     ...Typography.body2,
     color: Colors.text.secondary,
+    flexWrap: 'wrap',
   } as TextStyle,
 
   metadata: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    flexWrap: 'wrap',
   } as ViewStyle,
 
   metadataItem: {
     flexDirection: 'row',
     alignItems: 'center',
+    flexShrink: 1,
   } as ViewStyle,
 
   metadataLabel: {

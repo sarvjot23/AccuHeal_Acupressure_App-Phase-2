@@ -26,6 +26,12 @@ class AlgoliaService {
       bodyPart?: string;
       difficulty?: string;
       conditions?: string[];
+      meridian?: string;
+      category?: string;
+      element?: string;
+      polarity?: string;
+      pressure?: string;
+      symptoms?: string[];
     },
     language: 'en' | 'hi' = 'en'
   ): Promise<SearchResult[]> {
@@ -43,9 +49,35 @@ class AlgoliaService {
           filterParts.push(`difficulty:"${filters.difficulty}"`);
         }
         
+        if (filters.meridian) {
+          filterParts.push(`meridian.code:"${filters.meridian}"`);
+        }
+        
+        if (filters.category) {
+          filterParts.push(`category:"${filters.category}"`);
+        }
+        
+        if (filters.element) {
+          filterParts.push(`meridian.element:"${filters.element}"`);
+        }
+        
+        if (filters.polarity) {
+          filterParts.push(`meridian.polarity:"${filters.polarity}"`);
+        }
+        
+        if (filters.pressure) {
+          filterParts.push(`pressure:"${filters.pressure}"`);
+        }
+        
+        // Support both legacy 'conditions' and new 'symptoms'
         if (filters.conditions && filters.conditions.length > 0) {
           const conditionFilters = filters.conditions.map(c => `conditions:"${c}"`);
           filterParts.push(`(${conditionFilters.join(' OR ')})`);
+        }
+        
+        if (filters.symptoms && filters.symptoms.length > 0) {
+          const symptomFilters = filters.symptoms.map(s => `symptoms:"${s}"`);
+          filterParts.push(`(${symptomFilters.join(' OR ')})`);
         }
         
         filterString = filterParts.join(' AND ');
@@ -57,24 +89,42 @@ class AlgoliaService {
         attributesToSearchOn: [
           `name.${language}`,
           'code',
-          'conditions',
+          'symptoms',
           'bodyPart',
           `location.${language}`,
+          `meridian.name.${language}`,
+          'meridian.code',
+          `chineseName.pinyin`,
+          `alternateNames.${language}`,
+          'category',
+          'difficulty'
         ],
         attributesToRetrieve: [
           'objectID',
           'code',
           `name.${language}`,
           `location.${language}`,
-          'conditions',
+          'symptoms',
           'bodyPart',
           'difficulty',
+          'category',
+          'meridian',
+          'chineseName',
+          'popularity',
+          'pressure',
+          'duration',
+          // Legacy field support
+          'conditions',
           'images',
         ],
         attributesToHighlight: [
           `name.${language}`,
-          'conditions',
+          'symptoms',
           'bodyPart',
+          `meridian.name.${language}`,
+          'category',
+          // Legacy field support
+          'conditions',
         ],
       };
 
@@ -107,7 +157,7 @@ class AlgoliaService {
 
       const { hits } = await this.pointsIndex.search(query, {
         hitsPerPage: 10,
-        attributesToRetrieve: [`name.${language}`, 'conditions', 'bodyPart'],
+        attributesToRetrieve: [`name.${language}`, 'conditions', 'symptoms', 'bodyPart', 'meridian', 'chineseName'],
         attributesToHighlight: [],
       });
 
@@ -120,13 +170,37 @@ class AlgoliaService {
           suggestions.add(pointName);
         }
 
-        // Add conditions
+        // Add conditions (legacy support)
         if (hit.conditions) {
           hit.conditions.forEach((condition: string) => {
             if (condition.toLowerCase().includes(query.toLowerCase())) {
               suggestions.add(condition);
             }
           });
+        }
+        
+        // Add symptoms
+        if (hit.symptoms) {
+          hit.symptoms.forEach((symptom: string) => {
+            if (symptom.toLowerCase().includes(query.toLowerCase())) {
+              suggestions.add(symptom);
+            }
+          });
+        }
+        
+        // Add meridian names
+        if (hit.meridian?.name?.[language]) {
+          const meridianName = hit.meridian.name[language];
+          if (meridianName.toLowerCase().includes(query.toLowerCase())) {
+            suggestions.add(meridianName);
+          }
+        }
+        
+        // Add Chinese names (pinyin)
+        if (hit.chineseName?.pinyin) {
+          if (hit.chineseName.pinyin.toLowerCase().includes(query.toLowerCase())) {
+            suggestions.add(hit.chineseName.pinyin);
+          }
         }
 
         // Add body parts
@@ -142,9 +216,47 @@ class AlgoliaService {
     }
   }
 
+  // Search by meridian
+  async searchByMeridian(
+    meridianCode: string,
+    language: 'en' | 'hi' = 'en'
+  ): Promise<SearchResult[]> {
+    try {
+      const { hits } = await this.pointsIndex.search('', {
+        filters: `meridian.code:"${meridianCode}"`,
+        hitsPerPage: 100,
+        attributesToRetrieve: [
+          'objectID',
+          'code',
+          `name.${language}`,
+          `location.${language}`,
+          'symptoms',
+          'bodyPart',
+          'difficulty',
+          'category',
+          'meridian',
+          'popularity',
+          // Legacy support
+          'conditions',
+        ],
+      });
+
+      return hits.map((hit: any) => ({
+        id: hit.objectID,
+        title: hit[`name.${language}`] || hit.name?.en || hit.code,
+        subtitle: this.formatSubtitle(hit, language),
+        type: 'point' as const,
+        relevanceScore: hit.popularity || 0,
+      }));
+    } catch (error) {
+      console.error('Algolia meridian search error:', error);
+      throw error;
+    }
+  }
+
   // Search by specific categories
   async searchByCategory(
-    category: 'symptoms' | 'bodyParts' | 'pointCodes',
+    category: 'symptoms' | 'bodyParts' | 'pointCodes' | 'meridians' | 'categories',
     query: string,
     language: 'en' | 'hi' = 'en'
   ): Promise<SearchResult[]> {
@@ -156,8 +268,8 @@ class AlgoliaService {
 
       switch (category) {
         case 'symptoms':
-          searchParams.attributesToSearchOn = ['conditions'];
-          searchParams.filters = `conditions:"${query}"`;
+          searchParams.attributesToSearchOn = ['symptoms', 'conditions']; // Support both new and legacy
+          searchParams.filters = `symptoms:"${query}" OR conditions:"${query}"`;
           break;
         case 'bodyParts':
           searchParams.attributesToSearchOn = ['bodyPart'];
@@ -165,6 +277,14 @@ class AlgoliaService {
           break;
         case 'pointCodes':
           searchParams.attributesToSearchOn = ['code'];
+          break;
+        case 'meridians':
+          searchParams.attributesToSearchOn = [`meridian.name.${language}`, 'meridian.code'];
+          searchParams.filters = `meridian.code:"${query}" OR meridian.name.${language}:"${query}"`;
+          break;
+        case 'categories':
+          searchParams.attributesToSearchOn = ['category'];
+          searchParams.filters = `category:"${query}"`;
           break;
       }
 

@@ -1,16 +1,39 @@
 export interface AcupressurePoint {
   id: string;
-  code: string;
+  code: string; // "LI4", "ST36", "GV20", etc.
   name: LocalizedText;
+  chineseName?: {
+    traditional: string;
+    pinyin: string;
+  };
+  alternateNames?: {
+    en: string[];
+    hi: string[];
+  };
   location: LocalizedText;
-  method: LocalizedText;
-  conditions: string[];
+  meridian: {
+    name: LocalizedText;
+    code: string; // "LI", "ST", "GV", etc.
+    element?: 'Wood' | 'Fire' | 'Earth' | 'Metal' | 'Water';
+    polarity?: 'Yin' | 'Yang';
+  };
+  indications: LocalizedText[];
   contraindications: LocalizedText;
-  bodyPart: string;
-  images: string[];
-  difficulty: 'beginner' | 'intermediate' | 'advanced';
-  duration: number; // in minutes
-  pressure: 'light' | 'medium' | 'firm';
+  technique: LocalizedText;
+  duration: string; // "1-3 minutes", "30 seconds-2 minutes"
+  pressure: 'Light' | 'Moderate' | 'Firm';
+  bodyPart: string[]; // ["hand", "arm", "head", "leg", "foot", "torso", "face", "neck"]
+  symptoms: string[]; // For Algolia search indexing
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+  category: 'Classical' | 'Extra' | 'Auricular' | 'Modern' | 'Pediatric';
+  popularity?: number; // 1-5 rating for featuring popular points
+  imageUrl?: string; // Leave null for now, implement in later phase
+  precautions?: LocalizedText[];
+  
+  // Legacy fields for backward compatibility
+  method?: LocalizedText; // Maps to technique
+  conditions?: string[]; // Maps to symptoms
+  images?: string[]; // Maps to imageUrl
 }
 
 export interface LocalizedText {
