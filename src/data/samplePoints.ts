@@ -1,0 +1,628 @@
+import { AcupressurePoint } from '@types';
+
+export const samplePoints: AcupressurePoint[] = [
+  {
+    id: 'li4',
+    code: 'LI4',
+    name: {
+      en: 'Large Intestine 4 - Hegu',
+      hi: 'बड़ी आंत 4 - हेगू',
+    },
+    location: {
+      en: 'Located in the webbing between the thumb and index finger, closer to the index finger bone.',
+      hi: 'अंगूठे और तर्जनी के बीच की जगह में स्थित, तर्जनी की हड्डी के करीब।',
+    },
+    method: {
+      en: 'Apply firm pressure with your thumb for 1-3 minutes. Press and release in a rhythmic pattern. Breathe deeply while applying pressure.',
+      hi: 'अपने अंगूठे से 1-3 मिनट तक मजबूत दबाव डालें। लयबद्ध तरीके से दबाएं और छोड़ें। दबाव डालते समय गहरी सांस लें।',
+    },
+    conditions: ['headache', 'stress', 'pain relief', 'tension'],
+    contraindications: {
+      en: 'Avoid during pregnancy. Do not use if you have high blood pressure.',
+      hi: 'गर्भावस्था के दौरान बचें। उच्च रक्तचाप है तो उपयोग न करें।',
+    },
+    bodyPart: 'hand',
+    images: ['li4_location.jpg', 'li4_technique.jpg'],
+    difficulty: 'beginner',
+    duration: 3,
+    pressure: 'firm',
+  },
+  {
+    id: 'gv20',
+    code: 'GV20',
+    name: {
+      en: 'Governing Vessel 20 - Baihui',
+      hi: 'गवर्निंग वेसल 20 - बाइहुई',
+    },
+    location: {
+      en: 'Located at the top of the head, at the intersection of a line from ear to ear and nose to neck.',
+      hi: 'सिर के शीर्ष पर स्थित, कान से कान और नाक से गर्दन की रेखा के प्रतिच्छेदन पर।',
+    },
+    method: {
+      en: 'Gently press with your middle finger for 1-2 minutes. Use light to medium pressure in circular motions.',
+      hi: 'अपनी मध्यमा अंगुली से 1-2 मिनट तक धीरे से दबाएं। गोलाकार गति में हल्का से मध्यम दबाव का उपयोग करें।',
+    },
+    conditions: ['mental clarity', 'focus', 'dizziness', 'headache'],
+    contraindications: {
+      en: 'Use gentle pressure only. Avoid if you have head injuries.',
+      hi: 'केवल हल्का दबाव का उपयोग करें। सिर की चोट है तो बचें।',
+    },
+    bodyPart: 'head',
+    images: ['gv20_location.jpg'],
+    difficulty: 'beginner',
+    duration: 2,
+    pressure: 'light',
+  },
+  {
+    id: 'gb21',
+    code: 'GB21',
+    name: {
+      en: 'Gallbladder 21 - Jianjing',
+      hi: 'गॉलब्लैडर 21 - जियानजिंग',
+    },
+    location: {
+      en: 'Located on the shoulder, halfway between the neck and the shoulder joint, on the highest point of the shoulder muscle.',
+      hi: 'कंधे पर स्थित, गर्दन और कंधे के जोड़ के बीच में, कंधे की मांसपेशी के सबसे ऊंचे बिंदु पर।',
+    },
+    method: {
+      en: 'Apply medium pressure with your thumb or fingers for 1-2 minutes. You can also gently massage in circular motions.',
+      hi: 'अपने अंगूठे या अंगुलियों से 1-2 मिनट तक मध्यम दबाव डालें। आप गोलाकार गति में धीरे से मालिश भी कर सकते हैं।',
+    },
+    conditions: ['shoulder tension', 'neck pain', 'stress', 'upper back pain'],
+    contraindications: {
+      en: 'Avoid during pregnancy. Do not use excessive pressure.',
+      hi: 'गर्भावस्था के दौरान बचें। अधिक दबाव का उपयोग न करें।',
+    },
+    bodyPart: 'shoulder',
+    images: ['gb21_location.jpg'],
+    difficulty: 'beginner',
+    duration: 2,
+    pressure: 'medium',
+  },
+  {
+    id: 'lv3',
+    code: 'LV3',
+    name: {
+      en: 'Liver 3 - Taichong',
+      hi: 'लिवर 3 - ताइचोंग',
+    },
+    location: {
+      en: 'Located on the top of the foot, in the depression between the big toe and second toe, about 2 finger widths from the web.',
+      hi: 'पैर के ऊपरी भाग पर स्थित, बड़े पैर की अंगुली और दूसरी अंगुली के बीच के गड्ढे में, जाली से लगभग 2 अंगुली चौड़ाई की दूरी पर।',
+    },
+    method: {
+      en: 'Apply firm pressure with your thumb for 1-3 minutes. Press deeply and hold, then release. Repeat on both feet.',
+      hi: 'अपने अंगूठे से 1-3 मिनट तक मजबूत दबाव डालें। गहराई से दबाएं और रोकें, फिर छोड़ें। दोनों पैरों पर दोहराएं।',
+    },
+    conditions: ['anxiety', 'anger', 'stress', 'insomnia', 'irritability'],
+    contraindications: {
+      en: 'Avoid during pregnancy. Use caution if you have foot injuries.',
+      hi: 'गर्भावस्था के दौरान बचें। पैर की चोट है तो सावधानी बरतें।',
+    },
+    bodyPart: 'foot',
+    images: ['lv3_location.jpg'],
+    difficulty: 'intermediate',
+    duration: 3,
+    pressure: 'firm',
+  },
+  {
+    id: 'sp6',
+    code: 'SP6',
+    name: {
+      en: 'Spleen 6 - Sanyinjiao',
+      hi: 'स्प्लीन 6 - सान्यिनजियाओ',
+    },
+    location: {
+      en: 'Located on the inside of the leg, about 4 finger widths above the inner ankle bone, behind the shin bone.',
+      hi: 'पैर के अंदरूनी हिस्से पर स्थित, भीतरी टखने की हड्डी से लगभग 4 अंगुली चौड़ाई ऊपर, पिंडली की हड्डी के पीछे।',
+    },
+    method: {
+      en: 'Apply medium to firm pressure with your thumb for 1-3 minutes. Press and hold, breathing deeply.',
+      hi: 'अपने अंगूठे से 1-3 मिनट तक मध्यम से मजबूत दबाव डालें। दबाएं और रोकें, गहरी सांस लेते रहें।',
+    },
+    conditions: ['digestive issues', 'menstrual problems', 'insomnia', 'anxiety'],
+    contraindications: {
+      en: 'Strictly avoid during pregnancy as it may induce labor. Avoid if you have varicose veins.',
+      hi: 'गर्भावस्था के दौरान सख्ती से बचें क्योंकि यह प्रसव पीड़ा को प्रेरित कर सकता है। वैरिकोस वेन्स है तो बचें।',
+    },
+    bodyPart: 'leg',
+    images: ['sp6_location.jpg'],
+    difficulty: 'intermediate',
+    duration: 3,
+    pressure: 'medium',
+  },
+  {
+    id: 'yin_tang',
+    code: 'EX-HN3',
+    name: {
+      en: 'Extra Point - Yintang',
+      hi: 'अतिरिक्त बिंदु - यिनतांग',
+    },
+    location: {
+      en: 'Located directly between the eyebrows, at the center of the forehead.',
+      hi: 'भौंहों के ठीक बीच में, माथे के केंद्र में स्थित।',
+    },
+    method: {
+      en: 'Gently press with your middle finger for 1-2 minutes. Use light pressure in circular motions or simply hold.',
+      hi: 'अपनी मध्यमा अंगुली से 1-2 मिनट तक धीरे से दबाएं। गोलाकार गति में हल्का दबाव का उपयोग करें या बस रोकें।',
+    },
+    conditions: ['anxiety', 'stress', 'insomnia', 'mental clarity', 'third eye activation'],
+    contraindications: {
+      en: 'Use very gentle pressure. Avoid if you have forehead injuries or severe headaches.',
+      hi: 'बहुत हल्का दबाव का उपयोग करें। माथे की चोट या गंभीर सिरदर्द है तो बचें।',
+    },
+    bodyPart: 'head',
+    images: ['yintang_location.jpg'],
+    difficulty: 'beginner',
+    duration: 2,
+    pressure: 'light',
+  },
+  {
+    id: 'pc6',
+    code: 'PC6',
+    name: {
+      en: 'Pericardium 6 - Neiguan',
+      hi: 'पेरिकार्डियम 6 - नेइगुआन',
+    },
+    location: {
+      en: 'Located on the inner forearm, about 3 finger widths above the wrist crease, between the two tendons.',
+      hi: 'भीतरी अग्रबाहु पर स्थित, कलाई की रेखा से लगभग 3 अंगुली चौड़ाई ऊपर, दो tendons के बीच में।',
+    },
+    method: {
+      en: 'Apply firm pressure with your thumb for 1-2 minutes. Press and hold while breathing deeply.',
+      hi: 'अपने अंगूठे से 1-2 मिनट तक मजबूत दबाव डालें। गहरी सांस लेते हुए दबाएं और रोकें।',
+    },
+    conditions: ['nausea', 'motion sickness', 'anxiety', 'wrist pain', 'heart palpitations'],
+    contraindications: {
+      en: 'Avoid excessive pressure. Use caution if you have wrist injuries.',
+      hi: 'अधिक दबाव से बचें। कलाई की चोट है तो सावधानी बरतें।',
+    },
+    bodyPart: 'arm',
+    images: ['pc6_location.jpg'],
+    difficulty: 'beginner',
+    duration: 2,
+    pressure: 'firm',
+  },
+  {
+    id: 'st36',
+    code: 'ST36',
+    name: {
+      en: 'Stomach 36 - Zusanli',
+      hi: 'स्टमक 36 - जुसानली',
+    },
+    location: {
+      en: 'Located on the outer side of the leg, about 4 finger widths below the kneecap, next to the shin bone.',
+      hi: 'पैर के बाहरी हिस्से पर स्थित, घुटने की टोपी से लगभग 4 अंगुली चौड़ाई नीचे, पिंडली की हड्डी के बगल में।',
+    },
+    method: {
+      en: 'Apply firm pressure with your thumb for 2-3 minutes. Massage in clockwise circular motions.',
+      hi: 'अपने अंगूठे से 2-3 मिनट तक मजबूत दबाव डालें। घड़ी की दिशा में गोलाकार गति में मालिश करें।',
+    },
+    conditions: ['digestive issues', 'fatigue', 'immunity boost', 'leg weakness', 'nausea'],
+    contraindications: {
+      en: 'Avoid during pregnancy. Use caution if you have varicose veins.',
+      hi: 'गर्भावस्था के दौरान बचें। वैरिकोस वेन्स है तो सावधानी बरतें।',
+    },
+    bodyPart: 'leg',
+    images: ['st36_location.jpg'],
+    difficulty: 'beginner',
+    duration: 3,
+    pressure: 'firm',
+  },
+  {
+    id: 'ki3',
+    code: 'KI3',
+    name: {
+      en: 'Kidney 3 - Taixi',
+      hi: 'किडनी 3 - ताइशी',
+    },
+    location: {
+      en: 'Located on the inner ankle, in the depression between the ankle bone and the Achilles tendon.',
+      hi: 'भीतरी टखने पर स्थित, टखने की हड्डी और एचिलीस टेंडन के बीच के गड्ढे में।',
+    },
+    method: {
+      en: 'Apply gentle to medium pressure with your thumb for 1-2 minutes. Hold and breathe deeply.',
+      hi: 'अपने अंगूठे से 1-2 मिनट तक हल्का से मध्यम दबाव डालें। रोकें और गहरी सांस लें।',
+    },
+    conditions: ['kidney health', 'lower back pain', 'ankle pain', 'insomnia', 'fear'],
+    contraindications: {
+      en: 'Use gentle pressure only. Avoid if you have severe kidney disease.',
+      hi: 'केवल हल्का दबाव का उपयोग करें। गंभीर किडनी रोग है तो बचें।',
+    },
+    bodyPart: 'ankle',
+    images: ['ki3_location.jpg'],
+    difficulty: 'intermediate',
+    duration: 2,
+    pressure: 'medium',
+  },
+  {
+    id: 'lu9',
+    code: 'LU9',
+    name: {
+      en: 'Lung 9 - Taiyuan',
+      hi: 'लंग 9 - ताइयुआन',
+    },
+    location: {
+      en: 'Located at the wrist crease on the thumb side, in the depression next to the radial artery.',
+      hi: 'अंगूठे की तरफ कलाई की रेखा पर स्थित, रेडियल आर्टरी के बगल के गड्ढे में।',
+    },
+    method: {
+      en: 'Apply light to medium pressure with your thumb for 1-2 minutes. Use gentle circular motions.',
+      hi: 'अपने अंगूठे से 1-2 मिनट तक हल्का से मध्यम दबाव डालें। हल्की गोलाकार गति का उपयोग करें।',
+    },
+    conditions: ['respiratory issues', 'cough', 'asthma', 'wrist pain', 'circulation'],
+    contraindications: {
+      en: 'Avoid excessive pressure near the artery. Use caution with heart conditions.',
+      hi: 'आर्टरी के पास अधिक दबाव से बचें। हृदय की समस्या है तो सावधानी बरतें।',
+    },
+    bodyPart: 'wrist',
+    images: ['lu9_location.jpg'],
+    difficulty: 'intermediate',
+    duration: 2,
+    pressure: 'light',
+  },
+  {
+    id: 'gb20',
+    code: 'GB20',
+    name: {
+      en: 'Gallbladder 20 - Fengchi',
+      hi: 'गॉलब्लैडर 20 - फेंगची',
+    },
+    location: {
+      en: 'Located at the base of the skull, in the hollow between the two large neck muscles.',
+      hi: 'खोपड़ी के आधार पर स्थित, दो बड़ी गर्दन की मांसपेशियों के बीच खोखले हिस्से में।',
+    },
+    method: {
+      en: 'Apply firm pressure with your thumbs for 1-3 minutes. Press upward toward the skull.',
+      hi: 'अपने अंगूठों से 1-3 मिनट तक मजबूत दबाव डालें। खोपड़ी की ओर ऊपर की तरफ दबाएं।',
+    },
+    conditions: ['headache', 'neck tension', 'dizziness', 'eye strain', 'cold symptoms'],
+    contraindications: {
+      en: 'Avoid if you have neck injuries. Do not use excessive pressure.',
+      hi: 'गर्दन की चोट है तो बचें। अधिक दबाव का उपयोग न करें।',
+    },
+    bodyPart: 'neck',
+    images: ['gb20_location.jpg'],
+    difficulty: 'intermediate',
+    duration: 3,
+    pressure: 'firm',
+  },
+  {
+    id: 'he7',
+    code: 'HE7',
+    name: {
+      en: 'Heart 7 - Shenmen',
+      hi: 'हार्ट 7 - शेनमेन',
+    },
+    location: {
+      en: 'Located at the wrist crease on the pinky side, in the depression next to the tendon.',
+      hi: 'छोटी अंगुली की तरफ कलाई की रेखा पर स्थित, टेंडन के बगल के गड्ढे में।',
+    },
+    method: {
+      en: 'Apply gentle pressure with your thumb for 1-2 minutes. Use light circular motions.',
+      hi: 'अपने अंगूठे से 1-2 मिनट तक हल्का दबाव डालें। हल्की गोलाकार गति का उपयोग करें।',
+    },
+    conditions: ['anxiety', 'insomnia', 'emotional stress', 'heart palpitations', 'mental agitation'],
+    contraindications: {
+      en: 'Use gentle pressure only. Consult doctor if you have heart conditions.',
+      hi: 'केवल हल्का दबाव का उपयोग करें। हृदय की समस्या है तो डॉक्टर से सलाह लें।',
+    },
+    bodyPart: 'wrist',
+    images: ['he7_location.jpg'],
+    difficulty: 'beginner',
+    duration: 2,
+    pressure: 'light',
+  },
+  {
+    id: 'bl23',
+    code: 'BL23',
+    name: {
+      en: 'Bladder 23 - Shenshu',
+      hi: 'ब्लैडर 23 - शेनशू',
+    },
+    location: {
+      en: 'Located on the lower back, about 2 finger widths out from the spine, at the level of the 2nd lumbar vertebra.',
+      hi: 'पीठ के निचले हिस्से पर स्थित, रीढ़ से लगभग 2 अंगुली चौड़ाई बाहर, 2री कमर की कशेरुका के स्तर पर।',
+    },
+    method: {
+      en: 'Apply firm pressure with your thumbs for 2-3 minutes. Use circular motions or steady pressure.',
+      hi: 'अपने अंगूठों से 2-3 मिनट तक मजबूत दबाव डालें। गोलाकार गति या स्थिर दबाव का उपयोग करें।',
+    },
+    conditions: ['lower back pain', 'kidney health', 'fatigue', 'reproductive health', 'knee weakness'],
+    contraindications: {
+      en: 'Avoid during pregnancy. Use caution with back injuries or disc problems.',
+      hi: 'गर्भावस्था के दौरान बचें। पीठ की चोट या डिस्क की समस्या है तो सावधानी बरतें।',
+    },
+    bodyPart: 'back',
+    images: ['bl23_location.jpg'],
+    difficulty: 'intermediate',
+    duration: 3,
+    pressure: 'firm',
+  },
+  {
+    id: 'ren17',
+    code: 'REN17',
+    name: {
+      en: 'Conception Vessel 17 - Danzhong',
+      hi: 'कंसेप्शन वेसल 17 - दानझोंग',
+    },
+    location: {
+      en: 'Located at the center of the chest, between the nipples at the level of the 4th intercostal space.',
+      hi: 'छाती के केंद्र में स्थित, निप्पलों के बीच चौथी पसली के स्थान के स्तर पर।',
+    },
+    method: {
+      en: 'Apply gentle pressure with your middle finger for 1-2 minutes. Use light circular motions.',
+      hi: 'अपनी मध्यमा अंगुली से 1-2 मिनट तक हल्का दबाव डालें। हल्की गोलाकार गति का उपयोग करें।',
+    },
+    conditions: ['chest congestion', 'anxiety', 'breathing difficulties', 'emotional stress', 'cough'],
+    contraindications: {
+      en: 'Use very gentle pressure. Avoid if you have chest injuries or heart conditions.',
+      hi: 'बहुत हल्का दबाव का उपयोग करें। छाती की चोट या हृदय की समस्या है तो बचें।',
+    },
+    bodyPart: 'chest',
+    images: ['ren17_location.jpg'],
+    difficulty: 'beginner',
+    duration: 2,
+    pressure: 'light',
+  },
+  {
+    id: 'si3',
+    code: 'SI3',
+    name: {
+      en: 'Small Intestine 3 - Houxi',
+      hi: 'स्मॉल इंटेस्टाइन 3 - होउशी',
+    },
+    location: {
+      en: 'Located on the edge of the hand below the pinky finger, where the palm meets the back of the hand.',
+      hi: 'छोटी अंगुली के नीचे हाथ के किनारे पर स्थित, जहां हथेली और हाथ की पीठ मिलती है।',
+    },
+    method: {
+      en: 'Apply firm pressure with your thumb for 1-2 minutes. Press and hold while flexing the hand.',
+      hi: 'अपने अंगूठे से 1-2 मिनट तक मजबूत दबाव डालें। हाथ को मोड़ते हुए दबाएं और रोकें।',
+    },
+    conditions: ['neck stiffness', 'headache', 'back pain', 'hand pain', 'emotional tension'],
+    contraindications: {
+      en: 'Avoid excessive pressure. Use caution if you have hand injuries.',
+      hi: 'अधिक दबाव से बचें। हाथ की चोट है तो सावधानी बरतें।',
+    },
+    bodyPart: 'hand',
+    images: ['si3_location.jpg'],
+    difficulty: 'intermediate',
+    duration: 2,
+    pressure: 'firm',
+  },
+  {
+    id: 'gb34',
+    code: 'GB34',
+    name: {
+      en: 'Gallbladder 34 - Yanglingquan',
+      hi: 'गॉलब्लैडर 34 - यांगलिंगक्वान',
+    },
+    location: {
+      en: 'Located on the outer side of the leg, in the depression below and in front of the fibula head.',
+      hi: 'पैर के बाहरी हिस्से पर स्थित, फिबुला सिर के नीचे और सामने के गड्ढे में।',
+    },
+    method: {
+      en: 'Apply firm pressure with your thumb for 2-3 minutes. Use circular motions or steady pressure.',
+      hi: 'अपने अंगूठे से 2-3 मिनट तक मजबूत दबाव डालें। गोलाकार गति या स्थिर दबाव का उपयोग करें।',
+    },
+    conditions: ['knee pain', 'leg cramps', 'gallbladder issues', 'hip pain', 'muscle tension'],
+    contraindications: {
+      en: 'Avoid during pregnancy. Use caution with knee injuries.',
+      hi: 'गर्भावस्था के दौरान बचें। घुटने की चोट है तो सावधानी बरतें।',
+    },
+    bodyPart: 'leg',
+    images: ['gb34_location.jpg'],
+    difficulty: 'intermediate',
+    duration: 3,
+    pressure: 'firm',
+  },
+  {
+    id: 'du14',
+    code: 'DU14',
+    name: {
+      en: 'Governing Vessel 14 - Dazhui',
+      hi: 'गवर्निंग वेसल 14 - दाझुई',
+    },
+    location: {
+      en: 'Located at the base of the neck, in the depression below the 7th cervical vertebra (most prominent neck bone).',
+      hi: 'गर्दन के आधार पर स्थित, 7वीं ग्रीवा कशेरुका (सबसे प्रमुख गर्दन की हड्डी) के नीचे के गड्ढे में।',
+    },
+    method: {
+      en: 'Apply gentle to medium pressure with your middle finger for 1-2 minutes. Use light circular motions.',
+      hi: 'अपनी मध्यमा अंगुली से 1-2 मिनट तक हल्का से मध्यम दबाव डालें। हल्की गोलाकार गति का उपयोग करें।',
+    },
+    conditions: ['fever', 'cold symptoms', 'neck stiffness', 'immune system boost', 'respiratory issues'],
+    contraindications: {
+      en: 'Use gentle pressure only. Avoid if you have neck injuries or severe fever.',
+      hi: 'केवल हल्का दबाव का उपयोग करें। गर्दन की चोट या तेज बुखार है तो बचें।',
+    },
+    bodyPart: 'neck',
+    images: ['du14_location.jpg'],
+    difficulty: 'intermediate',
+    duration: 2,
+    pressure: 'medium',
+  },
+  {
+    id: 'li20',
+    code: 'LI20',
+    name: {
+      en: 'Large Intestine 20 - Yingxiang',
+      hi: 'बड़ी आंत 20 - यिंगशियांग',
+    },
+    location: {
+      en: 'Located beside the nostrils, in the groove next to the flare of the nose.',
+      hi: 'नासिका छिद्रों के बगल में स्थित, नाक के फैलाव के बगल के खांचे में।',
+    },
+    method: {
+      en: 'Apply gentle pressure with your index fingers for 1-2 minutes. Use light upward circular motions.',
+      hi: 'अपनी तर्जनी अंगुलियों से 1-2 मिनट तक हल्का दबाव डालें। हल्की ऊपर की तरफ गोलाकार गति का उपयोग करें।',
+    },
+    conditions: ['nasal congestion', 'sinusitis', 'allergies', 'loss of smell', 'facial pain'],
+    contraindications: {
+      en: 'Use very gentle pressure. Avoid if you have nasal injuries or severe infection.',
+      hi: 'बहुत हल्का दबाव का उपयोग करें। नाक की चोट या गंभीर संक्रमण है तो बचें।',
+    },
+    bodyPart: 'face',
+    images: ['li20_location.jpg'],
+    difficulty: 'beginner',
+    duration: 2,
+    pressure: 'light',
+  },
+  {
+    id: 'ki1',
+    code: 'KI1',
+    name: {
+      en: 'Kidney 1 - Yongquan',
+      hi: 'किडनी 1 - योंगक्वान',
+    },
+    location: {
+      en: 'Located on the sole of the foot, in the depression when the toes are curled, at the junction of the front 1/3 and back 2/3 of the sole.',
+      hi: 'पैर के तलवे पर स्थित, जब पैर की अंगुलियां मुड़ी हों तो बने गड्ढे में, तलवे के आगे के 1/3 और पीछे के 2/3 भाग के मिलन पर।',
+    },
+    method: {
+      en: 'Apply firm pressure with your thumb for 1-3 minutes. Use circular motions while pressing deeply.',
+      hi: 'अपने अंगूठे से 1-3 मिनट तक मजबूत दबाव डालें। गहराई से दबाते हुए गोलाकार गति का उपयोग करें।',
+    },
+    conditions: ['insomnia', 'hypertension', 'headache', 'anxiety', 'kidney health'],
+    contraindications: {
+      en: 'Avoid during pregnancy. Use caution if you have foot injuries.',
+      hi: 'गर्भावस्था के दौरान बचें। पैर की चोट है तो सावधानी बरतें।',
+    },
+    bodyPart: 'foot',
+    images: ['ki1_location.jpg'],
+    difficulty: 'intermediate',
+    duration: 3,
+    pressure: 'firm',
+  },
+  {
+    id: 'te5',
+    code: 'TE5',
+    name: {
+      en: 'Triple Energizer 5 - Waiguan',
+      hi: 'ट्रिपल एनर्जाइज़र 5 - वाइगुआन',
+    },
+    location: {
+      en: 'Located on the back of the forearm, about 3 finger widths above the wrist, between the two bones.',
+      hi: 'अग्रबाहु की पीठ पर स्थित, कलाई से लगभग 3 अंगुली चौड़ाई ऊपर, दो हड्डियों के बीच।',
+    },
+    method: {
+      en: 'Apply firm pressure with your thumb for 1-2 minutes. Press and hold while rotating the wrist.',
+      hi: 'अपने अंगूठे से 1-2 मिनट तक मजबूत दबाव डालें। कलाई को घुमाते हुए दबाएं और रोकें।',
+    },
+    conditions: ['wrist pain', 'arm pain', 'headache', 'neck stiffness', 'immune system'],
+    contraindications: {
+      en: 'Avoid excessive pressure. Use caution if you have wrist or arm injuries.',
+      hi: 'अधिक दबाव से बचें। कलाई या बांह की चोट है तो सावधानी बरतें।',
+    },
+    bodyPart: 'arm',
+    images: ['te5_location.jpg'],
+    difficulty: 'intermediate',
+    duration: 2,
+    pressure: 'firm',
+  },
+  {
+    id: 'sp10',
+    code: 'SP10',
+    name: {
+      en: 'Spleen 10 - Xuehai',
+      hi: 'स्प्लीन 10 - शुएहाई',
+    },
+    location: {
+      en: 'Located on the inner thigh, about 3 finger widths above the kneecap, on the bulge of the inner thigh muscle.',
+      hi: 'भीतरी जांघ पर स्थित, घुटने की टोपी से लगभग 3 अंगुली चौड़ाई ऊपर, भीतरी जांघ की मांसपेशी के उभार पर।',
+    },
+    method: {
+      en: 'Apply medium to firm pressure with your thumb for 1-2 minutes. Use circular motions.',
+      hi: 'अपने अंगूठे से 1-2 मिनट तक मध्यम से मजबूत दबाव डालें। गोलाकार गति का उपयोग करें।',
+    },
+    conditions: ['blood circulation', 'skin conditions', 'menstrual irregularities', 'knee pain', 'leg swelling'],
+    contraindications: {
+      en: 'Avoid during pregnancy. Use caution if you have varicose veins or blood clots.',
+      hi: 'गर्भावस्था के दौरान बचें। वैरिकोस वेन्स या खून के थक्के हैं तो सावधानी बरतें।',
+    },
+    bodyPart: 'thigh',
+    images: ['sp10_location.jpg'],
+    difficulty: 'intermediate',
+    duration: 2,
+    pressure: 'medium',
+  },
+  {
+    id: 'gb30',
+    code: 'GB30',
+    name: {
+      en: 'Gallbladder 30 - Huantiao',
+      hi: 'गॉलब्लैडर 30 - हुआनतियाओ',
+    },
+    location: {
+      en: 'Located on the side of the hip, in the depression behind the greater trochanter (hip bone).',
+      hi: 'कूल्हे के बगल में स्थित, ग्रेटर ट्रोचैंटर (कूल्हे की हड्डी) के पीछे के गड्ढे में।',
+    },
+    method: {
+      en: 'Apply firm pressure with your thumb or knuckles for 2-3 minutes. Use circular motions or steady pressure.',
+      hi: 'अपने अंगूठे या पोरों से 2-3 मिनट तक मजबूत दबाव डालें। गोलाकार गति या स्थिर दबाव का उपयोग करें।',
+    },
+    conditions: ['hip pain', 'sciatica', 'lower back pain', 'leg pain', 'mobility issues'],
+    contraindications: {
+      en: 'Avoid during pregnancy. Use caution with hip injuries or replacements.',
+      hi: 'गर्भावस्था के दौरान बचें। कूल्हे की चोट या रिप्लेसमेंट है तो सावधानी बरतें।',
+    },
+    bodyPart: 'hip',
+    images: ['gb30_location.jpg'],
+    difficulty: 'advanced',
+    duration: 3,
+    pressure: 'firm',
+  },
+  {
+    id: 'ren6',
+    code: 'REN6',
+    name: {
+      en: 'Conception Vessel 6 - Qihai',
+      hi: 'कंसेप्शन वेसल 6 - चीहाई',
+    },
+    location: {
+      en: 'Located on the midline of the abdomen, about 2 finger widths below the navel.',
+      hi: 'पेट की मध्य रेखा पर स्थित, नाभि से लगभग 2 अंगुली चौड़ाई नीचे।',
+    },
+    method: {
+      en: 'Apply gentle pressure with your palm or fingers for 2-3 minutes. Use clockwise circular motions.',
+      hi: 'अपनी हथेली या अंगुलियों से 2-3 मिनट तक हल्का दबाव डालें। घड़ी की दिशा में गोलाकार गति का उपयोग करें।',
+    },
+    conditions: ['digestive issues', 'fatigue', 'reproductive health', 'energy boost', 'abdominal pain'],
+    contraindications: {
+      en: 'Avoid during pregnancy and menstruation. Do not use after eating.',
+      hi: 'गर्भावस्था और मासिक धर्म के दौरान बचें। खाना खाने के बाद उपयोग न करें।',
+    },
+    bodyPart: 'abdomen',
+    images: ['ren6_location.jpg'],
+    difficulty: 'beginner',
+    duration: 3,
+    pressure: 'light',
+  },
+  {
+    id: 'bl60',
+    code: 'BL60',
+    name: {
+      en: 'Bladder 60 - Kunlun',
+      hi: 'ब्लैडर 60 - कुनलुन',
+    },
+    location: {
+      en: 'Located on the outer ankle, in the depression between the ankle bone and the Achilles tendon.',
+      hi: 'बाहरी टखने पर स्थित, टखने की हड्डी और एचिलीस टेंडन के बीच के गड्ढे में।',
+    },
+    method: {
+      en: 'Apply medium pressure with your thumb for 1-2 minutes. Use gentle circular motions.',
+      hi: 'अपने अंगूठे से 1-2 मिनट तक मध्यम दबाव डालें। हल्की गोलाकार गति का उपयोग करें।',
+    },
+    conditions: ['ankle pain', 'heel pain', 'lower back pain', 'headache', 'stiff neck'],
+    contraindications: {
+      en: 'Strictly avoid during pregnancy. Use caution if you have ankle injuries.',
+      hi: 'गर्भावस्था के दौरान सख्ती से बचें। टखने की चोट है तो सावधानी बरतें।',
+    },
+    bodyPart: 'ankle',
+    images: ['bl60_location.jpg'],
+    difficulty: 'intermediate',
+    duration: 2,
+    pressure: 'medium',
+  },
+];

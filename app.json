@@ -1,0 +1,58 @@
+{
+  "expo": {
+    "name": "AccuHeal",
+    "slug": "accuheal",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#4ade80"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.accuheal.prod",
+      "buildNumber": "1.0.0",
+      "infoPlist": {
+        "NSHealthShareUsageDescription": "AccuHeal uses health data to provide personalized acupressure recommendations.",
+        "NSHealthUpdateUsageDescription": "AccuHeal can track your wellness progress through health data."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#4ade80"
+      },
+      "package": "com.accuheal.prod",
+      "versionCode": 1,
+      "permissions": [
+        "INTERNET",
+        "ACCESS_NETWORK_STATE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [],
+    "extra": {
+      "eas": {
+        "projectId": "accuheal-prod-eas-id"
+      },
+      "firebaseApiKey": "${FIREBASE_API_KEY}",
+      "firebaseAuthDomain": "${FIREBASE_AUTH_DOMAIN}",
+      "firebaseProjectId": "${FIREBASE_PROJECT_ID}",
+      "firebaseStorageBucket": "${FIREBASE_STORAGE_BUCKET}",
+      "firebaseMessagingSenderId": "${FIREBASE_MESSAGING_SENDER_ID}",
+      "firebaseAppId": "${FIREBASE_APP_ID}",
+      "firebaseMeasurementId": "${FIREBASE_MEASUREMENT_ID}",
+      "algoliaAppId": "${ALGOLIA_APP_ID}",
+      "algoliaSearchKey": "${ALGOLIA_SEARCH_KEY}"
+    }
+  }
+}

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AccuHeal - Acupressure Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f0fdf4;
+            color: #374151;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            color: white;
+            padding: 60px 20px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        .content {
+            padding: 0;
+        }
+
+        .welcome-section {
+            padding: 30px 20px;
+            text-align: center;
+            background: white;
+        }
+
+        .welcome-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+
+        .welcome-subtitle {
+            color: #6b7280;
+            font-size: 16px;
+        }
+
+        .quick-start-btn {
+            background: #4ade80;
+            color: white;
+            border: none;
+            padding: 18px;
+            margin: 20px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: calc(100% - 40px);
+            transition: background 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .quick-start-btn:hover {
+            background: #22c55e;
+        }
+
+        .section {
+            margin: 20px;
+            margin-top: 0;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            color: #374151;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .action-content {
+            display: flex;
+            align-items: center;
+        }
+
+        .action-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            background: #f0fdf4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            font-size: 24px;
+        }
+
+        .action-text {
+            flex: 1;
+        }
+
+        .action-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .action-subtitle {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .chevron {
+            font-size: 24px;
+            color: #6b7280;
+        }
+
+        .point-content {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .point-info {
+            flex: 1;
+            margin-right: 16px;
+        }
+
+        .point-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .point-location {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .point-conditions {
+            font-size: 12px;
+            color: #4ade80;
+            font-weight: 500;
+        }
+
+        .point-code {
+            background: #4ade80;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+        }
+
+        .feature-icon {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .feature-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .feature-desc {
+            font-size: 12px;
+            color: #6b7280;
+            line-height: 1.4;
+        }
+
+        .footer {
+            background: white;
+            padding: 24px;
+            margin: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #fbbf24;
+        }
+
+        .footer-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #d97706;
+            margin-bottom: 8px;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .footer-copyright {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .demo-badge {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #ef4444;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding-top: 40px;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-badge">DEMO</div>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>AccuHeal</h1>
+            <p>Natural Acupressure Guide</p>
+        </div>
+
+        <div class="content">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <h2 class="welcome-title">Welcome to AccuHeal</h2>
+                <p class="welcome-subtitle">Your guide to natural acupressure healing</p>
+            </div>
+
+            <!-- Quick Start Button -->
+            <button class="quick-start-btn" onclick="showAlert('Guided Session', 'Full version includes step-by-step questionnaire with personalized recommendations!')">
+                🌟 Start Guided Session
+            </button>
+
+            <!-- Quick Actions -->
+            <div class="section">
+                <h3 class="section-title">Find Relief For...</h3>
+                
+                <div class="card" onclick="showAlert('Headache Relief', 'Full version includes detailed acupressure points and instructions for headache relief!')">
+                    <div class="action-content">
+                        <div class="action-icon">🧠</div>
+                        <div class="action-text">
+                            <div class="action-title">Headache Relief</div>
+                            <div class="action-subtitle">Quick acupressure for headaches</div>
+                        </div>
+                        <div class="chevron">›</div>
+                    </div>
+                </div>
+
+                <div class="card" onclick="showAlert('Stress Relief', 'Full version includes calming techniques and stress-relief points!')">
+                    <div class="action-content">
+                        <div class="action-icon">💆‍♀️</div>
+                        <div class="action-text">
+                            <div class="action-title">Stress Relief</div>
+                            <div class="action-subtitle">Calm your mind and body</div>
+                        </div>
+                        <div class="chevron">›</div>
+                    </div>
+                </div>
+
+                <div class="card" onclick="showAlert('Better Sleep', 'Full version includes sleep-promoting acupressure techniques!')">
+                    <div class="action-content">
+                        <div class="action-icon">😴</div>
+                        <div class="action-text">
+                            <div class="action-title">Better Sleep</div>
+                            <div class="action-subtitle">Points for restful sleep</div>
+                        </div>
+                        <div class="chevron">›</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sample Points -->
+            <div class="section">
+                <h3 class="section-title">Popular Acupressure Points</h3>
+                
+                <div class="card" onclick="showAlert('LI4 Point', 'Large Intestine 4 - Located between thumb and index finger. Full version includes detailed images, step-by-step instructions, and safety guidelines!')">
+                    <div class="point-content">
+                        <div class="point-info">
+                            <div class="point-name">Large Intestine 4 - LI4</div>
+                            <div class="point-location">📍 Between thumb and index finger</div>
+                            <div class="point-conditions">Helps with: headache, stress, pain relief</div>
+                        </div>
+                        <div class="point-code">LI4</div>
+                    </div>
+                </div>
+
+                <div class="card" onclick="showAlert('GV20 Point', 'Governing Vessel 20 - Located at the top of the head. Full version includes precise location guidance and application techniques!')">
+                    <div class="point-content">
+                        <div class="point-info">
+                            <div class="point-name">Governing Vessel 20 - GV20</div>
+                            <div class="point-location">📍 Top of the head</div>
+                            <div class="point-conditions">Helps with: mental clarity, focus, dizziness</div>
+                        </div>
+                        <div class="point-code">GV20</div>
+                    </div>
+                </div>
+
+                <div class="card" onclick="showAlert('GB21 Point', 'Gallbladder 21 - Located on the shoulder muscle. Full version includes contraindications and detailed instructions!')">
+                    <div class="point-content">
+                        <div class="point-info">
+                            <div class="point-name">Gallbladder 21 - GB21</div>
+                            <div class="point-location">📍 Shoulder muscle highest point</div>
+                            <div class="point-conditions">Helps with: shoulder tension, neck pain, stress</div>
+                        </div>
+                        <div class="point-code">GB21</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Preview -->
+            <div class="section">
+                <h3 class="section-title">Full Version Features</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <div class="feature-title">Smart Search</div>
+                        <div class="feature-desc">Search by symptoms, body parts, or point codes</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌏</div>
+                        <div class="feature-title">Bilingual</div>
+                        <div class="feature-desc">English & Hindi support</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📚</div>
+                        <div class="feature-title">50+ Points</div>
+                        <div class="feature-desc">Comprehensive acupressure library</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-title">Guided Sessions</div>
+                        <div class="feature-desc">Personalized recommendations</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <div class="footer-title">⚠️ Important Notice</div>
+                <div class="footer-text">
+                    AccuHeal is for educational purposes only. Always consult healthcare providers for medical concerns.
+                </div>
+                <div class="footer-copyright">
+                    Made with ❤️ for natural wellness • © 2025 AccuHeal
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showAlert(title, message) {
+            alert(title + '\n\n' + message);
+        }
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

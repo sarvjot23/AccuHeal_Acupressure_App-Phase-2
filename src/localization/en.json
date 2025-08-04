@@ -1,0 +1,62 @@
+{
+  "common": {
+    "search": "Search",
+    "home": "Home",
+    "guide": "Guide",
+    "settings": "Settings",
+    "loading": "Loading...",
+    "error": "Error",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "done": "Done",
+    "next": "Next",
+    "previous": "Previous",
+    "skip": "Skip"
+  },
+  "home": {
+    "welcome": "Welcome to AccuHeal",
+    "subtitle": "Your guide to natural acupressure healing",
+    "quickStart": "Quick Start",
+    "findReliefFor": "Find relief for...",
+    "popularPoints": "Popular Points",
+    "recentSearches": "Recent Searches"
+  },
+  "search": {
+    "placeholder": "Search symptoms, body parts, or point codes",
+    "noResults": "No results found",
+    "suggestions": "Suggestions",
+    "filters": "Filters",
+    "symptoms": "Symptoms",
+    "bodyParts": "Body Parts",
+    "pointCodes": "Point Codes"
+  },
+  "questionnaire": {
+    "title": "Find Your Relief",
+    "subtitle": "Answer a few questions to get personalized recommendations",
+    "question1": "What type of discomfort are you experiencing?",
+    "question2": "Where is the discomfort located?",
+    "question3": "How severe is your discomfort?",
+    "recommendations": "Recommendations",
+    "quickRelief": "Quick Relief (5-10 min)",
+    "fullSession": "Full Session (15-30 min)"
+  },
+  "pointDetail": {
+    "location": "Location",
+    "method": "Method",
+    "conditions": "Conditions",
+    "contraindications": "Contraindications",
+    "relatedPoints": "Related Points",
+    "duration": "Duration",
+    "pressure": "Pressure",
+    "difficulty": "Difficulty"
+  },
+  "settings": {
+    "language": "Language",
+    "english": "English",
+    "hindi": "हिंदी",
+    "about": "About",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "version": "Version"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(taskkill:*)",
+      "Bash(cmd /c:*)",
+      "Bash(npx expo start:*)",
+      "Bash(curl:*)",
+      "Bash(rm:*)",
+      "Bash(npm install)",
+      "Bash(npm cache clean:*)",
+      "Bash(npx expo:*)",
+      "Bash(npm run:*)",
+      "Bash(npm install:*)",
+      "Bash(expo --version)",
+      "Bash(npm uninstall:*)",
+      "Bash(npx:*)",
+      "Bash(del package-lock.json)",
+      "Bash(adb:*)",
+      "Bash(powershell:*)",
+      "Bash(ls:*)",
+      "Bash(node:*)"
+    ],
+    "deny": []
+  }
+}
