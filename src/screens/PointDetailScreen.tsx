@@ -82,7 +82,20 @@ export const PointDetailScreen = () => {
 
   // Timer functions
   const startTimer = () => {
-    const duration = parseInt(point.duration || '2') * 60; // Convert minutes to seconds
+    // Parse duration string like "30 seconds-1 minute" or "1-2 minutes"
+    const durationStr = point.duration || '2 minutes';
+    let duration: number;
+    
+    if (durationStr.includes('seconds')) {
+      // Extract seconds (e.g., "30 seconds-1 minute" -> 30 seconds)
+      const match = durationStr.match(/(\d+)\s*seconds?/);
+      duration = match ? parseInt(match[1]) : 120; // Default to 2 minutes in seconds
+    } else {
+      // Extract minutes (e.g., "1-2 minutes" -> 1 minute)
+      const match = durationStr.match(/(\d+)/);
+      duration = match ? parseInt(match[1]) * 60 : 120; // Convert minutes to seconds
+    }
+    
     setTimerDuration(duration);
     setTimeRemaining(duration);
     setShowTimer(true);
@@ -202,7 +215,7 @@ export const PointDetailScreen = () => {
         <View style={styles.metadata}>
           <View style={styles.metadataItem}>
             <Ionicons name="time-outline" size={16} color={Colors.neutral[500]} />
-            <Text style={styles.metadataText}>{point.duration || '2'} min</Text>
+            <Text style={styles.metadataText}>{point.duration || '2 min'}</Text>
           </View>
           <View style={styles.metadataItem}>
             <Ionicons name="finger-print-outline" size={16} color={Colors.neutral[500]} />

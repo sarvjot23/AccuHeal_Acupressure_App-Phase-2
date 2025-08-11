@@ -272,13 +272,21 @@ const QuestionnaireScreen: React.FC = () => {
   const handleStartSession = (sessionType: 'quick' | 'full') => {
     if (!recommendations) return;
     
+    const pointCount = sessionType === 'quick' ? Math.min(3, recommendations.points.length) : recommendations.points.length;
+    const duration = sessionType === 'quick' ? Math.ceil(recommendations.duration * 0.6) : recommendations.duration;
+    
+    const discomfortTypes = responses.find(r => r.stepId === 'discomfort_type')?.value as string[] || [];
+    const conditionText = discomfortTypes.length > 1 
+      ? discomfortTypes.slice(0, 2).join(' & ') + (discomfortTypes.length > 2 ? ' and others' : '')
+      : discomfortTypes[0] || 'general wellness';
+    
     Alert.alert(
-      'Session Ready',
-      `Starting ${sessionType} session with ${recommendations.points.length} points for ${recommendations.duration} minutes.`,
+      `${sessionType === 'quick' ? 'Quick Relief' : 'Complete'} Session Ready`,
+      `Perfect for ${conditionText}!\n\n• ${pointCount} targeted acupressure points\n• Estimated ${duration} minutes\n• Personalized for your needs`,
       [
         { text: 'Cancel', style: 'cancel' },
         { 
-          text: 'Start', 
+          text: 'Begin Session', 
           onPress: () => {
             // Navigate to first recommended point
             if (recommendations.points.length > 0) {
@@ -324,7 +332,7 @@ const QuestionnaireScreen: React.FC = () => {
           </Card>
 
           <View style={styles.sessionOptions}>
-            <Card onPress={() => handleStartSession('quick')} style={styles.sessionCard}>
+            <Card onPress={() => handleStartSession('quick')} style={styles.sessionCard} variant="elevated">
               <View style={styles.sessionContent}>
                 <View style={styles.sessionIcon}>
                   <Ionicons name="flash" size={24} color={Colors.primary[600]} />
@@ -337,9 +345,9 @@ const QuestionnaireScreen: React.FC = () => {
               </View>
             </Card>
 
-            <Card onPress={() => handleStartSession('full')} style={styles.sessionCard}>
+            <Card onPress={() => handleStartSession('full')} style={styles.sessionCard} variant="elevated">
               <View style={styles.sessionContent}>
-                <View style={styles.sessionIcon}>
+                <View style={[styles.sessionIcon, { backgroundColor: Colors.secondary[100] }]}>
                   <Ionicons name="time" size={24} color={Colors.secondary[600]} />
                 </View>
                 <View style={styles.sessionText}>
