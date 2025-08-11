@@ -226,7 +226,7 @@ class TypesenseService {
     }
   }
 
-  // Search points with advanced features
+  // Search points with advanced features  
   async searchPoints(
     query: string,
     filters?: {
@@ -239,7 +239,7 @@ class TypesenseService {
       pressure?: string;
     },
     language: 'en' | 'hi' = 'en'
-  ): Promise<SearchResult[]> {
+  ): Promise<AcupressurePoint[]> {
     try {
       console.log('🔍 Typesense searching:', query, 'filters:', filters);
 
@@ -295,14 +295,59 @@ class TypesenseService {
 
       console.log(`✅ Found ${results.hits?.length || 0} results`);
 
-      // Convert to SearchResult format
-      return (results.hits || []).map((hit: any) => ({
-        id: hit.document.id,
-        title: hit.document[`name_${language}`] || hit.document.name_en,
-        subtitle: `${hit.document.code} • ${hit.document[`meridian_name_${language}`] || hit.document.meridian_name_en}`,
-        type: 'point' as const,
-        relevanceScore: hit.text_match_info?.score || 0,
-      }));
+      // Convert to AcupressurePoint format
+      return (results.hits || []).map((hit: any) => {
+        const doc = hit.document;
+        return {
+          id: doc.id,
+          code: doc.code,
+          name: {
+            en: doc.name_en,
+            hi: doc.name_hi
+          },
+          location: {
+            en: doc.location_en,
+            hi: doc.location_hi
+          },
+          bodyPart: doc.body_parts || ['unknown'],
+          difficulty: doc.difficulty,
+          pressure: doc.pressure,
+          duration: doc.duration,
+          symptoms: doc.symptoms || [],
+          conditions: doc.symptoms || [], // For backwards compatibility
+          category: doc.category,
+          popularity: doc.popularity || 3,
+          meridian: {
+            name: {
+              en: doc.meridian_name_en,
+              hi: doc.meridian_name_hi
+            },
+            code: doc.meridian_code,
+            element: doc.meridian_element,
+            polarity: doc.meridian_polarity
+          },
+          indications: doc.indications_en?.map((indication: string, index: number) => ({
+            en: indication,
+            hi: doc.indications_hi?.[index] || indication
+          })) || [],
+          contraindications: {
+            en: doc.contraindications_en,
+            hi: doc.contraindications_hi
+          },
+          technique: {
+            en: doc.technique_en,
+            hi: doc.technique_hi
+          },
+          chineseName: doc.chinese_traditional || doc.chinese_pinyin ? {
+            traditional: doc.chinese_traditional,
+            pinyin: doc.chinese_pinyin
+          } : undefined,
+          alternateNames: doc.alternate_names ? {
+            en: doc.alternate_names,
+            hi: doc.alternate_names
+          } : undefined
+        } as AcupressurePoint;
+      });
 
     } catch (error) {
       console.error('❌ Typesense search error:', error);
@@ -355,7 +400,7 @@ class TypesenseService {
   }
 
   // Get points by meridian with faceting
-  async getPointsByMeridian(meridianCode: string, language: 'en' | 'hi' = 'en'): Promise<SearchResult[]> {
+  async getPointsByMeridian(meridianCode: string, language: 'en' | 'hi' = 'en'): Promise<AcupressurePoint[]> {
     return this.searchPoints('*', { meridian: meridianCode }, language);
   }
 

@@ -15,54 +15,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { Colors, Typography, Spacing, BorderRadius } from '@constants';
 import { SearchInput, Card, PointCard } from '@components';
 import { RootStackParamList, AcupressurePoint, SearchResult } from '@types';
-import { algoliaService } from '@services';
-import { samplePoints } from '@data/samplePoints';
+import { typesenseService } from '@services';
 import { useLanguage } from '@contexts/LanguageContext';
 
 type SearchScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 type SearchScreenRouteProp = RouteProp<RootStackParamList, 'Search'>;
 
-// Helper functions for search logic
-const safeStringIncludes = (str: string | undefined, searchTerm: string): boolean => {
-  return str ? str.toLowerCase().includes(searchTerm) : false;
-};
-
-const safeArrayIncludes = (arr: string[] | undefined, searchTerm: string): boolean => {
-  return Array.isArray(arr) && arr.some(item => item && item.toLowerCase().includes(searchTerm));
-};
-
-const searchPointsByText = (point: AcupressurePoint, searchTerm: string, language: string): boolean => {
-  return (
-    safeStringIncludes(point.name?.[language], searchTerm) ||
-    safeStringIncludes(point.code, searchTerm) ||
-    safeArrayIncludes(point.symptoms, searchTerm) ||
-    safeArrayIncludes(point.conditions, searchTerm) ||
-    searchInBodyPart(point.bodyPart, searchTerm) ||
-    safeStringIncludes(point.location?.[language], searchTerm) ||
-    searchInIndications(point.indications, searchTerm, language) ||
-    searchInChineseNames(point.chineseName, searchTerm)
-  );
-};
-
-const searchInBodyPart = (bodyPart: string | string[] | undefined, searchTerm: string): boolean => {
-  if (!bodyPart) return false;
-  return Array.isArray(bodyPart) 
-    ? bodyPart.some(bp => bp && bp.toLowerCase().includes(searchTerm))
-    : bodyPart.toLowerCase().includes(searchTerm);
-};
-
-const searchInIndications = (indications: any[] | undefined, searchTerm: string, language: string): boolean => {
-  return Array.isArray(indications) && indications.some(indication => 
-    indication && indication[language] && indication[language].toLowerCase().includes(searchTerm)
-  );
-};
-
-const searchInChineseNames = (chineseName: any, searchTerm: string): boolean => {
-  return chineseName && (
-    (chineseName.traditional && chineseName.traditional.includes(searchTerm)) ||
-    (chineseName.pinyin && chineseName.pinyin.toLowerCase().includes(searchTerm))
-  );
-};
 
 const SearchScreen: React.FC = () => {
   const navigation = useNavigation<SearchScreenNavigationProp>();
@@ -102,73 +60,46 @@ const SearchScreen: React.FC = () => {
 
     setLoading(true);
     try {
-      console.log('🔍 Starting search with query:', query, 'filter:', activeFilter);
+      console.log('🔍 Starting Typesense search with query:', query, 'filter:', activeFilter);
       
-      // For now, use local search. In production, use Algolia
-      let filteredPoints = samplePoints.filter(point => {
-        try {
-          // Safety check for required fields
-          if (!point || !point.name || !point.location) {
-            console.warn('⚠️ Skipping invalid point:', point?.id || 'unknown');
-            return false;
-          }
-          
-          // If no search query, don't filter by text
-          const matchesSearch = !query.trim() || searchPointsByText(point, query.toLowerCase(), currentLanguage);
-          
-          return matchesSearch;
-        } catch (pointError) {
-          console.error('❌ Error processing point:', point?.id, pointError);
-          return false;
-        }
-      });
-
-      // Apply active filter with safety checks
+      // Build filters for Typesense
+      const filters: any = {};
+      
       if (activeFilter) {
-        filteredPoints = filteredPoints.filter(point => {
-          try {
-            switch (activeFilter) {
-              case 'beginner':
-                return point.difficulty && point.difficulty.toLowerCase() === 'beginner';
-              case 'head':
-                return point.bodyPart && (
-                  Array.isArray(point.bodyPart) 
-                    ? point.bodyPart.some(bp => bp && bp.toLowerCase().includes('head'))
-                    : point.bodyPart.toLowerCase().includes('head')
-                );
-              case 'hand':
-                return point.bodyPart && (
-                  Array.isArray(point.bodyPart)
-                    ? point.bodyPart.some(bp => bp && bp.toLowerCase().includes('hand'))
-                    : point.bodyPart.toLowerCase().includes('hand')
-                );
-              case 'foot':
-                return point.bodyPart && (
-                  Array.isArray(point.bodyPart)
-                    ? point.bodyPart.some(bp => bp && bp.toLowerCase().includes('foot'))
-                    : point.bodyPart.toLowerCase().includes('foot')
-                );
-              default:
-                return true;
-            }
-          } catch (filterError) {
-            console.error('❌ Error applying filter:', activeFilter, 'to point:', point?.id, filterError);
-            return false;
-          }
-        });
+        switch (activeFilter) {
+          case 'beginner':
+            filters.difficulty = 'beginner';
+            break;
+          case 'head':
+            filters.bodyPart = 'head';
+            break;
+          case 'hand':
+            filters.bodyPart = 'hand';
+            break;
+          case 'foot':
+            filters.bodyPart = 'foot';
+            break;
+        }
       }
       
-      console.log('✅ Search completed. Found', filteredPoints.length, 'points');
+      // Use Typesense for search
+      const searchResults = await typesenseService.searchPoints(
+        query || '*',
+        filters,
+        currentLanguage
+      );
       
-      setSearchResults(filteredPoints);
+      console.log('✅ Typesense search completed. Found', searchResults.length, 'results');
+      
+      setSearchResults(searchResults);
     } catch (error) {
-      console.error('💥 Search error:', error);
+      console.error('💥 Typesense search error:', error);
       console.error('Query:', query, 'Filter:', activeFilter, 'Language:', currentLanguage);
       
-      // Provide helpful error message to user
+      // Fallback to empty results with user-friendly message
       Alert.alert(
         'Search Error', 
-        'There was an issue searching points. Please try a different search term.',
+        'Unable to connect to search service. Please check your connection.',
         [{ text: 'OK', onPress: () => setSearchResults([]) }]
       );
     } finally {
