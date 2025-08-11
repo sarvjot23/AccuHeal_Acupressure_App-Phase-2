@@ -89,6 +89,7 @@ export type RootStackParamList = {
   Questionnaire: undefined;
   Search: { initialQuery?: string };
   Settings: undefined;
+  TypesenseTest: undefined;
 };
 
 export type BottomTabParamList = {

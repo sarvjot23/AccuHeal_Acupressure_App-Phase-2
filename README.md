@@ -100,7 +100,7 @@ npx @expo/cli start
 
 ### Setup Guides
 - **[Firebase Setup](guides/FIREBASE_SETUP_GUIDE.md)** - Complete Firebase project configuration
-- **[Algolia Setup](guides/ALGOLIA_SETUP_GUIDE.md)** - Search service configuration
+- **[Typesense Setup](docs/TYPESENSE_SETUP_GUIDE.md)** - Search service configuration and migration
 - **[Android Testing](guides/ANDROID_TESTING_GUIDE.md)** - Comprehensive Android testing guide
 - **[iOS Deployment](guides/IOS_DEPLOYMENT_GUIDE.md)** - iOS development and App Store submission
 - **[Troubleshooting](guides/TROUBLESHOOTING_GUIDE.md)** - Common issues and solutions
@@ -108,7 +108,7 @@ npx @expo/cli start
 ### Key Files for Development
 - `src/data/samplePoints.ts` - Acupressure point data structure
 - `src/services/firebase.ts` - Firebase configuration
-- `src/services/algolia.ts` - Search service configuration
+- `src/services/typesense.ts` - Enhanced search service configuration
 - `src/localization/` - English and Hindi translations
 - `app.json` - Expo configuration
 - `CLAUDE.md` - Project memories and context
@@ -148,7 +148,7 @@ npm run type-check          # Run TypeScript checks
 
 ### Environment Setup Required
 1. **Firebase Configuration**: Update `.env` with production Firebase credentials
-2. **Algolia Configuration**: Update `.env` with Algolia search keys
+2. **Typesense Configuration**: Update `.env` with Typesense server and API keys
 3. **Dependencies**: Run `npm install --force` if encountering Metro bundler issues
 
 ### Common Commands for Issues

@@ -7,14 +7,20 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 
 import { Colors, Typography, Spacing, BorderRadius } from '@constants';
 import { Card } from '@components';
+import { RootStackParamList } from '@types';
 import { useLanguage } from '@contexts/LanguageContext';
 
+type SettingsScreenNavigationProp = StackNavigationProp<RootStackParamList>;
+
 const SettingsScreen: React.FC = () => {
+  const navigation = useNavigation<SettingsScreenNavigationProp>();
   const { t } = useTranslation();
   const { currentLanguage, changeLanguage } = useLanguage();
 
@@ -46,6 +52,13 @@ const SettingsScreen: React.FC = () => {
       subtitle: 'Terms and conditions',
       icon: 'document-text-outline' as keyof typeof Ionicons.glyphMap,
       onPress: () => showTerms(),
+    },
+    {
+      id: 'typesense-test',
+      title: 'Typesense Test',
+      subtitle: 'Test search migration (Development)',
+      icon: 'flask-outline' as keyof typeof Ionicons.glyphMap,
+      onPress: () => navigation.navigate('TypesenseTest'),
     },
   ];
 

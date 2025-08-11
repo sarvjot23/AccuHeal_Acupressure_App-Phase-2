@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
@@ -8,6 +8,7 @@ import { StyleSheet } from 'react-native';
 import './src/localization/i18n';
 import MainNavigator from './src/navigation/MainNavigator';
 import { LanguageProvider } from './src/contexts/LanguageContext';
+import { TypesenseTest } from './src/components/TypesenseTest';
 
 export default function App() {
   return (

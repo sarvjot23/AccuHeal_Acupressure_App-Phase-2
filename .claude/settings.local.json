@@ -18,7 +18,21 @@
       "Bash(adb:*)",
       "Bash(powershell:*)",
       "Bash(ls:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(del test-validation.js test-search.js)",
+      "WebFetch(domain:typesense.org)",
+      "Bash(git add:*)",
+      "Bash(docker stop:*)",
+      "Bash(mkdir:*)",
+      "Bash(robocopy:*)",
+      "Bash(xcopy:*)",
+      "Bash(docker logs:*)",
+      "Bash(docker rm:*)",
+      "Bash(npm start)",
+      "Bash(timeout 10 npm start)",
+      "Bash(grep:*)",
+      "Bash(git push:*)"
     ],
     "deny": []
   }
