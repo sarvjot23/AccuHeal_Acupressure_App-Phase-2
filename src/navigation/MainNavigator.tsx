@@ -14,6 +14,7 @@ import GuideScreen from '@screens/GuideScreen';
 import SettingsScreen from '@screens/SettingsScreen';
 import PointDetailScreen from '@screens/PointDetailScreen';
 import QuestionnaireScreen from '@screens/QuestionnaireScreen';
+import { TypesenseTest } from '@components/TypesenseTest';
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -41,7 +42,7 @@ const TabNavigator = () => {
               iconName = focused ? 'settings' : 'settings-outline';
               break;
             default:
-              iconName = 'circle-outline';
+              iconName = 'ellipse-outline';
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -135,6 +136,14 @@ const MainNavigator = () => {
         component={QuestionnaireScreen}
         options={{
           title: 'Guided Relief',
+          headerBackTitleVisible: false,
+        }}
+      />
+      <Stack.Screen 
+        name="TypesenseTest" 
+        component={TypesenseTest}
+        options={{
+          title: 'Typesense Test',
           headerBackTitleVisible: false,
         }}
       />

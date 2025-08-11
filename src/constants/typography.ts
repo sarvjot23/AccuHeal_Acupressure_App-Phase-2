@@ -33,6 +33,13 @@ export const LineHeights = {
 };
 
 export const Typography = {
+  // Display text (largest)
+  display: {
+    fontSize: FontSizes['5xl'],
+    fontWeight: FontWeights.light,
+    lineHeight: LineHeights['5xl'],
+  },
+  
   // Headings
   h1: {
     fontSize: FontSizes['4xl'],

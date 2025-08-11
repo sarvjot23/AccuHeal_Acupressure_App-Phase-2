@@ -16,7 +16,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 
 import { Colors, Typography, Spacing, BorderRadius, Shadows } from '@constants';
-import { Card, Button } from '@components';
+import { Card, Button, WaveProgressRing } from '@components';
 import { RootStackParamList, AcupressurePoint } from '@types';
 import { samplePoints } from '@data/samplePoints';
 import { useLanguage } from '@contexts/LanguageContext';
@@ -113,7 +113,7 @@ const PointDetailScreen: React.FC = () => {
   };
 
   const startTimer = () => {
-    const duration = parseDurationFromMethod(point?.method[currentLanguage] || '');
+    const duration = parseDurationFromMethod(point?.method?.[currentLanguage] || '');
     const defaultDuration = duration.max; // Default to higher end
     
     setTimerDuration(defaultDuration);
@@ -214,10 +214,10 @@ const PointDetailScreen: React.FC = () => {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {/* Header Image */}
-      {point.images.length > 0 && (
+      {point.images && point.images.length > 0 && (
         <View style={styles.imageContainer}>
           <Image
-            source={{ uri: point.images[0] }}
+            source={{ uri: point.images?.[0] || '' }}
             style={styles.headerImage}
             contentFit="cover"
           />
@@ -294,7 +294,7 @@ const PointDetailScreen: React.FC = () => {
           {activeTab === 'method' && (
             <View>
               <Text style={styles.sectionTitle}>{t('pointDetail.method')}</Text>
-              <Text style={styles.contentText}>{point.method[currentLanguage]}</Text>
+              <Text style={styles.contentText}>{point.method?.[currentLanguage] || ''}</Text>
               
               <View style={styles.instructionSteps}>
                 <View style={styles.step}>
@@ -320,10 +320,14 @@ const PointDetailScreen: React.FC = () => {
           )}
 
           {activeTab === 'conditions' && (
-            <View>
+            <ScrollView 
+              style={styles.conditionsScrollView}
+              showsVerticalScrollIndicator={false}
+              nestedScrollEnabled={true}
+            >
               <Text style={styles.sectionTitle}>Helps With</Text>
               <View style={styles.conditionsList}>
-                {point.conditions.map((condition, index) => (
+                {point.conditions?.map((condition, index) => (
                   <View key={index} style={styles.conditionItem}>
                     <Ionicons name="checkmark-circle" size={20} color={Colors.success} />
                     <Text style={styles.conditionText}>{condition}</Text>
@@ -340,7 +344,10 @@ const PointDetailScreen: React.FC = () => {
                   <Text style={styles.warningText}>{point.contraindications[currentLanguage]}</Text>
                 </View>
               )}
-            </View>
+              
+              {/* Extra spacing to ensure button visibility */}
+              <View style={styles.conditionsBottomSpacer} />
+            </ScrollView>
           )}
         </Card>
 
@@ -401,23 +408,22 @@ const PointDetailScreen: React.FC = () => {
                   </View>
                 </View>
                 <Text style={styles.sessionInstruction}>
-                  {point?.method[currentLanguage]}
+                  {point?.method?.[currentLanguage] || ''}
                 </Text>
               </Card>
 
               {/* Timer Display */}
               <View style={styles.timerDisplay}>
                 <Text style={styles.timerText}>{formatTime(timeRemaining)}</Text>
-                <View style={styles.progressRing}>
-                  <View 
-                    style={[
-                      styles.progressFill,
-                      {
-                        height: `${((timerDuration - timeRemaining) / timerDuration) * 100}%`
-                      }
-                    ]}
-                  />
-                </View>
+                <WaveProgressRing
+                  progress={(timerDuration - timeRemaining) / timerDuration}
+                  size={200}
+                  strokeWidth={8}
+                  color={Colors.primary[500]}
+                  backgroundColor={Colors.neutral[200]}
+                  waveHeight={10}
+                  waveSpeed={3000}
+                />
               </View>
 
               {/* Timer Adjustment */}
@@ -709,8 +715,15 @@ const styles = StyleSheet.create({
     color: Colors.text.secondary,
     lineHeight: 20,
   },
+  conditionsScrollView: {
+    maxHeight: 300, // Limit height to ensure button visibility
+  },
+  conditionsBottomSpacer: {
+    height: Spacing.lg, // Extra space at bottom
+  },
   actionButton: {
     marginBottom: Spacing.xl,
+    marginTop: Spacing.md, // Add some spacing from the card
   },
   // Timer Modal Styles
   timerContainer: {
@@ -786,23 +799,6 @@ const styles = StyleSheet.create({
     fontWeight: '300',
     color: Colors.primary[600],
     marginBottom: Spacing.lg,
-  },
-  progressRing: {
-    width: 200,
-    height: 200,
-    borderRadius: 100,
-    borderWidth: 8,
-    borderColor: Colors.neutral[200],
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  progressFill: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: Colors.primary[500],
-    borderRadius: 100,
   },
   adjustmentCard: {
     marginBottom: Spacing.lg,
