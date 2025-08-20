@@ -158,12 +158,10 @@ const SearchScreen: React.FC = () => {
   );
 
   const renderSearchResult = ({ item }: { item: AcupressurePoint }) => (
-    <View style={styles.resultItem}>
-      <PointCard
-        point={item}
-        onPress={() => navigation.navigate('PointDetail', { pointId: item.id })}
-      />
-    </View>
+    <PointCard
+      point={item}
+      onPress={() => navigation.navigate('PointDetail', { pointId: item.id })}
+    />
   );
 
   const renderEmptyState = () => (
@@ -240,8 +238,16 @@ const styles = StyleSheet.create({
   searchHeader: {
     backgroundColor: Colors.background.primary,
     padding: Spacing.md,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.border.light,
+    paddingBottom: Spacing.lg,
+    borderBottomWidth: 0,
+    shadowColor: Colors.shadow.light,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 2,
   },
   searchInput: {
     marginBottom: Spacing.md,
@@ -253,22 +259,30 @@ const styles = StyleSheet.create({
     paddingRight: Spacing.md,
   },
   filterChip: {
-    paddingHorizontal: Spacing.md,
+    paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.sm,
     borderRadius: BorderRadius.full,
-    backgroundColor: Colors.neutral[100],
+    backgroundColor: Colors.primary[50],
     marginRight: Spacing.sm,
     borderWidth: 1,
-    borderColor: Colors.border.light,
+    borderColor: Colors.primary[100],
   },
   activeFilterChip: {
     backgroundColor: Colors.primary[500],
     borderColor: Colors.primary[500],
+    shadowColor: Colors.primary[500],
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 2,
   },
   filterText: {
     ...Typography.caption,
-    color: Colors.text.secondary,
-    fontWeight: '500',
+    color: Colors.primary[600],
+    fontWeight: '600',
   },
   activeFilterText: {
     color: Colors.text.inverse,
@@ -295,9 +309,6 @@ const styles = StyleSheet.create({
   resultsContent: {
     padding: Spacing.md,
     paddingTop: Spacing.md,
-  },
-  resultItem: {
-    marginBottom: Spacing.md,
   },
   emptyState: {
     alignItems: 'center',

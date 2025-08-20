@@ -42,7 +42,7 @@ export const Card: React.FC<CardProps> = ({
 
 const styles = StyleSheet.create({
   base: {
-    borderRadius: BorderRadius.lg,
+    borderRadius: BorderRadius.xl,
     backgroundColor: Colors.background.primary,
   } as ViewStyle,
 
@@ -51,7 +51,15 @@ const styles = StyleSheet.create({
   } as ViewStyle,
 
   elevated: {
-    ...Shadows.lg,
+    ...Shadows.md,
+    shadowColor: Colors.shadow.light,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
   } as ViewStyle,
 
   outlined: {

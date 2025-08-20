@@ -69,7 +69,7 @@ const HomeScreen: React.FC = () => {
   ];
 
   const renderQuickAction = ({ item }: { item: typeof quickActions[0] }) => (
-    <Card onPress={item.action} style={styles.quickActionCard}>
+    <Card variant="elevated" onPress={item.action} style={styles.quickActionCard}>
       <View style={styles.quickActionContent}>
         <View style={styles.quickActionIcon}>
           <Ionicons name={item.icon} size={24} color={Colors.primary[600]} />
@@ -84,13 +84,10 @@ const HomeScreen: React.FC = () => {
   );
 
   const renderPopularPoint = ({ item }: { item: AcupressurePoint }) => (
-    <View style={styles.pointCard}>
-      <PointCard
-        point={item}
-        onPress={() => navigation.navigate('PointDetail', { pointId: item.id })}
-        variant="compact"
-      />
-    </View>
+    <PointCard
+      point={item}
+      onPress={() => navigation.navigate('PointDetail', { pointId: item.id })}
+    />
   );
 
   return (
@@ -145,9 +142,8 @@ const HomeScreen: React.FC = () => {
               data={popularPoints}
               renderItem={renderPopularPoint}
               keyExtractor={item => item.id}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.popularPointsList}
+              scrollEnabled={false}
+              showsVerticalScrollIndicator={false}
             />
           )}
         </View>
@@ -215,10 +211,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   quickActionIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: BorderRadius.md,
-    backgroundColor: Colors.primary[100],
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: Colors.primary[50],
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: Spacing.md,
@@ -242,13 +238,6 @@ const styles = StyleSheet.create({
   loadingText: {
     ...Typography.body2,
     color: Colors.text.secondary,
-  },
-  popularPointsList: {
-    paddingRight: Spacing.md,
-  },
-  pointCard: {
-    width: 280,
-    marginRight: Spacing.md,
   },
 });
 
