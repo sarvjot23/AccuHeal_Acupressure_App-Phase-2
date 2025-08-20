@@ -5,9 +5,9 @@ A mobile-first acupressure guide app built with React Native and Expo, designed 
 ## 🎯 Project Status
 
 **Current Phase:** ✅ **Phase 1 Database Expansion Complete**  
-**Status:** 🚀 **Enhanced with 53 Essential Acupressure Points**  
-**Version:** v1.1 - Database Expansion  
-**Last Updated:** January 11, 2025  
+**Status:** 🚀 **Enhanced with Beginner's Guide & Complete Hindi Localization**  
+**Version:** v1.2 - Educational Enhancement  
+**Last Updated:** January 20, 2025  
 **GitHub:** [AccuHeal_Acupressure_App-Phase-1-Expansion](https://github.com/sarvjot23/AccuHeal_Acupressure_App)
 
 ### ✅ Verified Working Configuration
@@ -35,9 +35,10 @@ npx @expo/cli start
 ## 📱 Features
 
 ### Enhanced Features Complete ✅
-- **Bilingual Support**: English and Hindi with complete translations
+- **Bilingual Support**: English and Hindi with complete translations and language switching
 - **53 Acupressure Points**: Comprehensive essential points database covering all major health categories
-- **Smart Search**: Enhanced search with Typesense migration for better performance
+- **Smart Search**: Enhanced search with Typesense migration for better performance and Hindi support
+- **Beginner's Guide**: Interactive 5-step educational tutorial teaching acupressure fundamentals
 - **Guided Questionnaire**: Personalized recommendations based on user responses
 - **Interactive Timer Sessions**: Smart duration parsing with pause/resume/reset controls
 - **Improved UI/UX**: Fixed scrollability issues and enhanced user experience
@@ -47,10 +48,11 @@ npx @expo/cli start
 ### Core Screens
 - **Home**: Popular points and quick actions
 - **Search**: Advanced search with filters and suggestions  
-- **Guide**: Guided questionnaire and browse options
-- **Settings**: Language preferences and app information
+- **Guide**: Guided questionnaire, beginner's guide, and browse options
+- **Settings**: Language preferences and app information with working language switcher
 - **Point Detail**: Comprehensive point information with interactive timer
 - **Questionnaire**: Step-by-step symptom assessment
+- **Beginner Guide**: Interactive 5-step educational tutorial with progress tracking
 
 ## 🛠 Tech Stack
 
@@ -66,8 +68,10 @@ npx @expo/cli start
 ### ✅ Phase 1: Database Expansion (COMPLETED - January 2025)
 - **Major Content Expansion**: 53 essential acupressure points (from 24 to 53)
 - **Enhanced Health Coverage**: 190+ symptoms and conditions covered
-- **Typesense Migration**: Improved search performance and scalability
-- **UI/UX Improvements**: Fixed Conditions tab scrollability and Start Session button visibility
+- **Typesense Migration**: Improved search performance and scalability with Hindi search support
+- **Beginner's Guide**: Comprehensive 5-step interactive educational tutorial
+- **Language Enhancement**: Complete bilingual UI with working language switcher
+- **UI/UX Improvements**: Fixed scrollability issues, button functionality, and enhanced user experience
 - **Complete Legacy Compatibility**: All new points work seamlessly with existing features
 - **Comprehensive Health Categories**: Pain management, respiratory health, digestive support, mental/emotional wellness, sensory issues, energy & vitality, emergency/first aid
 - **Quality Assurance**: All points include proper contraindications, bilingual support, and TCM classifications
@@ -110,6 +114,8 @@ npx @expo/cli start
 - `src/services/firebase.ts` - Firebase configuration
 - `src/services/typesense.ts` - Enhanced search service configuration
 - `src/localization/` - English and Hindi translations
+- `src/screens/BeginnerGuideScreen.tsx` - Interactive educational tutorial
+- `src/contexts/LanguageContext.tsx` - Language switching functionality
 - `app.json` - Expo configuration
 - `CLAUDE.md` - Project memories and context
 
