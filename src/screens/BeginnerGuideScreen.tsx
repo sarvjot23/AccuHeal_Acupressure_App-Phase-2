@@ -211,12 +211,13 @@ const BeginnerGuideScreen: React.FC = () => {
   const currentStep = guideSteps[activeStep];
 
   return (
-    <ScrollView 
-      style={styles.container} 
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.scrollContent}
-    >
-      <View style={styles.content}>
+    <View style={styles.container}>
+      <ScrollView 
+        style={styles.scrollView} 
+        showsVerticalScrollIndicator={true}
+        contentContainerStyle={styles.scrollContent}
+        bounces={true}
+      >
         {/* Header */}
         <View style={styles.header}>
           <View style={[styles.headerIcon, { backgroundColor: `${currentStep.color}20` }]}>
@@ -342,8 +343,8 @@ const BeginnerGuideScreen: React.FC = () => {
             <Ionicons name="arrow-forward" size={16} color={Colors.primary[600]} />
           </TouchableOpacity>
         </Card>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -352,12 +353,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.background.secondary,
   },
-  scrollContent: {
-    flexGrow: 1,
-    paddingBottom: Spacing.xl, // Extra padding at bottom for scrolling
+  scrollView: {
+    flex: 1,
   },
-  content: {
+  scrollContent: {
     padding: Spacing.md,
+    paddingBottom: 100, // Extra padding at bottom for scrolling
+    minHeight: '120%', // Force content to be taller than screen
   },
   header: {
     alignItems: 'center',
