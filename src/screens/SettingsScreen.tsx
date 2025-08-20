@@ -156,24 +156,100 @@ const SettingsScreen: React.FC = () => {
           </Text>
         </View>
 
-        {/* Debug Test Button */}
+        {/* Debug Test Buttons */}
         <TouchableOpacity 
           onPress={() => {
-            console.log('TEST BUTTON CLICKED!');
-            showLanguageSelector();
+            console.log('=== SIMPLE TEST BUTTON CLICKED ===');
+            alert('Simple test button works!');
           }}
           style={{
-            backgroundColor: '#ff0000',
-            padding: 20,
+            backgroundColor: '#00ff00',
+            padding: 15,
             margin: 10,
             borderRadius: 8,
             alignItems: 'center'
           }}
         >
-          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>
-            TEST LANGUAGE SELECTOR
+          <Text style={{ color: 'white', fontSize: 14, fontWeight: 'bold' }}>
+            SIMPLE TEST (Green)
           </Text>
         </TouchableOpacity>
+
+        <TouchableOpacity 
+          onPress={() => {
+            console.log('=== LANGUAGE TEST BUTTON CLICKED ===');
+            console.log('Current language:', currentLanguage);
+            console.log('changeLanguage function:', typeof changeLanguage);
+            console.log('t function:', typeof t);
+            try {
+              showLanguageSelector();
+            } catch (error) {
+              console.error('Error in showLanguageSelector:', error);
+              alert('Error: ' + error.message);
+            }
+          }}
+          style={{
+            backgroundColor: '#ff0000',
+            padding: 15,
+            margin: 10,
+            borderRadius: 8,
+            alignItems: 'center'
+          }}
+        >
+          <Text style={{ color: 'white', fontSize: 14, fontWeight: 'bold' }}>
+            LANGUAGE TEST (Red)
+          </Text>
+        </TouchableOpacity>
+
+        {/* Direct Language Switcher */}
+        <View style={{ margin: 10, padding: 10, backgroundColor: '#f0f0f0', borderRadius: 8 }}>
+          <Text style={{ fontSize: 16, marginBottom: 10, fontWeight: 'bold' }}>
+            Direct Language Switch (Current: {currentLanguage})
+          </Text>
+          <View style={{ flexDirection: 'row', gap: 10 }}>
+            <TouchableOpacity 
+              onPress={() => {
+                console.log('=== DIRECT ENGLISH CLICKED ===');
+                try {
+                  changeLanguage('en');
+                  console.log('Language changed to English');
+                } catch (error) {
+                  console.error('Error changing to English:', error);
+                }
+              }}
+              style={{
+                backgroundColor: currentLanguage === 'en' ? '#007AFF' : '#ccc',
+                padding: 10,
+                borderRadius: 5,
+                flex: 1,
+                alignItems: 'center'
+              }}
+            >
+              <Text style={{ color: 'white', fontWeight: 'bold' }}>English</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity 
+              onPress={() => {
+                console.log('=== DIRECT HINDI CLICKED ===');
+                try {
+                  changeLanguage('hi');
+                  console.log('Language changed to Hindi');
+                } catch (error) {
+                  console.error('Error changing to Hindi:', error);
+                }
+              }}
+              style={{
+                backgroundColor: currentLanguage === 'hi' ? '#007AFF' : '#ccc',
+                padding: 10,
+                borderRadius: 5,
+                flex: 1,
+                alignItems: 'center'
+              }}
+            >
+              <Text style={{ color: 'white', fontWeight: 'bold' }}>हिंदी</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
 
         {/* Settings Options */}
         <View style={styles.settingsSection}>
