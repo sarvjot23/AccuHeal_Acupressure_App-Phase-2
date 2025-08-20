@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  Modal,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -23,6 +24,7 @@ const SettingsScreen: React.FC = () => {
   const navigation = useNavigation<SettingsScreenNavigationProp>();
   const { t } = useTranslation();
   const { currentLanguage, changeLanguage } = useLanguage();
+  const [showLanguageModal, setShowLanguageModal] = useState(false);
 
   const settingsOptions = [
     {
@@ -63,33 +65,7 @@ const SettingsScreen: React.FC = () => {
   ];
 
   const showLanguageSelector = () => {
-    console.log('Language selector clicked!'); // Debug log
-    Alert.alert(
-      t('settings.language'),
-      t('settings.chooseLanguage'),
-      [
-        {
-          text: 'English',
-          onPress: () => {
-            console.log('English selected');
-            changeLanguage('en');
-          },
-          style: currentLanguage === 'en' ? 'default' : 'default',
-        },
-        {
-          text: 'हिंदी',
-          onPress: () => {
-            console.log('Hindi selected');
-            changeLanguage('hi');
-          },
-          style: currentLanguage === 'hi' ? 'default' : 'default',
-        },
-        {
-          text: t('common.cancel'),
-          style: 'cancel',
-        },
-      ]
-    );
+    setShowLanguageModal(true);
   };
 
   const showAbout = () => {
@@ -119,10 +95,7 @@ const SettingsScreen: React.FC = () => {
   const renderSettingOption = (option: typeof settingsOptions[0]) => (
     <TouchableOpacity 
       key={option.id} 
-      onPress={() => {
-        console.log(`Setting option clicked: ${option.id}`);
-        option.onPress();
-      }} 
+      onPress={option.onPress} 
       activeOpacity={0.7}
       style={{ pointerEvents: 'auto' }}
     >
@@ -156,100 +129,6 @@ const SettingsScreen: React.FC = () => {
           </Text>
         </View>
 
-        {/* Debug Test Buttons */}
-        <TouchableOpacity 
-          onPress={() => {
-            console.log('=== SIMPLE TEST BUTTON CLICKED ===');
-            alert('Simple test button works!');
-          }}
-          style={{
-            backgroundColor: '#00ff00',
-            padding: 15,
-            margin: 10,
-            borderRadius: 8,
-            alignItems: 'center'
-          }}
-        >
-          <Text style={{ color: 'white', fontSize: 14, fontWeight: 'bold' }}>
-            SIMPLE TEST (Green)
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity 
-          onPress={() => {
-            console.log('=== LANGUAGE TEST BUTTON CLICKED ===');
-            console.log('Current language:', currentLanguage);
-            console.log('changeLanguage function:', typeof changeLanguage);
-            console.log('t function:', typeof t);
-            try {
-              showLanguageSelector();
-            } catch (error) {
-              console.error('Error in showLanguageSelector:', error);
-              alert('Error: ' + error.message);
-            }
-          }}
-          style={{
-            backgroundColor: '#ff0000',
-            padding: 15,
-            margin: 10,
-            borderRadius: 8,
-            alignItems: 'center'
-          }}
-        >
-          <Text style={{ color: 'white', fontSize: 14, fontWeight: 'bold' }}>
-            LANGUAGE TEST (Red)
-          </Text>
-        </TouchableOpacity>
-
-        {/* Direct Language Switcher */}
-        <View style={{ margin: 10, padding: 10, backgroundColor: '#f0f0f0', borderRadius: 8 }}>
-          <Text style={{ fontSize: 16, marginBottom: 10, fontWeight: 'bold' }}>
-            Direct Language Switch (Current: {currentLanguage})
-          </Text>
-          <View style={{ flexDirection: 'row', gap: 10 }}>
-            <TouchableOpacity 
-              onPress={() => {
-                console.log('=== DIRECT ENGLISH CLICKED ===');
-                try {
-                  changeLanguage('en');
-                  console.log('Language changed to English');
-                } catch (error) {
-                  console.error('Error changing to English:', error);
-                }
-              }}
-              style={{
-                backgroundColor: currentLanguage === 'en' ? '#007AFF' : '#ccc',
-                padding: 10,
-                borderRadius: 5,
-                flex: 1,
-                alignItems: 'center'
-              }}
-            >
-              <Text style={{ color: 'white', fontWeight: 'bold' }}>English</Text>
-            </TouchableOpacity>
-            
-            <TouchableOpacity 
-              onPress={() => {
-                console.log('=== DIRECT HINDI CLICKED ===');
-                try {
-                  changeLanguage('hi');
-                  console.log('Language changed to Hindi');
-                } catch (error) {
-                  console.error('Error changing to Hindi:', error);
-                }
-              }}
-              style={{
-                backgroundColor: currentLanguage === 'hi' ? '#007AFF' : '#ccc',
-                padding: 10,
-                borderRadius: 5,
-                flex: 1,
-                alignItems: 'center'
-              }}
-            >
-              <Text style={{ color: 'white', fontWeight: 'bold' }}>हिंदी</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
 
         {/* Settings Options */}
         <View style={styles.settingsSection}>
@@ -277,6 +156,69 @@ const SettingsScreen: React.FC = () => {
           </Text>
         </View>
       </View>
+
+      {/* Language Selection Modal */}
+      <Modal
+        visible={showLanguageModal}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setShowLanguageModal(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>{t('settings.chooseLanguage')}</Text>
+            
+            <TouchableOpacity
+              style={[
+                styles.languageOption,
+                currentLanguage === 'en' && styles.selectedLanguageOption
+              ]}
+              onPress={() => {
+                changeLanguage('en');
+                setShowLanguageModal(false);
+              }}
+            >
+              <Text style={[
+                styles.languageOptionText,
+                currentLanguage === 'en' && styles.selectedLanguageOptionText
+              ]}>
+                English
+              </Text>
+              {currentLanguage === 'en' && (
+                <Ionicons name="checkmark" size={20} color={Colors.primary[600]} />
+              )}
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[
+                styles.languageOption,
+                currentLanguage === 'hi' && styles.selectedLanguageOption
+              ]}
+              onPress={() => {
+                changeLanguage('hi');
+                setShowLanguageModal(false);
+              }}
+            >
+              <Text style={[
+                styles.languageOptionText,
+                currentLanguage === 'hi' && styles.selectedLanguageOptionText
+              ]}>
+                हिंदी
+              </Text>
+              {currentLanguage === 'hi' && (
+                <Ionicons name="checkmark" size={20} color={Colors.primary[600]} />
+              )}
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.cancelButton}
+              onPress={() => setShowLanguageModal(false)}
+            >
+              <Text style={styles.cancelButtonText}>{t('common.cancel')}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };
@@ -380,6 +322,68 @@ const styles = StyleSheet.create({
     color: Colors.text.tertiary,
     textAlign: 'center',
     marginBottom: Spacing.xs,
+  },
+  
+  // Modal styles
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: Spacing.lg,
+  },
+  modalContent: {
+    backgroundColor: Colors.background.primary,
+    borderRadius: BorderRadius.lg,
+    padding: Spacing.xl,
+    width: '100%',
+    maxWidth: 300,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  modalTitle: {
+    ...Typography.h5,
+    color: Colors.text.primary,
+    textAlign: 'center',
+    marginBottom: Spacing.lg,
+  },
+  languageOption: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: Spacing.md,
+    borderRadius: BorderRadius.md,
+    marginBottom: Spacing.sm,
+    borderWidth: 1,
+    borderColor: Colors.border.light,
+  },
+  selectedLanguageOption: {
+    backgroundColor: Colors.primary[50],
+    borderColor: Colors.primary[500],
+  },
+  languageOptionText: {
+    ...Typography.body1,
+    color: Colors.text.primary,
+    fontWeight: '500',
+  },
+  selectedLanguageOptionText: {
+    color: Colors.primary[700],
+    fontWeight: '600',
+  },
+  cancelButton: {
+    marginTop: Spacing.md,
+    padding: Spacing.md,
+    borderRadius: BorderRadius.md,
+    backgroundColor: Colors.neutral[100],
+    alignItems: 'center',
+  },
+  cancelButtonText: {
+    ...Typography.body1,
+    color: Colors.text.secondary,
+    fontWeight: '500',
   },
 });
 
