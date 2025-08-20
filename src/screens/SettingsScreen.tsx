@@ -28,7 +28,7 @@ const SettingsScreen: React.FC = () => {
     {
       id: 'language',
       title: t('settings.language'),
-      subtitle: `${t('settings.current')}: ${currentLanguage === 'en' ? 'English' : 'हिंदी'}`,'
+      subtitle: `${t('settings.current')}: ${currentLanguage === 'en' ? 'English' : 'हिंदी'}`,
       icon: 'language-outline' as keyof typeof Ionicons.glyphMap,
       onPress: () => showLanguageSelector(),
     },
