@@ -8,11 +8,14 @@ import {
   Image,
   Dimensions,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Colors, Typography, Spacing, BorderRadius, Shadows } from '@constants';
 import { Card } from '@components';
+import { RootStackParamList } from '@types';
 
 const { width } = Dimensions.get('window');
 
@@ -34,7 +37,10 @@ interface GuideStep {
   color: string;
 }
 
+type BeginnerGuideNavigationProp = StackNavigationProp<RootStackParamList>;
+
 const BeginnerGuideScreen: React.FC = () => {
+  const navigation = useNavigation<BeginnerGuideNavigationProp>();
   const { t } = useTranslation();
   const { currentLanguage } = useLanguage();
   const [activeStep, setActiveStep] = useState(0);
@@ -205,7 +211,11 @@ const BeginnerGuideScreen: React.FC = () => {
   const currentStep = guideSteps[activeStep];
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView 
+      style={styles.container} 
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.scrollContent}
+    >
       <View style={styles.content}>
         {/* Header */}
         <View style={styles.header}>
@@ -285,6 +295,12 @@ const BeginnerGuideScreen: React.FC = () => {
             onPress={() => {
               if (activeStep < guideSteps.length - 1) {
                 setActiveStep(activeStep + 1);
+              } else {
+                // On final step, navigate back to Guide screen or show success
+                console.log('Starting practice - navigating back to guide');
+                // You could also navigate to a specific beginner points screen
+                // navigation.navigate('Search', { initialQuery: 'beginner' });
+                navigation.goBack();
               }
             }}
           >
@@ -313,7 +329,13 @@ const BeginnerGuideScreen: React.FC = () => {
           <Text style={styles.quickStartText}>
             {t('guide.quickStartDescription')}
           </Text>
-          <TouchableOpacity style={styles.quickStartButton}>
+          <TouchableOpacity 
+            style={styles.quickStartButton}
+            onPress={() => {
+              console.log('Try Basic Points clicked - navigating to search');
+              navigation.navigate('Search', { initialQuery: 'beginner' });
+            }}
+          >
             <Text style={styles.quickStartButtonText}>
               {t('guide.tryBasicPoints')}
             </Text>
@@ -329,6 +351,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background.secondary,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: Spacing.xl, // Extra padding at bottom for scrolling
   },
   content: {
     padding: Spacing.md,
