@@ -32,15 +32,29 @@
   },
   "questionnaire": {
     "title": "Find Your Relief",
+    "guidedRelief": "Guided Relief",
     "subtitle": "Answer a few questions to get personalized recommendations",
     "question1": "What type of discomfort are you experiencing?",
     "question2": "Where is the discomfort located?",
     "question3": "How severe is your discomfort?",
     "recommendations": "Recommendations",
-    "quickRelief": "Quick Relief (5-10 min)",
-    "fullSession": "Full Session (15-30 min)"
+    "quickRelief": "Quick Relief",
+    "fullSession": "Complete Session",
+    "getRecommendations": "Get Recommendations",
+    "personalizedRecommendations": "Your Personalized Recommendations",
+    "recommendedPoints": "Recommended Acupressure Points:",
+    "startOver": "Start Over",
+    "sessionReady": "Session Ready",
+    "beginSession": "Begin Session",
+    "perfectFor": "Perfect for",
+    "targetedPoints": "targeted acupressure points",
+    "estimatedTime": "Estimated",
+    "personalizedForYou": "Personalized for your needs",
+    "keyPoints": "key points",
+    "required": "Required"
   },
   "pointDetail": {
+    "title": "Point Details",
     "location": "Location",
     "method": "Method",
     "conditions": "Conditions",
@@ -48,7 +62,15 @@
     "relatedPoints": "Related Points",
     "duration": "Duration",
     "pressure": "Pressure",
-    "difficulty": "Difficulty"
+    "difficulty": "Difficulty",
+    "startSession": "Start Session",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate", 
+    "advanced": "Advanced",
+    "light": "Light",
+    "moderate": "Moderate",
+    "firm": "Firm",
+    "minutes": "minutes"
   },
   "settings": {
     "language": "Language",
@@ -57,6 +79,27 @@
     "about": "About",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
-    "version": "Version"
+    "version": "Version",
+    "chooseLanguage": "Choose your preferred language",
+    "aboutAccuHeal": "About AccuHeal",
+    "aboutDescription": "AccuHeal v1.1\\n\\nYour guide to natural acupressure healing. Learn traditional techniques for everyday wellness.\\n\\nDeveloped with care for your health journey.",
+    "privacyDescription": "We respect your privacy. AccuHeal does not collect personal data without your consent. All health information stays on your device.",
+    "termsDescription": "AccuHeal is for educational purposes only. Always consult healthcare professionals for medical concerns. Use techniques at your own discretion.",
+    "current": "Current",
+    "learnMore": "Learn more about AccuHeal",
+    "protectData": "How we protect your data",
+    "termsConditions": "Terms and conditions",
+    "typesenseTest": "Typesense Test",
+    "developmentTest": "Test search migration (Development)"
+  },
+  "timer": {
+    "timer": "Timer",
+    "startSession": "Start Session",
+    "pause": "Pause",
+    "resume": "Resume", 
+    "reset": "Reset",
+    "sessionComplete": "Session Complete!",
+    "wellDone": "Well done! You've completed your acupressure session.",
+    "adjustDuration": "Adjust Duration"
   }
 }

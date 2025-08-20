@@ -317,7 +317,7 @@ export const PointDetailScreen = () => {
       {/* Fixed Button at Bottom */}
       <View style={styles.buttonContainer}>
         <Button
-          title="Start Session"
+          title={t('pointDetail.startSession')}
           onPress={startTimer}
           size="lg"
           fullWidth
@@ -435,7 +435,7 @@ export const PointDetailScreen = () => {
           <View style={styles.timerControls}>
             {!isTimerRunning && !isPaused && (
               <Button
-                title="Start Session"
+                title={t('pointDetail.startSession')}
                 onPress={startSession}
                 size="lg"
                 fullWidth

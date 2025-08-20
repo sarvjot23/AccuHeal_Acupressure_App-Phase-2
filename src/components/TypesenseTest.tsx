@@ -128,8 +128,23 @@ export const TypesenseTest: React.FC = () => {
       const meridianResults = await typesenseService.getPointsByMeridian('LI');
       addLog(`✅ Meridian search: Found ${meridianResults.length} Large Intestine meridian points`);
 
+      // Test 7: Hindi search
+      addLog('7️⃣ Testing Hindi search...');
+      const hindiResults = await typesenseService.searchPoints('सिरदर्द'); // Hindi for "headache"
+      addLog(`✅ Hindi search: Found ${hindiResults.length} results for "सिरदर्द"`);
+
+      // Test 8: Hindi body part search
+      addLog('8️⃣ Testing Hindi body part search...');
+      const hindiBodyResults = await typesenseService.searchPoints('हाथ'); // Hindi for "hand"
+      addLog(`✅ Hindi body part: Found ${hindiBodyResults.length} results for "हाथ"`);
+
+      // Test 9: Hindi condition search
+      addLog('9️⃣ Testing Hindi condition search...');
+      const hindiConditionResults = await typesenseService.searchPoints('तनाव'); // Hindi for "stress"
+      addLog(`✅ Hindi condition: Found ${hindiConditionResults.length} results for "तनाव"`);
+
       addLog('');
-      addLog('🎉 All tests passed! Typesense is working correctly.');
+      addLog('🎉 All tests passed! Typesense is working correctly with Hindi support!');
       
     } catch (error) {
       addLog(`❌ Tests failed: ${error instanceof Error ? error.message : 'Unknown error'}`);

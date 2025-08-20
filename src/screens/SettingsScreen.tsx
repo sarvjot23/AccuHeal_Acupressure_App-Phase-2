@@ -28,35 +28,35 @@ const SettingsScreen: React.FC = () => {
     {
       id: 'language',
       title: t('settings.language'),
-      subtitle: `Current: ${currentLanguage === 'en' ? 'English' : 'हिंदी'}`,
+      subtitle: `${t('settings.current')}: ${currentLanguage === 'en' ? 'English' : 'हिंदी'}`,'
       icon: 'language-outline' as keyof typeof Ionicons.glyphMap,
       onPress: () => showLanguageSelector(),
     },
     {
       id: 'about',
       title: t('settings.about'),
-      subtitle: 'Learn more about AccuHeal',
+      subtitle: t('settings.learnMore'),
       icon: 'information-circle-outline' as keyof typeof Ionicons.glyphMap,
       onPress: () => showAbout(),
     },
     {
       id: 'privacy',
       title: t('settings.privacy'),
-      subtitle: 'How we protect your data',
+      subtitle: t('settings.protectData'),
       icon: 'shield-checkmark-outline' as keyof typeof Ionicons.glyphMap,
       onPress: () => showPrivacyPolicy(),
     },
     {
       id: 'terms',
       title: t('settings.terms'),
-      subtitle: 'Terms and conditions',
+      subtitle: t('settings.termsConditions'),
       icon: 'document-text-outline' as keyof typeof Ionicons.glyphMap,
       onPress: () => showTerms(),
     },
     {
       id: 'typesense-test',
-      title: 'Typesense Test',
-      subtitle: 'Test search migration (Development)',
+      title: t('settings.typesenseTest'),
+      subtitle: t('settings.developmentTest'),
       icon: 'flask-outline' as keyof typeof Ionicons.glyphMap,
       onPress: () => navigation.navigate('TypesenseTest'),
     },
@@ -65,7 +65,7 @@ const SettingsScreen: React.FC = () => {
   const showLanguageSelector = () => {
     Alert.alert(
       t('settings.language'),
-      'Choose your preferred language',
+      t('settings.chooseLanguage'),
       [
         {
           text: 'English',
@@ -78,7 +78,7 @@ const SettingsScreen: React.FC = () => {
           style: currentLanguage === 'hi' ? 'default' : 'default',
         },
         {
-          text: 'Cancel',
+          text: t('common.cancel'),
           style: 'cancel',
         },
       ]
@@ -87,24 +87,24 @@ const SettingsScreen: React.FC = () => {
 
   const showAbout = () => {
     Alert.alert(
-      'About AccuHeal',
-      'AccuHeal v1.0\n\nYour guide to natural acupressure healing. Learn traditional techniques for everyday wellness.\n\nDeveloped with care for your health journey.',
+      t('settings.aboutAccuHeal'),
+      t('settings.aboutDescription'),
       [{ text: 'OK' }]
     );
   };
 
   const showPrivacyPolicy = () => {
     Alert.alert(
-      'Privacy Policy',
-      'We respect your privacy. AccuHeal does not collect personal data without your consent. All health information stays on your device.',
+      t('settings.privacy'),
+      t('settings.privacyDescription'),
       [{ text: 'OK' }]
     );
   };
 
   const showTerms = () => {
     Alert.alert(
-      'Terms of Service',
-      'AccuHeal is for educational purposes only. Always consult healthcare professionals for medical concerns. Use techniques at your own discretion.',
+      t('settings.terms'),
+      t('settings.termsDescription'),
       [{ text: 'OK' }]
     );
   };

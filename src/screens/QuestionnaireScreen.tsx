@@ -16,12 +16,14 @@ import { Colors, Typography, Spacing, BorderRadius } from '@constants';
 import { Card, Button } from '@components';
 import { RootStackParamList, QuestionnaireStep, QuestionnaireResponse, Recommendation } from '@types';
 import { samplePoints } from '@data/samplePoints';
+import { useLanguage } from '@contexts/LanguageContext';
 
 type QuestionnaireScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 
 const QuestionnaireScreen: React.FC = () => {
   const navigation = useNavigation<QuestionnaireScreenNavigationProp>();
   const { t } = useTranslation();
+  const { currentLanguage } = useLanguage();
   
   const [currentStep, setCurrentStep] = useState(0);
   const [responses, setResponses] = useState<QuestionnaireResponse[]>([]);
@@ -304,9 +306,9 @@ const QuestionnaireScreen: React.FC = () => {
         <View style={styles.content}>
           <View style={styles.resultsHeader}>
             <Ionicons name="checkmark-circle" size={48} color={Colors.success} />
-            <Text style={styles.resultsTitle}>Your Personalized Recommendations</Text>
+            <Text style={styles.resultsTitle}>{t('questionnaire.personalizedRecommendations')}</Text>
             <Text style={styles.resultsSubtitle}>
-              {recommendations.instructions.en}
+              {recommendations.instructions[currentLanguage] || recommendations.instructions.en}
             </Text>
           </View>
 
@@ -321,7 +323,7 @@ const QuestionnaireScreen: React.FC = () => {
                     <View style={styles.pointBadge}>
                       <Text style={styles.pointBadgeText}>{point.code}</Text>
                     </View>
-                    <Text style={styles.pointName}>{point.name.en}</Text>
+                    <Text style={styles.pointName}>{point.name[currentLanguage] || point.name.en}</Text>
                   </View>
                 ) : null;
               })}
@@ -360,7 +362,7 @@ const QuestionnaireScreen: React.FC = () => {
           </View>
 
           <Button
-            title="Start Over"
+            title={t('questionnaire.startOver')}
             variant="outline"
             onPress={() => {
               setCurrentStep(0);
@@ -395,7 +397,7 @@ const QuestionnaireScreen: React.FC = () => {
         {/* Question */}
         <Card style={styles.questionCard}>
           <Text style={styles.questionText}>
-            {getCurrentStep().question.en}
+            {getCurrentStep().question[currentLanguage] || getCurrentStep().question.en}
           </Text>
           {getCurrentStep().required && (
             <Text style={styles.requiredText}>* Required</Text>
@@ -426,7 +428,7 @@ const QuestionnaireScreen: React.FC = () => {
                   styles.optionText,
                   isOptionSelected(option.value) && styles.selectedOptionText,
                 ]}>
-                  {option.label.en}
+                  {option.label[currentLanguage] || option.label.en}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -444,7 +446,7 @@ const QuestionnaireScreen: React.FC = () => {
           style={styles.navButton}
         />
         <Button
-          title={isLastStep() ? 'Get Recommendations' : t('common.next')}
+          title={isLastStep() ? t('questionnaire.getRecommendations') : t('common.next')}
           onPress={handleNext}
           disabled={!canProceed()}
           style={styles.navButton}

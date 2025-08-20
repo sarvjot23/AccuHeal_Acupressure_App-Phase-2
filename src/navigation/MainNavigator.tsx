@@ -106,6 +106,8 @@ const TabNavigator = () => {
 };
 
 const MainNavigator = () => {
+  const { t } = useTranslation();
+  
   return (
     <Stack.Navigator
       screenOptions={{
@@ -127,7 +129,7 @@ const MainNavigator = () => {
         name="PointDetail"
         component={PointDetailScreen}
         options={{
-          title: 'Point Details',
+          title: t('pointDetail.title'),
           headerBackTitleVisible: false,
         }}
       />
@@ -135,7 +137,7 @@ const MainNavigator = () => {
         name="Questionnaire"
         component={QuestionnaireScreen}
         options={{
-          title: 'Guided Relief',
+          title: t('questionnaire.guidedRelief'),
           headerBackTitleVisible: false,
         }}
       />
@@ -143,7 +145,7 @@ const MainNavigator = () => {
         name="TypesenseTest" 
         component={TypesenseTest}
         options={{
-          title: 'Typesense Test',
+          title: t('settings.typesenseTest'),
           headerBackTitleVisible: false,
         }}
       />
