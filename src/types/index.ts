@@ -87,6 +87,7 @@ export type RootStackParamList = {
   Main: undefined;
   PointDetail: { pointId: string };
   Questionnaire: undefined;
+  BeginnerGuide: undefined;
   Search: { initialQuery?: string };
   Settings: undefined;
   TypesenseTest: undefined;

@@ -52,7 +52,7 @@ const GuideScreen: React.FC = () => {
       subtitle: 'Learn the basics of acupressure',
       icon: 'school-outline' as keyof typeof Ionicons.glyphMap,
       color: Colors.secondary[400],
-      onPress: () => {},
+      onPress: () => navigation.navigate('BeginnerGuide'),
     },
   ];
 

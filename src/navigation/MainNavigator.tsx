@@ -14,6 +14,7 @@ import GuideScreen from '@screens/GuideScreen';
 import SettingsScreen from '@screens/SettingsScreen';
 import PointDetailScreen from '@screens/PointDetailScreen';
 import QuestionnaireScreen from '@screens/QuestionnaireScreen';
+import BeginnerGuideScreen from '@screens/BeginnerGuideScreen';
 import { TypesenseTest } from '@components/TypesenseTest';
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();
@@ -138,6 +139,14 @@ const MainNavigator = () => {
         component={QuestionnaireScreen}
         options={{
           title: t('questionnaire.guidedRelief'),
+          headerBackTitleVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="BeginnerGuide"
+        component={BeginnerGuideScreen}
+        options={{
+          title: t('guide.beginnerGuideTitle'),
           headerBackTitleVisible: false,
         }}
       />

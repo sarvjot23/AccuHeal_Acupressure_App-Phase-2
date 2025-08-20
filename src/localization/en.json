@@ -11,7 +11,8 @@
     "done": "Done",
     "next": "Next",
     "previous": "Previous",
-    "skip": "Skip"
+    "skip": "Skip",
+    "of": "of"
   },
   "home": {
     "welcome": "Welcome to AccuHeal",
@@ -101,5 +102,14 @@
     "sessionComplete": "Session Complete!",
     "wellDone": "Well done! You've completed your acupressure session.",
     "adjustDuration": "Adjust Duration"
+  },
+  "guide": {
+    "beginnerGuideTitle": "Beginner's Guide to Acupressure",
+    "beginnerGuideSubtitle": "Learn the fundamentals of acupressure therapy step by step",
+    "tips": "Tips",
+    "quickStart": "Quick Start",
+    "quickStartDescription": "Ready to try acupressure right away? Start with these essential points that are safe and effective for beginners.",
+    "tryBasicPoints": "Try Basic Points",
+    "startPracticing": "Start Practicing"
   }
 }
