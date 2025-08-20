@@ -63,18 +63,25 @@ const SettingsScreen: React.FC = () => {
   ];
 
   const showLanguageSelector = () => {
+    console.log('Language selector clicked!'); // Debug log
     Alert.alert(
       t('settings.language'),
       t('settings.chooseLanguage'),
       [
         {
           text: 'English',
-          onPress: () => changeLanguage('en'),
+          onPress: () => {
+            console.log('English selected');
+            changeLanguage('en');
+          },
           style: currentLanguage === 'en' ? 'default' : 'default',
         },
         {
           text: 'हिंदी',
-          onPress: () => changeLanguage('hi'),
+          onPress: () => {
+            console.log('Hindi selected');
+            changeLanguage('hi');
+          },
           style: currentLanguage === 'hi' ? 'default' : 'default',
         },
         {
@@ -110,18 +117,20 @@ const SettingsScreen: React.FC = () => {
   };
 
   const renderSettingOption = (option: typeof settingsOptions[0]) => (
-    <Card key={option.id} onPress={option.onPress} style={styles.settingCard}>
-      <View style={styles.settingContent}>
-        <View style={styles.settingIcon}>
-          <Ionicons name={option.icon} size={24} color={Colors.primary[600]} />
+    <TouchableOpacity key={option.id} onPress={option.onPress} activeOpacity={0.7}>
+      <Card style={styles.settingCard}>
+        <View style={styles.settingContent}>
+          <View style={styles.settingIcon}>
+            <Ionicons name={option.icon} size={24} color={Colors.primary[600]} />
+          </View>
+          <View style={styles.settingText}>
+            <Text style={styles.settingTitle}>{option.title}</Text>
+            <Text style={styles.settingSubtitle}>{option.subtitle}</Text>
+          </View>
+          <Ionicons name="chevron-forward" size={20} color={Colors.neutral[400]} />
         </View>
-        <View style={styles.settingText}>
-          <Text style={styles.settingTitle}>{option.title}</Text>
-          <Text style={styles.settingSubtitle}>{option.subtitle}</Text>
-        </View>
-        <Ionicons name="chevron-forward" size={20} color={Colors.neutral[400]} />
-      </View>
-    </Card>
+      </Card>
+    </TouchableOpacity>
   );
 
   return (
