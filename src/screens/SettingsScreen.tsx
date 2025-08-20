@@ -117,8 +117,16 @@ const SettingsScreen: React.FC = () => {
   };
 
   const renderSettingOption = (option: typeof settingsOptions[0]) => (
-    <TouchableOpacity key={option.id} onPress={option.onPress} activeOpacity={0.7}>
-      <Card style={styles.settingCard}>
+    <TouchableOpacity 
+      key={option.id} 
+      onPress={() => {
+        console.log(`Setting option clicked: ${option.id}`);
+        option.onPress();
+      }} 
+      activeOpacity={0.7}
+      style={{ pointerEvents: 'auto' }}
+    >
+      <Card style={[styles.settingCard, { pointerEvents: 'none' }]}>
         <View style={styles.settingContent}>
           <View style={styles.settingIcon}>
             <Ionicons name={option.icon} size={24} color={Colors.primary[600]} />
@@ -147,6 +155,25 @@ const SettingsScreen: React.FC = () => {
             Your guide to natural acupressure healing
           </Text>
         </View>
+
+        {/* Debug Test Button */}
+        <TouchableOpacity 
+          onPress={() => {
+            console.log('TEST BUTTON CLICKED!');
+            showLanguageSelector();
+          }}
+          style={{
+            backgroundColor: '#ff0000',
+            padding: 20,
+            margin: 10,
+            borderRadius: 8,
+            alignItems: 'center'
+          }}
+        >
+          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>
+            TEST LANGUAGE SELECTOR
+          </Text>
+        </TouchableOpacity>
 
         {/* Settings Options */}
         <View style={styles.settingsSection}>
