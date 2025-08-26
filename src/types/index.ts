@@ -91,6 +91,13 @@ export type RootStackParamList = {
   Search: { initialQuery?: string };
   Settings: undefined;
   TypesenseTest: undefined;
+  AdminUpdate: undefined;
+  Login: undefined;
+  Signup: undefined;
+  AdminLogin: undefined;
+  MyAccount: undefined;
+  AuthSuccess: { method?: 'email' | 'google' | 'apple' | 'biometric' };
+  AuthFailure: { method?: 'email' | 'google' | 'apple' | 'biometric'; error?: string };
 };
 
 export type BottomTabParamList = {

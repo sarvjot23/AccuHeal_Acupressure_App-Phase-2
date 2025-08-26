@@ -17,6 +17,7 @@ import { Colors, Typography, Spacing, BorderRadius } from '@constants';
 import { Card } from '@components';
 import { RootStackParamList } from '@types';
 import { useLanguage } from '@contexts/LanguageContext';
+import { useAuth } from '@contexts/AuthContext';
 
 type SettingsScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 
@@ -24,9 +25,11 @@ const SettingsScreen: React.FC = () => {
   const navigation = useNavigation<SettingsScreenNavigationProp>();
   const { t } = useTranslation();
   const { currentLanguage, changeLanguage } = useLanguage();
+  const { user, isAuthenticated, staySignedIn, setStaySignedIn, signOut, isLoading } = useAuth();
   const [showLanguageModal, setShowLanguageModal] = useState(false);
 
-  const settingsOptions = [
+  // Common settings available to all users
+  const commonSettings = [
     {
       id: 'language',
       title: t('settings.language'),
@@ -64,6 +67,51 @@ const SettingsScreen: React.FC = () => {
     },
   ];
 
+  // Authentication-specific settings
+  const authSettings = isAuthenticated 
+    ? [
+        {
+          id: 'my-account',
+          title: 'My Account',
+          subtitle: 'Manage your account settings and preferences',
+          icon: 'person-circle-outline' as keyof typeof Ionicons.glyphMap,
+          onPress: () => navigation.navigate('MyAccount' as any),
+        },
+      ]
+    : [
+        {
+          id: 'auth',
+          title: 'Create Account or Sign In',
+          subtitle: 'Access your personalized AccuHeal experience',
+          icon: 'person-outline' as keyof typeof Ionicons.glyphMap,
+          onPress: () => navigation.navigate('Signup'),
+        },
+      ];
+
+  // Admin settings (always shown for development)
+  const adminSettings = [
+    {
+      id: 'admin-login',
+      title: 'Admin Login',
+      subtitle: 'Administrator access',
+      icon: 'shield-outline' as keyof typeof Ionicons.glyphMap,
+      onPress: () => navigation.navigate('AdminLogin'),
+    },
+    {
+      id: 'admin-update',
+      title: 'Admin: Update Search',
+      subtitle: 'Update search index with new points',
+      icon: 'refresh-circle-outline' as keyof typeof Ionicons.glyphMap,
+      onPress: () => navigation.navigate('AdminUpdate'),
+    },
+  ];
+
+  const settingsOptions = [
+    ...authSettings,
+    ...commonSettings,
+    ...adminSettings,
+  ];
+
   const showLanguageSelector = () => {
     setShowLanguageModal(true);
   };
@@ -91,6 +139,7 @@ const SettingsScreen: React.FC = () => {
       [{ text: 'OK' }]
     );
   };
+
 
   const renderSettingOption = (option: typeof settingsOptions[0]) => (
     <TouchableOpacity 
@@ -128,6 +177,38 @@ const SettingsScreen: React.FC = () => {
             Your guide to natural acupressure healing
           </Text>
         </View>
+
+        {/* User Profile Section - Only show when authenticated */}
+        {isAuthenticated && user && (
+          <Card style={styles.userProfileCard}>
+            <View style={styles.userProfileContent}>
+              <View style={styles.userAvatar}>
+                {user.photoURL ? (
+                  <Ionicons name="person" size={32} color={Colors.primary[600]} />
+                ) : (
+                  <Ionicons name="person" size={32} color={Colors.primary[600]} />
+                )}
+              </View>
+              <View style={styles.userInfo}>
+                <Text style={styles.userName}>
+                  {user.displayName || 'User'}
+                </Text>
+                <Text style={styles.userEmail}>
+                  {user.email}
+                </Text>
+                {user.isAdmin && (
+                  <View style={styles.adminBadge}>
+                    <Text style={styles.adminBadgeText}>Admin</Text>
+                  </View>
+                )}
+              </View>
+              <View style={styles.userStatus}>
+                <View style={[styles.statusDot, { backgroundColor: Colors.success }]} />
+                <Text style={styles.statusText}>Online</Text>
+              </View>
+            </View>
+          </Card>
+        )}
 
 
         {/* Settings Options */}
@@ -382,6 +463,68 @@ const styles = StyleSheet.create({
   },
   cancelButtonText: {
     ...Typography.body1,
+    color: Colors.text.secondary,
+    fontWeight: '500',
+  },
+
+  // User profile styles
+  userProfileCard: {
+    backgroundColor: Colors.primary[50],
+    borderWidth: 1,
+    borderColor: Colors.primary[200],
+    marginBottom: Spacing.lg,
+  },
+  userProfileContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  userAvatar: {
+    width: 60,
+    height: 60,
+    borderRadius: BorderRadius.xl,
+    backgroundColor: Colors.primary[100],
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: Spacing.md,
+  },
+  userInfo: {
+    flex: 1,
+  },
+  userName: {
+    ...Typography.h6,
+    color: Colors.text.primary,
+    marginBottom: Spacing.xs,
+  },
+  userEmail: {
+    ...Typography.body2,
+    color: Colors.text.secondary,
+    marginBottom: Spacing.xs,
+  },
+  adminBadge: {
+    backgroundColor: Colors.warning,
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: 2,
+    borderRadius: BorderRadius.sm,
+    alignSelf: 'flex-start',
+  },
+  adminBadgeText: {
+    ...Typography.caption,
+    color: Colors.background.primary,
+    fontWeight: '600',
+    fontSize: 10,
+  },
+  userStatus: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  statusDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginRight: Spacing.xs,
+  },
+  statusText: {
+    ...Typography.caption,
     color: Colors.text.secondary,
     fontWeight: '500',
   },

@@ -15,6 +15,13 @@ import SettingsScreen from '@screens/SettingsScreen';
 import PointDetailScreen from '@screens/PointDetailScreen';
 import QuestionnaireScreen from '@screens/QuestionnaireScreen';
 import BeginnerGuideScreen from '@screens/BeginnerGuideScreen';
+import AdminUpdateScreen from '@screens/AdminUpdateScreen';
+import LoginScreen from '@screens/LoginScreen';
+import SignupScreen from '@screens/SignupScreen';
+import AdminLoginScreen from '@screens/AdminLoginScreen';
+import MyAccountScreen from '@screens/MyAccountScreen';
+import AuthSuccessScreen from '@screens/AuthSuccessScreen';
+import AuthFailureScreen from '@screens/AuthFailureScreen';
 import { TypesenseTest } from '@components/TypesenseTest';
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();
@@ -170,6 +177,60 @@ const MainNavigator = () => {
         options={{
           title: t('settings.typesenseTest'),
           headerBackTitleVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="AdminUpdate"
+        component={AdminUpdateScreen}
+        options={{
+          title: 'Admin: Update Search',
+          headerBackTitleVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{
+          title: 'Login',
+          headerBackTitleVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="Signup"
+        component={SignupScreen}
+        options={{
+          title: 'Sign Up',
+          headerBackTitleVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="AdminLogin"
+        component={AdminLoginScreen}
+        options={{
+          title: 'Admin Login',
+          headerBackTitleVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="MyAccount"
+        component={MyAccountScreen}
+        options={{
+          title: 'My Account',
+          headerBackTitleVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="AuthSuccess"
+        component={AuthSuccessScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="AuthFailure"
+        component={AuthFailureScreen}
+        options={{
+          headerShown: false,
         }}
       />
     </Stack.Navigator>
