@@ -32,7 +32,8 @@
       "Bash(npm start)",
       "Bash(timeout 10 npm start)",
       "Bash(grep:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "WebSearch"
     ],
     "deny": []
   }

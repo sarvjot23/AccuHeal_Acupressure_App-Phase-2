@@ -2450,73 +2450,6 @@ export const samplePoints: AcupressurePoint[] = [
     images: ['gb21_location.jpg'],
   },
 
-  // Point 38: Large Intestine 20 (Yingxiang) - Nasal congestion and allergies
-  {
-    id: 'li20',
-    code: 'LI20',
-    name: {
-      en: 'Large Intestine 20 - Welcome Fragrance',
-      hi: 'बड़ी आंत 20 - वेलकम फ्रैग्रेंस',
-    },
-    chineseName: {
-      traditional: '迎香',
-      pinyin: 'Yíngxiāng'
-    },
-    location: {
-      en: 'Located beside the nostrils, at the outer edge where the nostril meets the cheek.',
-      hi: 'नाक के छिद्रों के बगल में स्थित, बाहरी किनारे पर जहां नासिका गाल से मिलती है।',
-    },
-    meridian: {
-      name: {
-        en: 'Large Intestine',
-        hi: 'बड़ी आंत'
-      },
-      code: 'LI',
-      element: 'Metal',
-      polarity: 'Yang'
-    },
-    indications: [
-      {
-        en: 'Nasal congestion',
-        hi: 'नाक की रुकावट'
-      },
-      {
-        en: 'Sinus problems',
-        hi: 'साइनस की समस्याएं'
-      },
-      {
-        en: 'Allergic rhinitis',
-        hi: 'एलर्जिक रिनाइटिस'
-      },
-      {
-        en: 'Loss of smell',
-        hi: 'गंध की हानि'
-      }
-    ],
-    contraindications: {
-      en: 'Use very gentle pressure. Avoid with facial injuries or infections.',
-      hi: 'बहुत हल्का दबाव का उपयोग करें। चेहरे की चोट या संक्रमण में बचें।',
-    },
-    technique: {
-      en: 'Apply gentle circular pressure with index finger for 30-60 seconds on each side.',
-      hi: 'दोनों तरफ तर्जनी अंगुली से 30-60 सेकंड के लिए हल्का वृत्ताकार दबाव डालें।',
-    },
-    duration: '30-60 seconds',
-    pressure: 'Light',
-    bodyPart: ['face'],
-    symptoms: ['nasal congestion', 'sinus problems', 'allergies', 'runny nose', 'smell loss'],
-    difficulty: 'Beginner',
-    category: 'Classical',
-    popularity: 5,
-    
-    // Legacy fields for backward compatibility
-    method: {
-      en: 'Apply gentle circular pressure with index finger for 30-60 seconds on each side.',
-      hi: 'दोनों तरफ तर्जनी अंगुली से 30-60 सेकंड के लिए हल्का वृत्ताकार दबाव डालें।',
-    },
-    conditions: ['nasal congestion', 'sinus problems', 'allergies', 'runny nose'],
-    images: ['li20_location.jpg'],
-  },
 
   // Point 39: Kidney 27 (Shufu) - Chest congestion and breathing
   {
@@ -2654,73 +2587,6 @@ export const samplePoints: AcupressurePoint[] = [
     images: ['th3_location.jpg'],
   },
 
-  // Point 41: Stomach 25 (Tianshu) - Digestive regulation
-  {
-    id: 'st25',
-    code: 'ST25',
-    name: {
-      en: 'Stomach 25 - Celestial Pivot',
-      hi: 'पेट 25 - सेलेस्टियल पिवट',
-    },
-    chineseName: {
-      traditional: '天樞',
-      pinyin: 'Tiānshū'
-    },
-    location: {
-      en: 'Located 2 finger-widths to the side of the navel, at the same level as the belly button.',
-      hi: 'नाभि के स्तर पर, नाभि से 2 अंगुल की दूरी पर स्थित।',
-    },
-    meridian: {
-      name: {
-        en: 'Stomach',
-        hi: 'पेट'
-      },
-      code: 'ST',
-      element: 'Earth',
-      polarity: 'Yang'
-    },
-    indications: [
-      {
-        en: 'Digestive disorders',
-        hi: 'पाचन संबंधी विकार'
-      },
-      {
-        en: 'Constipation and diarrhea',
-        hi: 'कब्ज और दस्त'
-      },
-      {
-        en: 'Abdominal pain',
-        hi: 'पेट दर्द'
-      },
-      {
-        en: 'Bloating and gas',
-        hi: 'पेट फूलना और गैस'
-      }
-    ],
-    contraindications: {
-      en: 'Avoid during pregnancy and immediately after meals.',
-      hi: 'गर्भावस्था में और खाने के तुरंत बाद बचें।',
-    },
-    technique: {
-      en: 'Apply gentle circular massage with palm for 1-2 minutes in clockwise direction.',
-      hi: 'हथेली से दक्षिणावर्त दिशा में 1-2 मिनट तक हल्की वृत्ताकार मालिश करें।',
-    },
-    duration: '1-2 minutes',
-    pressure: 'Light',
-    bodyPart: ['abdomen'],
-    symptoms: ['digestion problems', 'constipation', 'diarrhea', 'abdominal pain', 'bloating'],
-    difficulty: 'Beginner',
-    category: 'Classical',
-    popularity: 5,
-    
-    // Legacy fields for backward compatibility
-    method: {
-      en: 'Apply gentle circular massage with palm for 1-2 minutes in clockwise direction.',
-      hi: 'हथेली से दक्षिणावर्त दिशा में 1-2 मिनट तक हल्की वृत्ताकार मालिश करें।',
-    },
-    conditions: ['digestion problems', 'constipation', 'diarrhea', 'abdominal pain'],
-    images: ['st25_location.jpg'],
-  },
 
   // Point 42: Conception Vessel 4 (Guanyuan) - Energy and vitality
   {
@@ -2925,73 +2791,6 @@ export const samplePoints: AcupressurePoint[] = [
     images: ['sp21_location.jpg'],
   },
 
-  // Point 45: Bladder 2 (Zanzhu) - Eye strain and frontal headaches
-  {
-    id: 'bl2',
-    code: 'BL2',
-    name: {
-      en: 'Bladder 2 - Gathering Bamboo',
-      hi: 'मूत्राशय 2 - गैदरिंग बैम्बू',
-    },
-    chineseName: {
-      traditional: '攢竹',
-      pinyin: 'Cuánzhú'
-    },
-    location: {
-      en: 'Located at the inner end of the eyebrow, in the depression above the inner corner of the eye.',
-      hi: 'भौंह के अंदरूनी सिरे पर, आंख के अंदरूनी कोने के ऊपर के गड्ढे में स्थित।',
-    },
-    meridian: {
-      name: {
-        en: 'Bladder',
-        hi: 'मूत्राशय'
-      },
-      code: 'BL',
-      element: 'Water',
-      polarity: 'Yang'
-    },
-    indications: [
-      {
-        en: 'Eye strain and fatigue',
-        hi: 'आंखों का तनाव और थकान'
-      },
-      {
-        en: 'Frontal headaches',
-        hi: 'माथे का सिरदर्द'
-      },
-      {
-        en: 'Blurred vision',
-        hi: 'धुंधली दृष्टि'
-      },
-      {
-        en: 'Sinus congestion',
-        hi: 'साइनस की रुकावट'
-      }
-    ],
-    contraindications: {
-      en: 'Use very gentle pressure. Avoid with eye infections or injuries.',
-      hi: 'बहुत हल्का दबाव का उपयोग करें। आंख के संक्रमण या चोट में बचें।',
-    },
-    technique: {
-      en: 'Apply gentle upward pressure with fingertips for 30-45 seconds on both sides.',
-      hi: 'दोनों तरफ अंगुलियों के सिरे से 30-45 सेकंड तक हल्का ऊपर की ओर दबाव डालें।',
-    },
-    duration: '30-45 seconds',
-    pressure: 'Light',
-    bodyPart: ['face'],
-    symptoms: ['eye strain', 'frontal headache', 'blurred vision', 'sinus pressure', 'eye fatigue'],
-    difficulty: 'Beginner',
-    category: 'Classical',
-    popularity: 5,
-    
-    // Legacy fields for backward compatibility
-    method: {
-      en: 'Apply gentle upward pressure with fingertips for 30-45 seconds on both sides.',
-      hi: 'दोनों तरफ अंगुलियों के सिरे से 30-45 सेकंड तक हल्का ऊपर की ओर दबाव डालें।',
-    },
-    conditions: ['eye strain', 'frontal headache', 'blurred vision', 'sinus pressure'],
-    images: ['bl2_location.jpg'],
-  },
 
   // Point 46: Liver 14 (Qimen) - Emotional stress and liver support
   {
@@ -3129,141 +2928,7 @@ export const samplePoints: AcupressurePoint[] = [
     images: ['si19_location.jpg'],
   },
 
-  // Point 48: Gallbladder 34 (Yanglingquan) - Knee and lateral leg issues
-  {
-    id: 'gb34',
-    code: 'GB34',
-    name: {
-      en: 'Gallbladder 34 - Yang Mound Spring',
-      hi: 'पित्ताशय 34 - यांग माउंड स्प्रिंग',
-    },
-    chineseName: {
-      traditional: '陽陵泉',
-      pinyin: 'Yánglíngquán'
-    },
-    location: {
-      en: 'Located on the outer side of the leg, below the knee, in the depression in front of the fibula head.',
-      hi: 'पैर के बाहरी हिस्से पर, घुटने के नीचे, फाइबुला सिर के आगे के गड्ढे में स्थित।',
-    },
-    meridian: {
-      name: {
-        en: 'Gallbladder',
-        hi: 'पित्ताशय'
-      },
-      code: 'GB',
-      element: 'Wood',
-      polarity: 'Yang'
-    },
-    indications: [
-      {
-        en: 'Knee pain and stiffness',
-        hi: 'घुटने का दर्द और अकड़न'
-      },
-      {
-        en: 'Lateral leg pain',
-        hi: 'पैर के किनारे का दर्द'
-      },
-      {
-        en: 'Muscle tension and cramps',
-        hi: 'मांसपेशी तनाव और ऐंठन'
-      },
-      {
-        en: 'Hip joint problems',
-        hi: 'हिप जॉइंट की समस्याएं'
-      }
-    ],
-    contraindications: {
-      en: 'Use moderate pressure. Avoid with severe knee injuries.',
-      hi: 'मध्यम दबाव का उपयोग करें। गंभीर घुटने की चोट में बचें।',
-    },
-    technique: {
-      en: 'Apply steady pressure with thumb for 1-2 minutes while gently moving the knee.',
-      hi: 'घुटने को धीरे से हिलाते हुए अंगूठे से 1-2 मिनट तक स्थिर दबाव डालें।',
-    },
-    duration: '1-2 minutes',
-    pressure: 'Moderate',
-    bodyPart: ['leg'],
-    symptoms: ['knee pain', 'lateral leg pain', 'muscle cramps', 'hip problems', 'leg stiffness'],
-    difficulty: 'Intermediate',
-    category: 'Classical',
-    popularity: 5,
-    
-    // Legacy fields for backward compatibility
-    method: {
-      en: 'Apply steady pressure with thumb for 1-2 minutes while gently moving the knee.',
-      hi: 'घुटने को धीरे से हिलाते हुए अंगूठे से 1-2 मिनट तक स्थिर दबाव डालें।',
-    },
-    conditions: ['knee pain', 'lateral leg pain', 'muscle cramps', 'hip problems'],
-    images: ['gb34_location.jpg'],
-  },
 
-  // Point 49: Pericardium 8 (Laogong) - Anxiety and palm heat
-  {
-    id: 'pc8',
-    code: 'PC8',
-    name: {
-      en: 'Pericardium 8 - Labor Palace',
-      hi: 'पेरिकार्डियम 8 - लेबर पैलेस',
-    },
-    chineseName: {
-      traditional: '勞宮',
-      pinyin: 'Láogōng'
-    },
-    location: {
-      en: 'Located in the center of the palm, between the 2nd and 3rd metacarpal bones, where the middle finger touches when making a fist.',
-      hi: 'हथेली के केंद्र में, 2री और 3री मेटाकार्पल हड्डियों के बीच, जहां मुट्ठी बनाने पर मध्यमा उंगली छूती है।',
-    },
-    meridian: {
-      name: {
-        en: 'Pericardium',
-        hi: 'पेरिकार्डियम'
-      },
-      code: 'PC',
-      element: 'Fire',
-      polarity: 'Yin'
-    },
-    indications: [
-      {
-        en: 'Anxiety and panic attacks',
-        hi: 'चिंता और पैनिक अटैक'
-      },
-      {
-        en: 'Heart palpitations',
-        hi: 'हृदय की धड़कन'
-      },
-      {
-        en: 'Palm sweating',
-        hi: 'हथेली का पसीना'
-      },
-      {
-        en: 'Insomnia and restlessness',
-        hi: 'अनिद्रा और बेचैनी'
-      }
-    ],
-    contraindications: {
-      en: 'Use gentle to moderate pressure. Safe for most people.',
-      hi: 'हल्के से मध्यम दबाव का उपयोग करें। अधिकांश लोगों के लिए सुरक्षित।',
-    },
-    technique: {
-      en: 'Apply steady pressure with opposite thumb for 1-3 minutes while taking deep breaths.',
-      hi: 'गहरी सांस लेते हुए विपरीत अंगूठे से 1-3 मिनट तक स्थिर दबाव डालें।',
-    },
-    duration: '1-3 minutes',
-    pressure: 'Moderate',
-    bodyPart: ['hand'],
-    symptoms: ['anxiety', 'panic attacks', 'heart palpitations', 'palm sweating', 'insomnia'],
-    difficulty: 'Beginner',
-    category: 'Classical',
-    popularity: 5,
-    
-    // Legacy fields for backward compatibility
-    method: {
-      en: 'Apply steady pressure with opposite thumb for 1-3 minutes while taking deep breaths.',
-      hi: 'गहरी सांस लेते हुए विपरीत अंगूठे से 1-3 मिनट तक स्थिर दबाव डालें।',
-    },
-    conditions: ['anxiety', 'panic attacks', 'heart palpitations', 'palm sweating'],
-    images: ['pc8_location.jpg'],
-  },
 
   // Point 50: Lung 5 (Chize) - Elbow and respiratory issues
   {
@@ -5580,5 +5245,785 @@ export const samplePoints: AcupressurePoint[] = [
     },
     conditions: ['elbow pain', 'arm numbness', 'mental restlessness'],
     images: ['si8_location.jpg'],
+  },
+
+  // Point 84: Conception Vessel 22 (Tiantu) - Sore throat and cough
+  {
+    id: 'cv22',
+    code: 'CV22',
+    name: {
+      en: 'Conception Vessel 22 - Heavenly Chimney',
+      hi: 'गर्भ वेसल 22 - स्वर्गीय चिमनी',
+    },
+    chineseName: {
+      traditional: '天突',
+      pinyin: 'Tiāntū'
+    },
+    location: {
+      en: 'Located in the center of the suprasternal notch (hollow at the base of the throat).',
+      hi: 'गले के आधार पर सुप्रास्टर्नल नॉच के केंद्र में स्थित।',
+    },
+    meridian: {
+      name: {
+        en: 'Conception Vessel',
+        hi: 'गर्भ वेसल'
+      },
+      code: 'CV',
+      element: 'Water',
+      polarity: 'Yin'
+    },
+    indications: [
+      {
+        en: 'Sore throat',
+        hi: 'गले में खराश'
+      },
+      {
+        en: 'Dry cough',
+        hi: 'सूखी खांसी'
+      },
+      {
+        en: 'Difficulty swallowing',
+        hi: 'निगलने में कठिनाई'
+      },
+      {
+        en: 'Throat congestion',
+        hi: 'गले की भीड़'
+      }
+    ],
+    contraindications: {
+      en: 'Avoid excessive pressure. Be gentle with this sensitive area.',
+      hi: 'अधिक दबाव से बचें। इस संवेदनशील क्षेत्र के साथ सावधान रहें।',
+    },
+    technique: {
+      en: 'Apply very gentle pressure with fingertip in small circular motions.',
+      hi: 'उंगली की नोक से छोटी गोलाकार गतियों में बहुत हल्का दबाव डालें।',
+    },
+    benefits: {
+      en: 'Excellent for sore throat, voice problems, and throat inflammation.',
+      hi: 'गले की खराश, आवाज की समस्या, और गले की सूजन के लिए उत्कृष्ट।',
+    },
+    duration: '30 seconds to 1 minute',
+    pressure: 'Very Light',
+    bodyPart: ['throat', 'neck'],
+    symptoms: ['sore throat', 'dry cough', 'voice problems', 'throat pain', 'difficulty swallowing'],
+    difficulty: 'Beginner',
+    category: 'Classical',
+    popularity: 4,
+    method: {
+      en: 'Apply very gentle pressure with fingertip for 30 seconds to 1 minute.',
+      hi: 'उंगली की नोक से 30 सेकंड से 1 मिनट तक बहुत हल्का दबाव डालें।',
+    },
+    conditions: ['sore throat', 'dry cough', 'voice problems', 'throat inflammation'],
+    images: ['cv22_location.jpg'],
+  },
+
+  // Point 85: Extra Point - Bitong (Nasal congestion)
+  {
+    id: 'bitong',
+    code: 'EX-HN8',
+    name: {
+      en: 'Extra Point - Bitong (Nasal Patency)',
+      hi: 'एक्स्ट्रा पॉइंट - बिटॉन्ग (नाक की रुकावट)',
+    },
+    chineseName: {
+      traditional: '鼻通',
+      pinyin: 'Bítōng'
+    },
+    location: {
+      en: 'Located on both sides of the nose, at the junction of the nasal bone and nasal cartilage.',
+      hi: 'नाक के दोनों किनारों पर, नासिका हड्डी और नासिका उपास्थि के जंक्शन पर स्थित।',
+    },
+    meridian: {
+      name: {
+        en: 'Extra Point',
+        hi: 'एक्स्ट्रा पॉइंट'
+      },
+      code: 'EX',
+      element: 'Metal',
+      polarity: 'Yang'
+    },
+    indications: [
+      {
+        en: 'Blocked nose',
+        hi: 'बंद नाक'
+      },
+      {
+        en: 'Nasal congestion',
+        hi: 'नाक की रुकावट'
+      },
+      {
+        en: 'Rhinitis',
+        hi: 'राइनाइटिस'
+      },
+      {
+        en: 'Loss of smell',
+        hi: 'गंध की हानि'
+      }
+    ],
+    contraindications: {
+      en: 'Be gentle, avoid if nose is injured or very inflamed.',
+      hi: 'सावधान रहें, यदि नाक घायल है या बहुत सूजी है तो बचें।',
+    },
+    technique: {
+      en: 'Apply gentle pressure with fingertips on both sides simultaneously.',
+      hi: 'दोनों तरफ एक साथ उंगलियों की नोक से हल्का दबाव डालें।',
+    },
+    benefits: {
+      en: 'Quickly opens blocked nasal passages and relieves congestion.',
+      hi: 'तुरंत बंद नासिका मार्ग खोलता है और रुकावट से राहत देता है।',
+    },
+    duration: '1-2 minutes',
+    pressure: 'Light',
+    bodyPart: ['nose', 'face'],
+    symptoms: ['blocked nose', 'nasal congestion', 'rhinitis', 'loss of smell', 'stuffy nose'],
+    difficulty: 'Beginner',
+    category: 'Extra',
+    popularity: 5,
+    method: {
+      en: 'Apply gentle pressure with fingertips on both sides for 1-2 minutes.',
+      hi: 'उंगलियों की नोक से दोनों तरफ 1-2 मिनट तक हल्का दबाव डालें।',
+    },
+    conditions: ['blocked nose', 'nasal congestion', 'rhinitis', 'loss of smell'],
+    images: ['bitong_location.jpg'],
+  },
+
+  // Point 86: Large Intestine 18 (Futu) - Throat and cough
+  {
+    id: 'li18',
+    code: 'LI18',
+    name: {
+      en: 'Large Intestine 18 - Support and Rush Out',
+      hi: 'बड़ी आंत 18 - सहारा और बाहर निकलना',
+    },
+    chineseName: {
+      traditional: '扶突',
+      pinyin: 'Fútū'
+    },
+    location: {
+      en: 'Located on the lateral neck, at the anterior border of the sternocleidomastoid muscle.',
+      hi: 'गर्दन के बाजू में, स्टर्नोक्लीडोमास्टॉइड मांसपेशी की अगली सीमा पर स्थित।',
+    },
+    meridian: {
+      name: {
+        en: 'Large Intestine',
+        hi: 'बड़ी आंत'
+      },
+      code: 'LI',
+      element: 'Metal',
+      polarity: 'Yang'
+    },
+    indications: [
+      {
+        en: 'Productive cough',
+        hi: 'कफ वाली खांसी'
+      },
+      {
+        en: 'Throat phlegm',
+        hi: 'गले में कफ'
+      },
+      {
+        en: 'Voice hoarseness',
+        hi: 'आवाज में भारीपन'
+      },
+      {
+        en: 'Neck lymph congestion',
+        hi: 'गर्दन की लसीका भीड़'
+      }
+    ],
+    contraindications: {
+      en: 'Avoid during pregnancy. Be gentle with neck area.',
+      hi: 'गर्भावस्था के दौरान बचें। गर्दन के क्षेत्र के साथ सावधान रहें।',
+    },
+    technique: {
+      en: 'Apply gentle pressure with fingertip while swallowing to activate.',
+      hi: 'सक्रिय करने के लिए निगलते समय उंगली की नोक से हल्का दबाव डालें।',
+    },
+    benefits: {
+      en: 'Helps clear throat phlegm and supports productive coughing.',
+      hi: 'गले का कफ साफ करने में मदद करता है और कफ निकालने वाली खांसी का समर्थन करता है।',
+    },
+    duration: '1 minute',
+    pressure: 'Light',
+    bodyPart: ['neck', 'throat'],
+    symptoms: ['productive cough', 'throat phlegm', 'voice hoarseness', 'lymph congestion', 'throat clearing'],
+    difficulty: 'Intermediate',
+    category: 'Classical',
+    popularity: 3,
+    method: {
+      en: 'Apply gentle pressure with fingertip for 1 minute, can swallow during treatment.',
+      hi: 'उंगली की नोक से 1 मिनट तक हल्का दबाव डालें, उपचार के दौरान निगल सकते हैं।',
+    },
+    conditions: ['productive cough', 'throat phlegm', 'voice hoarseness', 'lymph congestion'],
+    images: ['li18_location.jpg'],
+  },
+
+  // Point 87: Stomach 6 Enhanced (Jiache) - Cold symptoms
+  {
+    id: 'st6_cold',
+    code: 'ST6-C',
+    name: {
+      en: 'Stomach 6 Enhanced - Jaw Vehicle (Cold Relief)',
+      hi: 'पेट 6 संवर्धित - जबड़ा वाहन (सर्दी राहत)',
+    },
+    chineseName: {
+      traditional: '頰車',
+      pinyin: 'Jiáchē'
+    },
+    location: {
+      en: 'Located on the jaw, one finger width in front of the ear, in the depression when jaw is clenched.',
+      hi: 'जबड़े पर, कान के सामने एक उंगली चौड़ाई में, जबड़ा भींचने पर गड्ढे में स्थित।',
+    },
+    meridian: {
+      name: {
+        en: 'Stomach',
+        hi: 'पेट'
+      },
+      code: 'ST',
+      element: 'Earth',
+      polarity: 'Yang'
+    },
+    indications: [
+      {
+        en: 'Common cold symptoms',
+        hi: 'आम सर्दी के लक्षण'
+      },
+      {
+        en: 'Facial congestion',
+        hi: 'चेहरे की रुकावट'
+      },
+      {
+        en: 'Sinus pressure',
+        hi: 'साइनस दबाव'
+      },
+      {
+        en: 'Cold-induced jaw tension',
+        hi: 'सर्दी से प्रेरित जबड़े का तनाव'
+      }
+    ],
+    contraindications: {
+      en: 'Avoid if jaw is injured or if you have TMJ disorders.',
+      hi: 'यदि जबड़ा घायल है या TMJ विकार है तो बचें।',
+    },
+    technique: {
+      en: 'Apply firm pressure while opening and closing mouth gently.',
+      hi: 'मुंह को धीरे से खोलते और बंद करते समय मजबूत दबाव डालें।',
+    },
+    benefits: {
+      en: 'Excellent for relieving cold-related facial congestion and sinus pressure.',
+      hi: 'सर्दी संबंधी चेहरे की रुकावट और साइनस दबाव से राहत के लिए उत्कृष्ट।',
+    },
+    duration: '1-2 minutes',
+    pressure: 'Moderate to Firm',
+    bodyPart: ['jaw', 'face'],
+    symptoms: ['common cold', 'facial congestion', 'sinus pressure', 'jaw tension', 'cold symptoms'],
+    difficulty: 'Beginner',
+    category: 'Classical',
+    popularity: 4,
+    method: {
+      en: 'Apply firm pressure with fingertips for 1-2 minutes while gently moving jaw.',
+      hi: 'जबड़े को धीरे से हिलाते हुए उंगलियों की नोक से 1-2 मिनट तक मजबूत दबाव डालें।',
+    },
+    conditions: ['common cold', 'facial congestion', 'sinus pressure', 'jaw tension'],
+    images: ['st6_cold_location.jpg'],
+  },
+
+  // Point 88: Spleen 4 Enhanced (Gongsun) - Loose motions
+  {
+    id: 'sp4_diarrhea',
+    code: 'SP4-D',
+    name: {
+      en: 'Spleen 4 Enhanced - Grandfather Grandson (Diarrhea Control)',
+      hi: 'प्लीहा 4 संवर्धित - दादा पोता (दस्त नियंत्रण)',
+    },
+    chineseName: {
+      traditional: '公孫',
+      pinyin: 'Gōngsūn'
+    },
+    location: {
+      en: 'Located on the inner edge of the foot, in the depression behind the base of the big toe.',
+      hi: 'पैर के अंदरूनी किनारे पर, अंगूठे के आधार के पीछे गड्ढे में स्थित।',
+    },
+    meridian: {
+      name: {
+        en: 'Spleen',
+        hi: 'प्लीहा'
+      },
+      code: 'SP',
+      element: 'Earth',
+      polarity: 'Yin'
+    },
+    indications: [
+      {
+        en: 'Loose motions',
+        hi: 'पतले दस्त'
+      },
+      {
+        en: 'Acute diarrhea',
+        hi: 'तीव्र दस्त'
+      },
+      {
+        en: 'Stomach upset',
+        hi: 'पेट खराब'
+      },
+      {
+        en: 'Digestive weakness',
+        hi: 'पाचन कमजोरी'
+      }
+    ],
+    contraindications: {
+      en: 'Avoid during pregnancy. Consult doctor for chronic conditions.',
+      hi: 'गर्भावस्था के दौरान बचें। पुरानी स्थितियों के लिए डॉक्टर से सलाह लें।',
+    },
+    technique: {
+      en: 'Apply steady pressure while breathing deeply and relaxing abdomen.',
+      hi: 'गहरी सांस लेते हुए और पेट को आराम देते हुए स्थिर दबाव डालें।',
+    },
+    benefits: {
+      en: 'Quickly stops loose motions and strengthens digestive system.',
+      hi: 'तुरंत पतले दस्त रोकता है और पाचन तंत्र को मजबूत बनाता है।',
+    },
+    duration: '2-3 minutes',
+    pressure: 'Moderate',
+    bodyPart: ['foot', 'digestive'],
+    symptoms: ['loose motions', 'acute diarrhea', 'stomach upset', 'digestive weakness', 'watery stools'],
+    difficulty: 'Beginner',
+    category: 'Classical',
+    popularity: 5,
+    method: {
+      en: 'Apply steady pressure with thumb for 2-3 minutes while breathing deeply.',
+      hi: 'गहरी सांस लेते हुए अंगूठे से 2-3 मिनट तक स्थिर दबाव डालें।',
+    },
+    conditions: ['loose motions', 'acute diarrhea', 'stomach upset', 'digestive weakness'],
+    images: ['sp4_diarrhea_location.jpg'],
+  },
+
+  // Point 89: Large Intestine 2 (Erjian) - Fever and sore throat
+  {
+    id: 'li2',
+    code: 'LI2',
+    name: {
+      en: 'Large Intestine 2 - Second Interval',
+      hi: 'बड़ी आंत 2 - द्वितीय अंतराल',
+    },
+    chineseName: {
+      traditional: '二間',
+      pinyin: 'Èrjiān'
+    },
+    location: {
+      en: 'Located on the radial side of the index finger, in front of the second metacarpophalangeal joint.',
+      hi: 'तर्जनी की रेडियल साइड पर, दूसरे मेटाकार्पोफैलेंजियल जॉइंट के सामने स्थित।',
+    },
+    meridian: {
+      name: {
+        en: 'Large Intestine',
+        hi: 'बड़ी आंत'
+      },
+      code: 'LI',
+      element: 'Metal',
+      polarity: 'Yang'
+    },
+    indications: [
+      {
+        en: 'Fever reduction',
+        hi: 'बुखार कम करना'
+      },
+      {
+        en: 'Sore throat',
+        hi: 'गले में खराश'
+      },
+      {
+        en: 'Dry mouth',
+        hi: 'मुंह सूखना'
+      },
+      {
+        en: 'Heat symptoms',
+        hi: 'गर्मी के लक्षण'
+      }
+    ],
+    contraindications: {
+      en: 'Avoid excessive pressure on finger joints.',
+      hi: 'उंगली के जोड़ों पर अधिक दबाव से बचें।',
+    },
+    technique: {
+      en: 'Pinch and hold with opposite thumb and index finger.',
+      hi: 'विपरीत अंगूठे और तर्जनी से दबाकर पकड़ें।',
+    },
+    benefits: {
+      en: 'Excellent for reducing fever and soothing sore throat quickly.',
+      hi: 'बुखार कम करने और गले की खराश को जल्दी शांत करने के लिए उत्कृष्ट।',
+    },
+    duration: '30 seconds to 1 minute',
+    pressure: 'Moderate',
+    bodyPart: ['finger', 'hand'],
+    symptoms: ['fever', 'sore throat', 'dry mouth', 'heat symptoms', 'throat inflammation'],
+    difficulty: 'Beginner',
+    category: 'Classical',
+    popularity: 4,
+    method: {
+      en: 'Pinch with opposite thumb and index finger for 30 seconds to 1 minute.',
+      hi: 'विपरीत अंगूठे और तर्जनी से 30 सेकंड से 1 मिनट तक दबाएं।',
+    },
+    conditions: ['fever', 'sore throat', 'dry mouth', 'heat symptoms'],
+    images: ['li2_location.jpg'],
+  },
+
+  // Point 90: Spleen 1 (Yinbai) - Menstrual support and digestive regulation
+  {
+    id: 'sp1',
+    code: 'SP1',
+    name: {
+      en: 'Spleen 1 - Hidden White',
+      hi: 'स्प्लीन 1 - छुपा हुआ सफेद',
+    },
+    chineseName: {
+      traditional: '隱白',
+      pinyin: 'Yǐnbái'
+    },
+    location: {
+      en: 'Located on the medial side of the big toe, about 0.1 inch from the corner of the nail.',
+      hi: 'बड़े पैर के अंगूठे के अंदरूनी किनारे पर, नाखून के कोने से लगभग 0.1 इंच की दूरी पर स्थित।',
+    },
+    meridian: {
+      name: {
+        en: 'Spleen',
+        hi: 'स्प्लीन'
+      },
+      code: 'SP',
+      element: 'Earth',
+      polarity: 'Yin'
+    },
+    indications: [
+      {
+        en: 'Menstrual irregularities',
+        hi: 'मासिक धर्म की अनियमितताएं'
+      },
+      {
+        en: 'Heavy menstrual bleeding',
+        hi: 'अधिक मासिक धर्म स्राव'
+      },
+      {
+        en: 'Digestive weakness',
+        hi: 'पाचन कमजोरी'
+      },
+      {
+        en: 'Mental confusion',
+        hi: 'मानसिक भ्रम'
+      },
+      {
+        en: 'Abdominal bloating',
+        hi: 'पेट फूलना'
+      }
+    ],
+    contraindications: {
+      en: 'Use very gentle pressure. Avoid during early pregnancy.',
+      hi: 'बहुत हल्का दबाव का उपयोग करें। प्रारंभिक गर्भावस्था में बचें।',
+    },
+    technique: {
+      en: 'Apply gentle pressure with fingertip for 30-60 seconds. Use pinching motion for stronger effect.',
+      hi: 'अंगुली के सिरे से 30-60 सेकंड तक हल्का दबाव डालें। मजबूत प्रभाव के लिए चुटकी लेने वाली गति का उपयोग करें।',
+    },
+    duration: '30-60 seconds',
+    pressure: 'Light',
+    bodyPart: ['foot'],
+    symptoms: ['menstrual problems', 'heavy bleeding', 'digestive issues', 'bloating', 'mental fog'],
+    difficulty: 'Beginner',
+    category: 'Classical',
+    popularity: 3,
+    
+    // Legacy fields for backward compatibility
+    method: {
+      en: 'Apply gentle pressure with fingertip for 30-60 seconds. Use pinching motion for stronger effect.',
+      hi: 'अंगुली के सिरे से 30-60 सेकंड तक हल्का दबाव डालें। मजबूत प्रभाव के लिए चुटकी लेने वाली गति का उपयोग करें।',
+    },
+    conditions: ['menstrual problems', 'heavy bleeding', 'digestive issues', 'bloating'],
+    images: ['sp1_location.jpg'],
+  },
+
+  // Point 91: Lung 11 (Shaoshang) - Respiratory support and immune boost
+  {
+    id: 'lu11',
+    code: 'LU11',
+    name: {
+      en: 'Lung 11 - Lesser Merchant',
+      hi: 'फेफड़े 11 - छोटा व्यापारी',
+    },
+    chineseName: {
+      traditional: '少商',
+      pinyin: 'Shàoshāng'
+    },
+    location: {
+      en: 'Located on the radial side of the thumb, about 0.1 inch from the corner of the thumbnail.',
+      hi: 'अंगूठे के रेडियल साइड पर, अंगूठे के नाखून के कोने से लगभग 0.1 इंच की दूरी पर स्थित।',
+    },
+    meridian: {
+      name: {
+        en: 'Lung',
+        hi: 'फेफड़े'
+      },
+      code: 'LU',
+      element: 'Metal',
+      polarity: 'Yin'
+    },
+    indications: [
+      {
+        en: 'Sore throat and throat pain',
+        hi: 'गले में खराश और गले का दर्द'
+      },
+      {
+        en: 'Acute bronchitis',
+        hi: 'तीव्र ब्रोंकाइटिस'
+      },
+      {
+        en: 'Fever and chills',
+        hi: 'बुखार और ठंड लगना'
+      },
+      {
+        en: 'Respiratory infections',
+        hi: 'श्वसन संक्रमण'
+      },
+      {
+        en: 'Immune system support',
+        hi: 'प्रतिरक्षा प्रणाली समर्थन'
+      }
+    ],
+    contraindications: {
+      en: 'Use gentle pressure only. This is a sensitive point.',
+      hi: 'केवल हल्का दबाव का उपयोग करें। यह एक संवेदनशील बिंदु है।',
+    },
+    technique: {
+      en: 'Pinch gently with opposite thumb and index finger for 15-30 seconds. Repeat 2-3 times.',
+      hi: 'विपरीत अंगूठे और तर्जनी से धीरे से 15-30 सेकंड तक दबाएं। 2-3 बार दोहराएं।',
+    },
+    duration: '15-30 seconds',
+    pressure: 'Light',
+    bodyPart: ['hand'],
+    symptoms: ['sore throat', 'bronchitis', 'fever', 'respiratory infection', 'low immunity'],
+    difficulty: 'Beginner',
+    category: 'Classical',
+    popularity: 3,
+    
+    // Legacy fields for backward compatibility
+    method: {
+      en: 'Pinch gently with opposite thumb and index finger for 15-30 seconds. Repeat 2-3 times.',
+      hi: 'विपरीत अंगूठे और तर्जनी से धीरे से 15-30 सेकंड तक दबाएं। 2-3 बार दोहराएं।',
+    },
+    conditions: ['sore throat', 'bronchitis', 'fever', 'respiratory infection'],
+    images: ['lu11_location.jpg'],
+  },
+
+  // Point 92: Bladder 67 (Zhiyin) - Sleep quality and anxiety relief
+  {
+    id: 'bl67',
+    code: 'BL67',
+    name: {
+      en: 'Bladder 67 - Reaching Yin',
+      hi: 'ब्लैडर 67 - यिन तक पहुंचना',
+    },
+    chineseName: {
+      traditional: '至陰',
+      pinyin: 'Zhìyīn'
+    },
+    location: {
+      en: 'Located on the lateral side of the little toe, about 0.1 inch from the corner of the toenail.',
+      hi: 'छोटे पैर के अंगूठे के बाहरी किनारे पर, पैर के नाखून के कोने से लगभग 0.1 इंच की दूरी पर स्थित।',
+    },
+    meridian: {
+      name: {
+        en: 'Bladder',
+        hi: 'ब्लैडर'
+      },
+      code: 'BL',
+      element: 'Water',
+      polarity: 'Yang'
+    },
+    indications: [
+      {
+        en: 'Insomnia and sleep disorders',
+        hi: 'अनिद्रा और नींद संबंधी विकार'
+      },
+      {
+        en: 'Anxiety and restlessness',
+        hi: 'चिंता और बेचैनी'
+      },
+      {
+        en: 'Headaches and migraines',
+        hi: 'सिरदर्द और माइग्रेन'
+      },
+      {
+        en: 'Difficult labor (pregnancy)',
+        hi: 'कठिन प्रसव (गर्भावस्था)'
+      },
+      {
+        en: 'Eye strain and vision problems',
+        hi: 'आंखों का तनाव और दृष्टि समस्याएं'
+      }
+    ],
+    contraindications: {
+      en: 'Use gentle pressure. Avoid strong stimulation during pregnancy.',
+      hi: 'हल्का दबाव का उपयोग करें। गर्भावस्था में मजबूत उत्तेजना से बचें।',
+    },
+    technique: {
+      en: 'Apply gentle pressure or light pinching for 30-60 seconds before bedtime for best results.',
+      hi: 'सर्वोत्तम परिणामों के लिए सोने से पहले 30-60 सेकंड तक हल्का दबाव या हल्की चुटकी लें।',
+    },
+    duration: '30-60 seconds',
+    pressure: 'Light',
+    bodyPart: ['foot'],
+    symptoms: ['insomnia', 'anxiety', 'restlessness', 'headaches', 'eye strain'],
+    difficulty: 'Beginner',
+    category: 'Classical',
+    popularity: 3,
+    
+    // Legacy fields for backward compatibility
+    method: {
+      en: 'Apply gentle pressure or light pinching for 30-60 seconds before bedtime for best results.',
+      hi: 'सर्वोत्तम परिणामों के लिए सोने से पहले 30-60 सेकंड तक हल्का दबाव या हल्की चुटकी लें।',
+    },
+    conditions: ['insomnia', 'anxiety', 'restlessness', 'headaches'],
+    images: ['bl67_location.jpg'],
+  },
+
+  // Point 93: Heart 9 (Shaochong) - Mental clarity and heart regulation  
+  {
+    id: 'ht9',
+    code: 'HT9',
+    name: {
+      en: 'Heart 9 - Lesser Surge',
+      hi: 'हृदय 9 - छोटी लहर',
+    },
+    chineseName: {
+      traditional: '少衝',
+      pinyin: 'Shàochōng'
+    },
+    location: {
+      en: 'Located on the radial side of the little finger, about 0.1 inch from the corner of the fingernail.',
+      hi: 'छोटी उंगली के रेडियल साइड पर, उंगली के नाखून के कोने से लगभग 0.1 इंच की दूरी पर स्थित।',
+    },
+    meridian: {
+      name: {
+        en: 'Heart',
+        hi: 'हृदय'
+      },
+      code: 'HT',
+      element: 'Fire',
+      polarity: 'Yin'
+    },
+    indications: [
+      {
+        en: 'Mental clarity and focus',
+        hi: 'मानसिक स्पष्टता और फोकस'
+      },
+      {
+        en: 'Heart palpitations',
+        hi: 'दिल की धड़कन'
+      },
+      {
+        en: 'Chest pain and tightness',
+        hi: 'छाती दर्द और जकड़न'
+      },
+      {
+        en: 'Emotional instability',
+        hi: 'भावनात्मक अस्थिरता'
+      },
+      {
+        en: 'Sudden faintness',
+        hi: 'अचानक बेहोशी'
+      }
+    ],
+    contraindications: {
+      en: 'Use very gentle pressure. This point is quite sensitive.',
+      hi: 'बहुत हल्का दबाव का उपयोग करें। यह बिंदु काफी संवेदनशील है।',
+    },
+    technique: {
+      en: 'Pinch very gently with opposite thumb and index finger for 15-30 seconds when feeling mentally foggy.',
+      hi: 'मानसिक धुंधलाहट महसूस करने पर विपरीत अंगूठे और तर्जनी से बहुत धीरे से 15-30 सेकंड तक दबाएं।',
+    },
+    duration: '15-30 seconds',
+    pressure: 'Very Light',
+    bodyPart: ['hand'],
+    symptoms: ['mental fog', 'heart palpitations', 'chest pain', 'emotional instability', 'faintness'],
+    difficulty: 'Intermediate',
+    category: 'Classical',
+    popularity: 2,
+    
+    // Legacy fields for backward compatibility
+    method: {
+      en: 'Pinch very gently with opposite thumb and index finger for 15-30 seconds when feeling mentally foggy.',
+      hi: 'मानसिक धुंधलाहट महसूस करने पर विपरीत अंगूठे और तर्जनी से बहुत धीरे से 15-30 सेकंड तक दबाएं।',
+    },
+    conditions: ['mental fog', 'heart palpitations', 'chest pain', 'emotional instability'],
+    images: ['ht9_location.jpg'],
+  },
+
+  // Point 94: Small Intestine 1 (Shaoze) - Lactation support and mental alertness
+  {
+    id: 'si1',
+    code: 'SI1',
+    name: {
+      en: 'Small Intestine 1 - Lesser Marsh',
+      hi: 'स्मॉल इंटेस्टाइन 1 - छोटा दलदल',
+    },
+    chineseName: {
+      traditional: '少澤',
+      pinyin: 'Shàozé'
+    },
+    location: {
+      en: 'Located on the ulnar side of the little finger, about 0.1 inch from the corner of the fingernail.',
+      hi: 'छोटी उंगली के उल्नार साइड पर, उंगली के नाखून के कोने से लगभग 0.1 इंच की दूरी पर स्थित।',
+    },
+    meridian: {
+      name: {
+        en: 'Small Intestine',
+        hi: 'छोटी आंत'
+      },
+      code: 'SI',
+      element: 'Fire',
+      polarity: 'Yang'
+    },
+    indications: [
+      {
+        en: 'Insufficient lactation',
+        hi: 'अपर्याप्त स्तनपान'
+      },
+      {
+        en: 'Mental alertness and clarity',
+        hi: 'मानसिक सतर्कता और स्पष्टता'
+      },
+      {
+        en: 'Sore throat',
+        hi: 'गले में खराश'
+      },
+      {
+        en: 'Breast pain and swelling',
+        hi: 'स्तन दर्द और सूजन'
+      },
+      {
+        en: 'Fever and headaches',
+        hi: 'बुखार और सिरदर्द'
+      }
+    ],
+    contraindications: {
+      en: 'Use gentle pressure. Safe for breastfeeding mothers.',
+      hi: 'हल्का दबाव का उपयोग करें। स्तनपान कराने वाली माताओं के लिए सुरक्षित।',
+    },
+    technique: {
+      en: 'Pinch gently with opposite thumb and index finger for 30-60 seconds. Good for nursing mothers.',
+      hi: 'विपरीत अंगूठे और तर्जनी से धीरे से 30-60 सेकंड तक दबाएं। स्तनपान कराने वाली माताओं के लिए अच्छा।',
+    },
+    duration: '30-60 seconds',
+    pressure: 'Light',
+    bodyPart: ['hand'],
+    symptoms: ['insufficient lactation', 'mental fog', 'sore throat', 'breast pain', 'fever'],
+    difficulty: 'Beginner',
+    category: 'Classical',
+    popularity: 3,
+    
+    // Legacy fields for backward compatibility
+    method: {
+      en: 'Pinch gently with opposite thumb and index finger for 30-60 seconds. Good for nursing mothers.',
+      hi: 'विपरीत अंगूठे और तर्जनी से धीरे से 30-60 सेकंड तक दबाएं। स्तनपान कराने वाली माताओं के लिए अच्छा।',
+    },
+    conditions: ['insufficient lactation', 'mental fog', 'sore throat', 'breast pain'],
+    images: ['si1_location.jpg'],
   }
 ];

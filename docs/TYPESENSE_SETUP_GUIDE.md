@@ -17,12 +17,12 @@
 ### **Step 2: Run Typesense Server**
 Open Command Prompt and run:
 ```bash
-docker run -p 8108:8108 -v C:\typesense-data:/data typesense/typesense:26.0 \
+ -p 8108:8108 -v C:\typesense-data:/data typesense/typesense:26.0 \
   --data-dir /data --api-key=xyz123 --enable-cors
 ```
 
 **What this does:**
-- Downloads and runs Typesense server
+- Downloads and rdocker rununs Typesense server
 - Exposes it on port 8108 (http://localhost:8108)
 - Uses API key: `xyz123` (change this for production)
 - Stores data in `C:\typesense-data`

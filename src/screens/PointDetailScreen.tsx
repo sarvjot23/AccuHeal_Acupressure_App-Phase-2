@@ -3,17 +3,19 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   TouchableOpacity,
   Modal,
+  Platform,
+  ScrollView,
 } from 'react-native';
 import { Image } from 'expo-image';
-import { useRoute, RouteProp } from '@react-navigation/native';
+import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
+import { BreathingTimer } from '../components/BreathingTimer';
 import { Colors, Typography, Spacing, BorderRadius } from '../constants';
 import { AcupressurePoint } from '../types';
 import { samplePoints } from '../data/samplePoints';
@@ -24,6 +26,7 @@ type PointDetailScreenRouteProp = RouteProp<{
 
 const PointDetailScreen = () => {
   const route = useRoute<PointDetailScreenRouteProp>();
+  const navigation = useNavigation();
   const { t } = useTranslation();
   const { currentLanguage } = useLanguage();
   const [activeTab, setActiveTab] = useState<'location' | 'method' | 'benefits'>('location');
@@ -153,11 +156,24 @@ const PointDetailScreen = () => {
     switch (activeTab) {
       case 'location':
         return (
-          <Card variant="elevated" style={styles.contentCard}>
+          <Card variant="glass" style={styles.contentCard}>
             <Text style={styles.contentTitle}>Point Location</Text>
             <Text style={styles.contentText}>
               {point.location[currentLanguage] || point.location.en}
             </Text>
+            
+            {/* Additional location details */}
+            {point.meridian && (
+              <View style={styles.locationDetails}>
+                <View style={styles.detailItem}>
+                  <Ionicons name="trail-sign-outline" size={16} color={Colors.primary[600]} />
+                  <Text style={styles.detailText}>
+                    Meridian: {point.meridian.name[currentLanguage] || point.meridian.name.en} ({point.meridian.code})
+                  </Text>
+                </View>
+              </View>
+            )}
+            
             {point.images && point.images.length > 0 && (
               <View style={styles.imageContainer}>
                 <Image
@@ -171,10 +187,12 @@ const PointDetailScreen = () => {
         );
       case 'method':
         return (
-          <Card variant="elevated" style={styles.contentCard}>
+          <Card variant="gradient" style={styles.contentCard}>
             <Text style={styles.contentTitle}>Application Method</Text>
             <Text style={styles.contentText}>
-              {point.method[currentLanguage] || point.method.en}
+              {(point.technique && (point.technique[currentLanguage] || point.technique.en)) || 
+               (point.method && (point.method[currentLanguage] || point.method.en)) ||
+               'Apply gentle pressure for 1-2 minutes'}
             </Text>
             <View style={styles.metadataRow}>
               <View style={styles.metadataItem}>
@@ -193,15 +211,26 @@ const PointDetailScreen = () => {
           </Card>
         );
       case 'benefits':
+        const benefits = point.indications || point.symptoms || point.conditions || [];
         return (
-          <Card variant="elevated" style={styles.contentCard}>
+          <Card variant="floating" style={styles.contentCard}>
             <Text style={styles.contentTitle}>Health Benefits</Text>
-            {(point.symptoms || point.conditions)?.map((benefit, index) => (
-              <View key={index} style={styles.benefitItem}>
-                <Ionicons name="checkmark-circle" size={16} color={Colors.success} />
-                <Text style={styles.benefitText}>{benefit}</Text>
-              </View>
-            ))}
+            {benefits.length > 0 ? (
+              benefits.map((benefit, index) => {
+                const benefitText = typeof benefit === 'string' 
+                  ? benefit 
+                  : benefit[currentLanguage] || benefit.en;
+                
+                return (
+                  <View key={index} style={styles.benefitItem}>
+                    <Ionicons name="checkmark-circle" size={16} color={Colors.success} />
+                    <Text style={styles.benefitText}>{benefitText}</Text>
+                  </View>
+                );
+              })
+            ) : (
+              <Text style={styles.contentText}>No specific benefits listed for this point.</Text>
+            )}
           </Card>
         );
       default:
@@ -209,11 +238,146 @@ const PointDetailScreen = () => {
     }
   };
 
+  if (Platform.OS === 'web') {
+    return (
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 1000,
+        backgroundColor: '#f8fafc',
+        overflowY: 'auto',
+        padding: 0,
+        margin: 0
+      }}>
+        {/* Navigation Header */}
+        <div style={{
+          position: 'sticky',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 60,
+          backgroundColor: '#22c55e',
+          display: 'flex',
+          alignItems: 'center',
+          paddingLeft: 16,
+          paddingRight: 16,
+          zIndex: 100,
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+        }}>
+          <button 
+            onClick={() => navigation.goBack()}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'white',
+              fontSize: '18px',
+              cursor: 'pointer',
+              marginRight: 16,
+              padding: 8
+            }}
+          >
+            ← Back
+          </button>
+          <span style={{ color: 'white', fontSize: '18px', fontWeight: '600' }}>
+            Point Details
+          </span>
+        </div>
+        
+        {/* Content Container */}
+        <div style={{
+          padding: 16,
+          paddingBottom: 100
+        }}>
+        {/* Header Card */}
+        <Card variant="gradient" style={styles.headerCard}>
+          <View style={styles.headerContent}>
+            <View style={styles.pointIcon}>
+              <Ionicons name="radio-button-on" size={32} color={Colors.primary[600]} />
+            </View>
+            <View style={styles.headerText}>
+              <Text style={styles.pointName}>
+                {point.name[currentLanguage] || point.name.en}
+              </Text>
+              <Text style={styles.pointCode}>{point.code}</Text>
+            </View>
+          </View>
+        </Card>
+
+        {/* Tab Navigation */}
+        <View style={styles.tabContainer}>
+          {tabs.map(renderTabButton)}
+        </View>
+        {/* Tab Content */}
+        {renderTabContent()}
+        {/* Timer Section */}
+        <Card variant="glass" style={styles.timerCard}>
+          <Text style={styles.timerTitle}>Practice Session</Text>
+          {!showTimer ? (
+            <Button
+              title="Start Timer"
+              onPress={startTimer}
+              size="lg"
+              fullWidth
+              icon={<Ionicons name="play" size={20} color={Colors.text.inverse} />}
+            />
+          ) : (
+            <View style={styles.timerContent}>
+              {!isTimerRunning && !isPaused && (
+                <View style={styles.durationAdjustment}>
+                  <TouchableOpacity
+                    style={styles.adjustButton}
+                    onPress={() => adjustTimer(-30)}
+                  >
+                    <Ionicons name="remove" size={16} color={Colors.primary[600]} />
+                    <Text style={styles.adjustText}>30s</Text>
+                  </TouchableOpacity>
+                  <Text style={styles.durationText}>Duration</Text>
+                  <TouchableOpacity
+                    style={styles.adjustButton}
+                    onPress={() => adjustTimer(30)}
+                  >
+                    <Ionicons name="add" size={16} color={Colors.primary[600]} />
+                    <Text style={styles.adjustText}>30s</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+              
+              <BreathingTimer
+                timeRemaining={timeRemaining}
+                totalDuration={timerDuration}
+                isRunning={isTimerRunning}
+                style={styles.breathingTimer}
+              />
+              
+              <View style={styles.timerControls}>
+                {!isTimerRunning && !isPaused && (
+                  <Button title="Start" onPress={startSession} size="sm" />
+                )}
+                {isTimerRunning && (
+                  <Button title="Pause" onPress={pauseSession} size="sm" variant="outline" />
+                )}
+                {isPaused && (
+                  <Button title="Resume" onPress={startSession} size="sm" />
+                )}
+                <Button title="Reset" onPress={resetSession} size="sm" variant="outline" />
+              </View>
+            </View>
+          )}
+        </Card>
+        
+        </div>
+      </div>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+      <ScrollView style={styles.scrollView}>
         {/* Header Card */}
-        <Card variant="elevated" style={styles.headerCard}>
+        <Card variant="gradient" style={styles.headerCard}>
           <View style={styles.headerContent}>
             <View style={styles.pointIcon}>
               <Ionicons name="radio-button-on" size={32} color={Colors.primary[600]} />
@@ -236,7 +400,7 @@ const PointDetailScreen = () => {
         {renderTabContent()}
 
         {/* Timer Section */}
-        <Card variant="elevated" style={styles.timerCard}>
+        <Card variant="glass" style={styles.timerCard}>
           <Text style={styles.timerTitle}>Practice Session</Text>
           {!showTimer ? (
             <Button
@@ -269,7 +433,12 @@ const PointDetailScreen = () => {
                 </View>
               )}
               
-              <Text style={styles.timerDisplay}>{formatTime(timeRemaining)}</Text>
+              <BreathingTimer
+                timeRemaining={timeRemaining}
+                totalDuration={timerDuration}
+                isRunning={isTimerRunning}
+                style={styles.breathingTimer}
+              />
               
               <View style={styles.timerControls}>
                 {!isTimerRunning && !isPaused && (
@@ -285,6 +454,17 @@ const PointDetailScreen = () => {
               </View>
             </View>
           )}
+        </Card>
+        
+        {/* Debug: Add some test content to ensure scrolling works */}
+        <Card variant="gradient" style={[styles.contentCard, { marginTop: Spacing.lg }]}>
+          <Text style={styles.contentTitle}>Scroll Test</Text>
+          <Text style={styles.contentText}>
+            This is test content to ensure scrolling is working properly. If you can scroll down and see this text, then the scrolling mechanism is functioning correctly.
+          </Text>
+          <View style={{ height: 200, backgroundColor: Colors.primary[50], marginTop: Spacing.md, borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={styles.contentText}>Additional content to test scroll height</Text>
+          </View>
         </Card>
       </ScrollView>
     </View>
@@ -350,9 +530,19 @@ const styles = StyleSheet.create({
   tabContainer: {
     flexDirection: 'row',
     marginBottom: Spacing.lg,
-    backgroundColor: Colors.background.primary,
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
     borderRadius: BorderRadius.xl,
     padding: Spacing.xs,
+    shadowColor: Colors.primary[300],
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 4,
+    borderWidth: 1,
+    borderColor: 'rgba(34, 197, 94, 0.1)',
   },
   tabButton: {
     flex: 1,
@@ -364,7 +554,17 @@ const styles = StyleSheet.create({
     borderRadius: BorderRadius.lg,
   },
   activeTabButton: {
-    backgroundColor: Colors.primary[50],
+    backgroundColor: Colors.primary[100],
+    shadowColor: Colors.primary[400],
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 2,
+    borderWidth: 1,
+    borderColor: 'rgba(34, 197, 94, 0.2)',
   },
   tabText: {
     ...Typography.body2,
@@ -423,6 +623,24 @@ const styles = StyleSheet.create({
     ...Typography.body1,
     color: Colors.text.secondary,
     marginLeft: Spacing.sm,
+    flex: 1,
+  },
+  locationDetails: {
+    marginTop: Spacing.md,
+    paddingTop: Spacing.sm,
+    borderTopWidth: 1,
+    borderTopColor: Colors.border.light,
+  },
+  detailItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: Spacing.xs,
+  },
+  detailText: {
+    ...Typography.body2,
+    color: Colors.text.secondary,
+    marginLeft: Spacing.sm,
+    flex: 1,
   },
   timerCard: {
     marginBottom: Spacing.xl,
@@ -436,10 +654,8 @@ const styles = StyleSheet.create({
   timerContent: {
     alignItems: 'center',
   },
-  timerDisplay: {
-    ...Typography.display,
-    color: Colors.primary[600],
-    marginBottom: Spacing.lg,
+  breathingTimer: {
+    marginVertical: Spacing.lg,
   },
   timerControls: {
     flexDirection: 'row',
@@ -473,6 +689,10 @@ const styles = StyleSheet.create({
     color: Colors.text.secondary,
     fontWeight: '500',
   },
+  
+  tabContentContainer: {
+    marginBottom: Spacing.lg,
+  } as ViewStyle,
 });
 
 export default PointDetailScreen;

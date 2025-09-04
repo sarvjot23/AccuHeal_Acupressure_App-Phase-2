@@ -1,12 +1,12 @@
 # AccuHeal - Acupressure Points Inventory
 
-*Last Updated: August 22, 2025*
+*Last Updated: September 4, 2025*
 
 This document maintains a comprehensive list of all acupressure points included in the AccuHeal app for easy reference and context management.
 
-## Total Points: 83
+## Total Points: 89
 
-### Classical Points (68)
+### Classical Points (78)
 
 #### Large Intestine Meridian
 - **LI4** (li4) - Hegu - Hand webbing, stress relief, headaches
@@ -14,6 +14,8 @@ This document maintains a comprehensive list of all acupressure points included 
 - **LI15** (li15) - Jianyu - Shoulder depression, shoulder pain and stiffness
 - **LI20** (li20) - Yingxiang - Nose sides, nasal congestion
 - **LI1** (li1) - Shangyang - Index fingertip, toothache, sore throat
+- **LI2** (li2) - Erjian - Index finger joint, fever reduction, sore throat
+- **LI18** (li18) - Futu - Lateral neck, productive cough, throat phlegm
 
 #### Governing Vessel
 - **GV20** (gv20) - Baihui - Top of head, mental clarity, headaches
@@ -35,6 +37,8 @@ This document maintains a comprehensive list of all acupressure points included 
 - **SP12** (sp12) - Chongmen - Groin area, abdominal pain, urinary retention
 - **SP21** (sp21) - Dabao - Side ribs, intercostal pain, breathing
 - **SP2** (sp2) - Dadu - Foot inner edge, digestive regulation, diarrhea
+- **SP4-D** (sp4_diarrhea) - Enhanced Gongsun - Loose motions control, acute diarrhea
+- **SP1** (sp1) - Yinbai - Big toe, menstrual support, digestive regulation
 
 #### Pericardium Meridian
 - **PC6** (pc6) - Neiguan - Inner wrist, nausea, anxiety, heart palpitations
@@ -46,6 +50,7 @@ This document maintains a comprehensive list of all acupressure points included 
 - **ST8** (st8) - Touwei - Forehead corner, temporal headaches, eye disorders
 - **ST25** (st25) - Tianshu - Abdomen sides, digestive issues, constipation
 - **ST12** (st12) - Quepen - Above collarbone, respiratory congestion, throat
+- **ST6-C** (st6_cold) - Enhanced Jiache - Cold symptoms, facial congestion, sinus pressure
 
 #### Bladder Meridian
 - **BL2** (bl2) - Zanzhu - Inner eyebrow, eye strain, frontal headaches
@@ -54,6 +59,7 @@ This document maintains a comprehensive list of all acupressure points included 
 - **BL40** (bl40) - Weizhong - Behind knee, back pain, leg circulation
 - **BL60** (bl60) - Kunlun - Ankle back, ankle pain, headaches
 - **BL15** (bl15) - Xinshu - Heart back point, heart palpitations, anxiety
+- **BL67** (bl67) - Zhiyin - Little toe, sleep quality, anxiety relief
 
 #### Triple Energizer Meridian
 - **TE17** (te17) - Yifeng - Behind ear, hearing issues, tinnitus
@@ -64,6 +70,7 @@ This document maintains a comprehensive list of all acupressure points included 
 #### Heart Meridian
 - **HT7** (ht7) - Shenmen - Wrist crease, anxiety, insomnia, heart calming
 - **HT3** (ht3) - Shaohai - Inner elbow, heart regulation, arm pain
+- **HT9** (ht9) - Shaochong - Little finger, mental clarity, heart regulation
 
 #### Kidney Meridian
 - **KI3** (ki3) - Taixi - Inner ankle, kidney support, reproductive health
@@ -78,6 +85,7 @@ This document maintains a comprehensive list of all acupressure points included 
 - **LU1** (lu1) - Zhongfu - Upper chest, breathing difficulties, cough
 - **LU5** (lu5) - Chize - Elbow thumb side, cough, throat problems
 - **LU7** (lu7) - Lieque - Forearm thumb side, asthma, bronchitis, wrist pain
+- **LU11** (lu11) - Shaoshang - Thumb, respiratory support, immune boost
 
 #### Gallbladder Meridian
 - **GB20** (gb20) - Fengchi - Base of skull, neck tension, headaches
@@ -90,23 +98,26 @@ This document maintains a comprehensive list of all acupressure points included 
 - **SI3** (si3) - Houxi - Hand edge, back pain, neck stiffness
 - **SI19** (si19) - Tinggong - Front of ear, hearing problems, tinnitus
 - **SI8** (si8) - Xiaohai - Inner elbow, elbow pain, arm numbness, mental restlessness
+- **SI1** (si1) - Shaoze - Little finger, lactation support, mental alertness
 
 #### Conception Vessel
 - **CV17** (cv17) - Danzhong - Chest center, emotional release, breathing
 - **CV4** (cv4) - Guanyuan - Lower abdomen, energy cultivation, reproductive health
 - **REN6** (ren6) - Qihai - Below navel, energy center, vitality
 - **REN17** (ren17) - Enhanced Danzhong - Breathing difficulties, chest congestion
+- **CV22** (cv22) - Tiantu - Throat center, sore throat, dry cough
 
 #### Du Mai
 - **DU14** (du14) - Dazhui - 7th cervical vertebra, immune boost, fever
 
-### Extra Points (10)
+### Extra Points (11)
 
 #### Head and Neck Extra Points
 - **EX21** (ex21) - Erjian - Ear apex, inflammation, hypertension
 - **Yintang** (yintang) - Between eyebrows, calm mind, third eye
 - **Anmian** (anmian) - Behind ear, sleep disorders, insomnia
 - **Taiyang** (taiyang) - Temple, temporal headaches, migraines
+- **Bitong** (bitong) - Nasal sides, blocked nose, nasal congestion
 
 #### Body Extra Points
 - **Ear Shenmen** (ear_shenmen) - Ear point, addiction recovery, stress
@@ -128,9 +139,75 @@ This document maintains a comprehensive list of all acupressure points included 
 
 ## Categories Distribution
 
-- **Classical**: 68 points (Traditional TCM meridian points)
-- **Extra**: 10 points (Non-meridian specific points)
+- **Classical**: 78 points (Traditional TCM meridian points)
+- **Extra**: 11 points (Non-meridian specific points)
 - **Everyday Essential**: 5 points (Modern lifestyle focused)
+
+## Recent Updates (September 4, 2025)
+
+### Duplicate Removal
+- Removed 5 duplicate point entries (bl2, gb34, li20, pc8, st25)
+- Cleaned database from 94 to 89 total points
+
+### New Essential Daily Life Points Added
+- **SP1** (Yinbai) - Menstrual support and digestive regulation
+- **LU11** (Shaoshang) - Respiratory support and immune boost  
+- **BL67** (Zhiyin) - Sleep quality and anxiety relief
+- **HT9** (Shaochong) - Mental clarity and heart regulation
+- **SI1** (Shaoze) - Lactation support and mental alertness
+
+### Focus Areas Enhanced
+- **Women's Health**: Enhanced menstrual and lactation support
+- **Mental Performance**: Added clarity and focus points
+- **Sleep Quality**: Better insomnia and anxiety management
+- **Immune Support**: Strengthened respiratory and immune points
+- **Modern Wellness**: Points specifically for daily life challenges
+
+## Modern Lifestyle Categories
+
+### Computer Work & Digital Wellness (12 points)
+- **BL2** (Zanzhu) - Eye strain from screens
+- **GB14** (Yangbai) - Computer vision syndrome
+- **Taiyang** (Temple) - Screen headaches
+- **GB20** (Fengchi) - Neck tension from desk work
+- **GB21** (Jianjing) - Shoulder stress from computer use
+- **SI3** (Houxi) - Wrist pain from typing
+- **LI4** (Hegu) - Universal computer-related pain relief
+- **PC6** (Neiguan) - Tech-induced anxiety
+- **ST36** (Zusanli) - Energy depletion from sedentary work
+- **Yintang** (Third Eye) - Mental focus for concentration
+- **GV20** (Baihui) - Mental clarity for productivity
+- **KI3** (Taixi) - Grounding for digital overwhelm
+
+### Women's Daily Wellness (8 points)
+- **SP1** (Yinbai) - Menstrual irregularities
+- **SP6** (Sanyinjiao) - Hormonal balance
+- **LV3** (Taichong) - Emotional regulation
+- **SI1** (Shaoze) - Lactation support
+- **CV4** (Guanyuan) - Reproductive health
+- **LV8** (Ququan) - Women's health support
+- **SP10** (Xuehai) - Blood circulation issues
+- **KI3** (Taixi) - Kidney support for women
+
+### Mental Performance & Focus (7 points)
+- **GV20** (Baihui) - Mental clarity and concentration
+- **HT9** (Shaochong) - Mental focus and heart-mind connection
+- **Yintang** (Third Eye) - Enhanced concentration
+- **SI1** (Shaoze) - Mental alertness
+- **PC8** (Laogong) - Emotional balance for clear thinking
+- **HT7** (Shenmen) - Calm focus and anxiety relief
+- **Anmian** - Deep sleep for cognitive function
+
+### Sleep & Stress Management (9 points)
+- **BL67** (Zhiyin) - Sleep quality enhancement
+- **HT7** (Shenmen) - Insomnia and heart calming
+- **Anmian** - Dedicated sleep support point
+- **PC6** (Neiguan) - Anxiety-induced sleep issues
+- **KI1** (Yongquan) - Grounding for better sleep
+- **LV3** (Taichong) - Stress and anger release
+- **GV24** (Shenting) - Anxiety and worry
+- **Yintang** - Calming the mind before sleep
+- **SP6** (Sanyinjiao) - Hormonal sleep regulation
 
 ## Body Parts Covered
 

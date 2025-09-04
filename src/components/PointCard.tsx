@@ -11,7 +11,7 @@ import { useLanguage } from '@contexts/LanguageContext';
 interface PointCardProps {
   point: AcupressurePoint;
   onPress: () => void;
-  variant?: 'default' | 'compact';
+  variant?: 'default' | 'compact' | 'featured' | 'premium';
 }
 
 export const PointCard: React.FC<PointCardProps> = ({
@@ -22,10 +22,17 @@ export const PointCard: React.FC<PointCardProps> = ({
   const { currentLanguage } = useLanguage();
   
   const isCompact = variant === 'compact';
+  const isFeatured = variant === 'featured';
+  const isPremium = variant === 'premium';
   const primaryBenefit = point.symptoms?.[0] || point.conditions?.[0] || 'Healing';
   
   return (
-    <Card variant="elevated" padding="lg" style={styles.modernCard} onPress={onPress}>
+    <Card 
+      variant={isPremium ? "glass" : isFeatured ? "gradient" : "elevated"} 
+      padding="lg" 
+      style={[styles.modernCard, isFeatured && styles.featuredCard, isPremium && styles.premiumCard]} 
+      onPress={onPress}
+    >
       <View style={styles.cardContent}>
         {/* Icon/Image Section */}
         <View style={styles.iconContainer}>
@@ -64,6 +71,7 @@ export const PointCard: React.FC<PointCardProps> = ({
           title={isCompact ? "Details" : "View Details"}
           onPress={onPress}
           size="sm"
+          variant={isPremium ? "gradient" : isFeatured ? "gradient" : "primary"}
           style={styles.actionButton}
         />
       </View>
@@ -130,5 +138,32 @@ const styles = StyleSheet.create({
   actionButton: {
     minWidth: 80,
     paddingHorizontal: Spacing.md,
+  } as ViewStyle,
+
+  featuredCard: {
+    borderWidth: 1,
+    borderColor: 'rgba(34, 197, 94, 0.2)',
+    shadowColor: Colors.primary[500],
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 6,
+  } as ViewStyle,
+
+  premiumCard: {
+    borderWidth: 2,
+    borderColor: 'rgba(34, 197, 94, 0.3)',
+    shadowColor: Colors.primary[400],
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 12,
+    elevation: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
   } as ViewStyle,
 });

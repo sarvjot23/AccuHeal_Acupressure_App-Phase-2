@@ -61,4 +61,35 @@ export const Shadows = {
     shadowRadius: 10,
     elevation: 10,
   },
+  // New beautiful multi-layer shadows for enhanced depth
+  soft: {
+    shadowColor: 'rgba(99, 102, 241, 0.2)',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.8,
+    shadowRadius: 12,
+    elevation: 3,
+  },
+  glow: {
+    shadowColor: 'rgba(34, 197, 94, 0.3)',
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0.6,
+    shadowRadius: 16,
+    elevation: 8,
+  },
+  floating: {
+    shadowColor: 'rgba(0, 0, 0, 0.12)',
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.8,
+    shadowRadius: 24,
+    elevation: 12,
+  },
 };
