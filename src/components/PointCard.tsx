@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { View, Text, StyleSheet, ViewStyle, TextStyle, ImageStyle } from 'react-native';
 import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
 import { Card } from './Card';
@@ -38,7 +38,10 @@ export const PointCard: React.FC<PointCardProps> = ({
         <View style={styles.iconContainer}>
           {point.images && point.images.length > 0 ? (
             <Image
-              source={{ uri: point.images[0] }}
+              source={point.images[0].startsWith('@assets') 
+                ? require(`../../assets/acupressure_points/${point.images[0].split('/').pop()}`)
+                : { uri: point.images[0] }
+              }
               style={styles.pointImage}
               contentFit="cover"
             />
@@ -101,7 +104,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     backgroundColor: Colors.primary[50],
-  } as ViewStyle,
+  } as ImageStyle,
 
   defaultIconContainer: {
     width: 50,

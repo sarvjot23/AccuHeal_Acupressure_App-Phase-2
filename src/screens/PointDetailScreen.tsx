@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Image } from 'expo-image';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
+import { ViewStyle } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -177,7 +178,10 @@ const PointDetailScreen = () => {
             {point.images && point.images.length > 0 && (
               <View style={styles.imageContainer}>
                 <Image
-                  source={{ uri: point.images[0] }}
+                  source={point.images[0].startsWith('@assets') 
+                    ? require(`../../assets/acupressure_points/${point.images[0].split('/').pop()}`)
+                    : { uri: point.images[0] }
+                  }
                   style={styles.pointImage}
                   contentFit="cover"
                 />
@@ -693,6 +697,12 @@ const styles = StyleSheet.create({
   tabContentContainer: {
     marginBottom: Spacing.lg,
   } as ViewStyle,
+  
+  durationText: {
+    ...Typography.body2,
+    color: Colors.text.primary,
+    fontWeight: '600',
+  } as TextStyle,
 });
 
 export default PointDetailScreen;
