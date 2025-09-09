@@ -7,6 +7,7 @@ import { Button } from './Button';
 import { Colors, Typography, Spacing, BorderRadius } from '@constants';
 import { AcupressurePoint } from '@types';
 import { useLanguage } from '@contexts/LanguageContext';
+import { getPointImage } from '../assets/imageMapping';
 
 interface PointCardProps {
   point: AcupressurePoint;
@@ -36,12 +37,9 @@ export const PointCard: React.FC<PointCardProps> = ({
       <View style={styles.cardContent}>
         {/* Icon/Image Section */}
         <View style={styles.iconContainer}>
-          {point.images && point.images.length > 0 ? (
+          {getPointImage(point.id) ? (
             <Image
-              source={point.images[0].startsWith('@assets') 
-                ? require(`../../assets/acupressure_points/${point.images[0].split('/').pop()}`)
-                : { uri: point.images[0] }
-              }
+              source={getPointImage(point.id)}
               style={styles.pointImage}
               contentFit="cover"
             />

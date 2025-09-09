@@ -20,6 +20,7 @@ import { BreathingTimer } from '../components/BreathingTimer';
 import { Colors, Typography, Spacing, BorderRadius } from '../constants';
 import { AcupressurePoint } from '../types';
 import { samplePoints } from '../data/samplePoints';
+import { getPointImage } from '../assets/imageMapping';
 
 type PointDetailScreenRouteProp = RouteProp<{
   PointDetail: { pointId: string };
@@ -175,13 +176,10 @@ const PointDetailScreen = () => {
               </View>
             )}
             
-            {point.images && point.images.length > 0 && (
+            {getPointImage(point.id) && (
               <View style={styles.imageContainer}>
                 <Image
-                  source={point.images[0].startsWith('@assets') 
-                    ? require(`../../assets/acupressure_points/${point.images[0].split('/').pop()}`)
-                    : { uri: point.images[0] }
-                  }
+                  source={getPointImage(point.id)}
                   style={styles.pointImage}
                   contentFit="cover"
                 />
