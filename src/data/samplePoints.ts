@@ -66,7 +66,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'अपने अंगूठे से 1-3 मिनट तक मजबूत दबाव डालें। लयबद्ध तरीके से दबाएं और छोड़ें। दबाव डालते समय गहरी सांस लें।',
     },
     conditions: ['headache', 'stress', 'pain relief', 'tension'],
-    images: ['@assets/acupressure_points/LI4_Hegu_hand_acupressure_point_b8a97496.png'],
+    images: ['@assets/acupressure_points/LI4_Hegu_dorsal_hand_point_4753731a.png'],
   },
   {
     id: 'gv20',

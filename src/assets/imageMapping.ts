@@ -2,7 +2,7 @@
 // React Native Metro bundler requires static imports
 
 // Import all generated medical illustrations  
-const LI4_Hegu = require('../../assets/acupressure_points/LI4_Hegu_hand_acupressure_point_b8a97496.png');
+const LI4_Hegu = require('../../assets/acupressure_points/LI4_Hegu_dorsal_hand_point_4753731a.png');
 const GV20_Baihui = require('../../assets/acupressure_points/GV20_Baihui_crown_intersection_point_0794ad19.png');
 const LV3_Taichong = require('../../assets/acupressure_points/LV3_Taichong_foot_acupressure_point_5548e99c.png');
 const SP6_Sanyinjiao = require('../../assets/acupressure_points/SP6_Sanyinjiao_inner_ankle_point_a9e8f6df.png');
