@@ -3021,8 +3021,8 @@ export const samplePoints: AcupressurePoint[] = [
         hi: 'अतिरिक्त मेरिडियन'
       },
       code: 'EX',
-      element: 'Spirit',
-      polarity: 'Neutral'
+      element: undefined,
+      polarity: undefined
     },
     indications: [
       {
@@ -3055,11 +3055,11 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'गहरी सांस लेते हुए मध्यमा उंगली से 1-2 मिनट तक हल्का, गोलाकार दबाव डालें।',
     },
     duration: '1-2 minutes',
-    pressure: 'Gentle',
+    pressure: 'Light',
     bodyPart: ['head', 'forehead'],
     symptoms: ['stress', 'anxiety', 'insomnia', 'concentration', 'headache', 'mental fatigue'],
     difficulty: 'Beginner',
-    category: 'Everyday Essential',
+    category: 'Extra',
     popularity: 9,
     
     // Legacy fields for backward compatibility
@@ -3126,11 +3126,11 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'अंगूठे या तर्जनी से दोनों तरफ 1-3 मिनट तक छोटे गोलों में हल्का दबाव डालें।',
     },
     duration: '1-3 minutes',
-    pressure: 'Gentle',
+    pressure: 'Light',
     bodyPart: ['head', 'neck', 'ear'],
     symptoms: ['insomnia', 'restlessness', 'anxiety', 'sleep disorders', 'hypertension'],
     difficulty: 'Beginner',
-    category: 'Everyday Essential',
+    category: 'Extra',
     popularity: 8,
     
     // Legacy fields for backward compatibility
@@ -3163,8 +3163,8 @@ export const samplePoints: AcupressurePoint[] = [
         hi: 'कान एक्यूपंक्चर'
       },
       code: 'EAR',
-      element: 'Spirit',
-      polarity: 'Neutral'
+      element: undefined,
+      polarity: undefined
     },
     indications: [
       {
@@ -3197,11 +3197,11 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'तर्जनी की नोक से दोनों कानों में 30 सेकंड से 1 मिनट तक बहुत हल्का दबाव डालें।',
     },
     duration: '30 seconds - 1 minute',
-    pressure: 'Very Gentle',
+    pressure: 'Light',
     bodyPart: ['ear', 'head'],
     symptoms: ['stress', 'anxiety', 'addiction', 'mental fog', 'insomnia', 'emotional instability'],
     difficulty: 'Beginner',
-    category: 'Everyday Essential',
+    category: 'Extra',
     popularity: 7,
     
     // Legacy fields for backward compatibility
@@ -3270,11 +3270,11 @@ export const samplePoints: AcupressurePoint[] = [
       hi: '2-3 अंगुलियों से 1-3 मिनट तक हल्का, गोलाकार दबाव डालें। धीरे और गहरी सांस लें।',
     },
     duration: '1-3 minutes',
-    pressure: 'Gentle',
+    pressure: 'Light',
     bodyPart: ['abdomen', 'stomach'],
     symptoms: ['indigestion', 'nausea', 'bloating', 'acid reflux', 'stomach pain', 'gas', 'appetite loss'],
     difficulty: 'Beginner',
-    category: 'Everyday Essential',
+    category: 'Extra',
     popularity: 9,
     
     // Legacy fields for backward compatibility
@@ -3341,11 +3341,11 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'दोनों तरफ एक साथ उंगलियों से 1-2 मिनट तक हल्का दबाव डालें। गोलाकार गति में मालिश करें।',
     },
     duration: '1-2 minutes',
-    pressure: 'Gentle',
+    pressure: 'Light',
     bodyPart: ['abdomen'],
     symptoms: ['constipation', 'diarrhea', 'bloating', 'digestive issues', 'irregular bowels', 'menstrual issues'],
     difficulty: 'Beginner',
-    category: 'Everyday Essential',
+    category: 'Extra',
     popularity: 8,
     
     // Legacy fields for backward compatibility
@@ -3416,7 +3416,7 @@ export const samplePoints: AcupressurePoint[] = [
     bodyPart: ['leg'],
     symptoms: ['digestive weakness', 'fatigue', 'low immunity', 'morning sickness', 'energy low'],
     difficulty: 'Beginner',
-    category: 'Everyday Essential',
+    category: 'Extra',
     popularity: 10,
     
     // Legacy fields for backward compatibility
@@ -3489,7 +3489,7 @@ export const samplePoints: AcupressurePoint[] = [
     bodyPart: ['neck', 'head'],
     symptoms: ['neck pain', 'tension headache', 'migraine', 'eye strain', 'neck stiffness', 'head tension'],
     difficulty: 'Beginner',
-    category: 'Everyday Essential',
+    category: 'Extra',
     popularity: 10,
     
     // Legacy fields for backward compatibility
@@ -3560,7 +3560,7 @@ export const samplePoints: AcupressurePoint[] = [
     bodyPart: ['shoulder', 'neck'],
     symptoms: ['shoulder tension', 'upper back pain', 'computer neck', 'shoulder pain', 'tension headache'],
     difficulty: 'Beginner',
-    category: 'Everyday Essential',
+    category: 'Extra',
     popularity: 10,
     
     // Legacy fields for backward compatibility
@@ -3631,7 +3631,7 @@ export const samplePoints: AcupressurePoint[] = [
     bodyPart: ['hand', 'wrist'],
     symptoms: ['wrist pain', 'hand fatigue', 'carpal tunnel', 'mouse strain', 'typing pain', 'hand strain'],
     difficulty: 'Beginner',
-    category: 'Everyday Essential',
+    category: 'Extra',
     popularity: 8,
     
     // Legacy fields for backward compatibility
@@ -3700,11 +3700,11 @@ export const samplePoints: AcupressurePoint[] = [
       hi: '2-3 उंगलियों से 2-3 मिनट तक हल्का, स्थिर दबाव डालें। गहरी सांस लें और ऊर्जा निर्माण की कल्पना करें।',
     },
     duration: '2-3 minutes',
-    pressure: 'Gentle',
+    pressure: 'Light',
     bodyPart: ['abdomen'],
     symptoms: ['fatigue', 'low energy', 'weakness', 'exhaustion', 'recovery', 'vitality loss'],
     difficulty: 'Beginner',
-    category: 'Everyday Essential',
+    category: 'Extra',
     popularity: 9,
     
     // Legacy fields for backward compatibility
@@ -3775,7 +3775,7 @@ export const samplePoints: AcupressurePoint[] = [
     bodyPart: ['back', 'spine'],
     symptoms: ['lower back weakness', 'kidney weakness', 'low libido', 'cold constitution', 'chronic fatigue'],
     difficulty: 'Intermediate',
-    category: 'Everyday Essential',
+    category: 'Extra',
     popularity: 7,
     
     // Legacy fields for backward compatibility
@@ -3846,7 +3846,7 @@ export const samplePoints: AcupressurePoint[] = [
     bodyPart: ['back', 'kidney area'],
     symptoms: ['kidney weakness', 'lower back pain', 'urinary issues', 'sexual weakness', 'energy depletion'],
     difficulty: 'Intermediate',
-    category: 'Everyday Essential',
+    category: 'Extra',
     popularity: 8,
     
     // Legacy fields for backward compatibility
@@ -3913,11 +3913,11 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'अंगूठे से प्रत्येक पैर पर 1-2 मिनट तक हल्का, स्थिर दबाव डालें। बैठकर या लेटकर करना सबसे अच्छा।',
     },
     duration: '1-2 minutes each foot',
-    pressure: 'Gentle',
+    pressure: 'Light',
     bodyPart: ['foot'],
     symptoms: ['anxiety', 'insomnia', 'hypertension', 'foot pain', 'stress', 'grounding issues'],
     difficulty: 'Beginner',
-    category: 'Everyday Essential',
+    category: 'Extra',
     popularity: 8,
     
     // Legacy fields for backward compatibility
@@ -3986,11 +3986,11 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'अंगूठे से प्रत्येक पैर पर 1-3 मिनट तक हल्का दबाव डालें। महिलाओं के स्वास्थ्य के लिए नियमित उपयोग सर्वोत्तम।',
     },
     duration: '1-3 minutes each leg',
-    pressure: 'Gentle',
+    pressure: 'Light',
     bodyPart: ['leg', 'ankle'],
     symptoms: ['menstrual pain', 'PMS', 'hormonal imbalance', 'fertility issues', 'water retention', 'digestive issues'],
     difficulty: 'Beginner',
-    category: 'Everyday Essential',
+    category: 'Extra',
     popularity: 9,
     
     // Legacy fields for backward compatibility
@@ -4057,11 +4057,11 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'तर्जनी से दोनों तरफ 30 सेकंड से 1 मिनट तक बहुत हल्का दबाव डालें। डेस्क पर बैठकर कर सकते हैं।',
     },
     duration: '30 seconds - 1 minute',
-    pressure: 'Very Gentle',
+    pressure: 'Light',
     bodyPart: ['nose', 'face'],
     symptoms: ['nasal congestion', 'sinusitis', 'allergies', 'facial pain', 'loss of smell', 'sinus pressure'],
     difficulty: 'Beginner',
-    category: 'Everyday Essential',
+    category: 'Extra',
     popularity: 8,
     
     // Legacy fields for backward compatibility
@@ -4128,11 +4128,11 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'उंगलियों की नोक से 10-30 सेकंड तक बहुत हल्का दबाव डालें। कंप्यूटर वर्करों के लिए ब्रेक के दौरान बेहतरीन।',
     },
     duration: '10-30 seconds',
-    pressure: 'Very Gentle',
+    pressure: 'Light',
     bodyPart: ['eye'],
     symptoms: ['eye strain', 'dry eyes', 'blurry vision', 'computer vision syndrome', 'eye fatigue', 'screen fatigue'],
     difficulty: 'Beginner',
-    category: 'Everyday Essential',
+    category: 'Extra',
     popularity: 9,
     
     // Legacy fields for backward compatibility
@@ -4676,7 +4676,7 @@ export const samplePoints: AcupressurePoint[] = [
         hi: 'अतिरिक्त बिंदु'
       },
       code: 'EX',
-      polarity: 'Neutral'
+      polarity: undefined
     },
     indications: [
       {
@@ -5298,12 +5298,8 @@ export const samplePoints: AcupressurePoint[] = [
       en: 'Apply very gentle pressure with fingertip in small circular motions.',
       hi: 'उंगली की नोक से छोटी गोलाकार गतियों में बहुत हल्का दबाव डालें।',
     },
-    benefits: {
-      en: 'Excellent for sore throat, voice problems, and throat inflammation.',
-      hi: 'गले की खराश, आवाज की समस्या, और गले की सूजन के लिए उत्कृष्ट।',
-    },
     duration: '30 seconds to 1 minute',
-    pressure: 'Very Light',
+    pressure: 'Light',
     bodyPart: ['throat', 'neck'],
     symptoms: ['sore throat', 'dry cough', 'voice problems', 'throat pain', 'difficulty swallowing'],
     difficulty: 'Beginner',
@@ -5367,10 +5363,6 @@ export const samplePoints: AcupressurePoint[] = [
     technique: {
       en: 'Apply gentle pressure with fingertips on both sides simultaneously.',
       hi: 'दोनों तरफ एक साथ उंगलियों की नोक से हल्का दबाव डालें।',
-    },
-    benefits: {
-      en: 'Quickly opens blocked nasal passages and relieves congestion.',
-      hi: 'तुरंत बंद नासिका मार्ग खोलता है और रुकावट से राहत देता है।',
     },
     duration: '1-2 minutes',
     pressure: 'Light',
@@ -5438,10 +5430,6 @@ export const samplePoints: AcupressurePoint[] = [
       en: 'Apply gentle pressure with fingertip while swallowing to activate.',
       hi: 'सक्रिय करने के लिए निगलते समय उंगली की नोक से हल्का दबाव डालें।',
     },
-    benefits: {
-      en: 'Helps clear throat phlegm and supports productive coughing.',
-      hi: 'गले का कफ साफ करने में मदद करता है और कफ निकालने वाली खांसी का समर्थन करता है।',
-    },
     duration: '1 minute',
     pressure: 'Light',
     bodyPart: ['neck', 'throat'],
@@ -5508,12 +5496,8 @@ export const samplePoints: AcupressurePoint[] = [
       en: 'Apply firm pressure while opening and closing mouth gently.',
       hi: 'मुंह को धीरे से खोलते और बंद करते समय मजबूत दबाव डालें।',
     },
-    benefits: {
-      en: 'Excellent for relieving cold-related facial congestion and sinus pressure.',
-      hi: 'सर्दी संबंधी चेहरे की रुकावट और साइनस दबाव से राहत के लिए उत्कृष्ट।',
-    },
     duration: '1-2 minutes',
-    pressure: 'Moderate to Firm',
+    pressure: 'Firm',
     bodyPart: ['jaw', 'face'],
     symptoms: ['common cold', 'facial congestion', 'sinus pressure', 'jaw tension', 'cold symptoms'],
     difficulty: 'Beginner',
@@ -5577,10 +5561,6 @@ export const samplePoints: AcupressurePoint[] = [
     technique: {
       en: 'Apply steady pressure while breathing deeply and relaxing abdomen.',
       hi: 'गहरी सांस लेते हुए और पेट को आराम देते हुए स्थिर दबाव डालें।',
-    },
-    benefits: {
-      en: 'Quickly stops loose motions and strengthens digestive system.',
-      hi: 'तुरंत पतले दस्त रोकता है और पाचन तंत्र को मजबूत बनाता है।',
     },
     duration: '2-3 minutes',
     pressure: 'Moderate',
@@ -5647,10 +5627,6 @@ export const samplePoints: AcupressurePoint[] = [
     technique: {
       en: 'Pinch and hold with opposite thumb and index finger.',
       hi: 'विपरीत अंगूठे और तर्जनी से दबाकर पकड़ें।',
-    },
-    benefits: {
-      en: 'Excellent for reducing fever and soothing sore throat quickly.',
-      hi: 'बुखार कम करने और गले की खराश को जल्दी शांत करने के लिए उत्कृष्ट।',
     },
     duration: '30 seconds to 1 minute',
     pressure: 'Moderate',
@@ -5939,7 +5915,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'मानसिक धुंधलाहट महसूस करने पर विपरीत अंगूठे और तर्जनी से बहुत धीरे से 15-30 सेकंड तक दबाएं।',
     },
     duration: '15-30 seconds',
-    pressure: 'Very Light',
+    pressure: 'Light',
     bodyPart: ['hand'],
     symptoms: ['mental fog', 'heart palpitations', 'chest pain', 'emotional instability', 'faintness'],
     difficulty: 'Intermediate',
