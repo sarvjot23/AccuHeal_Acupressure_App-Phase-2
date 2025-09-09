@@ -1,0 +1,23 @@
+modules = ["cpp-clang14", "nodejs-20", "c-clang14"]
+run = "npm run start"
+
+[nix]
+channel = "stable-25_05"
+
+[deployment]
+run = ["sh", "-c", "npm run start"]
+
+[workflows]
+
+[[workflows.workflow]]
+name = "Installation"
+mode = "sequential"
+author = 43660491
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm install expo"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm @expo/cli start"
