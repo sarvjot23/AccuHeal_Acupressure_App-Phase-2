@@ -18,6 +18,7 @@ module.exports = function(api) {
             '@data': './src/data',
             '@localization': './src/localization',
             '@contexts': './src/contexts',
+            '@assets': './assets',
           },
         },
       ],
