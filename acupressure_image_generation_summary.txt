@@ -1,0 +1,213 @@
+AccuHeal - Acupressure Point Medical Illustrations
+Generated on: September 09, 2025
+
+COMPLETED MEDICAL ILLUSTRATIONS (26/89):
+===========================================
+
+1. LI4_Hegu_hand_acupressure_point_b8a97496.png
+   - Large Intestine 4 (Hegu) - Hand webbing between thumb and index finger
+   - Clean medical illustration with red dot and LI4 label
+
+2. GV20_Baihui_head_acupressure_point_542be327.png
+   - Governing Vessel 20 (Baihui) - Top of head at crown
+   - Head from above view with red dot and GV20 label
+
+3. LV3_Taichong_foot_acupressure_point_5548e99c.png
+   - Liver 3 (Taichong) - Foot depression between big toe and second toe
+   - Foot top view with red dot and LV3 label
+
+4. PC6_Neiguan_wrist_acupressure_point_2ebf7640.png
+   - Pericardium 6 (Neiguan) - Inner forearm, 3 finger widths above wrist
+   - Forearm inner view with red dot and PC6 label
+
+5. ST36_Zusanli_leg_acupressure_point_5c72cd2e.png
+   - Stomach 36 (Zusanli) - Outer leg, 4 finger widths below kneecap
+   - Leg side view with red dot and ST36 label
+
+6. SP6_Sanyinjiao_ankle_acupressure_point_f55a031e.png
+   - Spleen 6 (Sanyinjiao) - Inner leg, 4 finger widths above ankle
+   - Inner leg view with red dot and SP6 label
+
+7. HT7_Shenmen_wrist_acupressure_point_c660a59c.png
+   - Heart 7 (Shenmen) - Wrist crease on pinky side
+   - Inner wrist view with red dot and HT7 label
+
+8. GB20_Fengchi_neck_acupressure_point_5e4dfc41.png
+   - Gallbladder 20 (Fengchi) - Base of skull, neck depression
+   - Back of head/neck view with red dot and GB20 label
+
+9. Yintang_forehead_acupressure_point_2e369548.png
+   - Yintang (EX-HN3) - Center of forehead between eyebrows
+   - Face front view with red dot and EX-HN3 label
+
+10. CV17_Danzhong_chest_acupressure_point_c3e55971.png
+    - Conception Vessel 17 (Danzhong) - Center of chest between nipples
+    - Chest front view with red dot and CV17 label
+
+11. KI3_Taixi_ankle_acupressure_point_f8e5a56f.png
+    - Kidney 3 (Taixi) - Inner ankle depression near Achilles tendon
+    - Inner ankle side view with red dot and KI3 label
+
+12. GV26_Renzhong_face_acupressure_point_5a31f098.png
+    - Governing Vessel 26 (Renzhong) - Below nose, upper lip groove
+    - Face view with red dot and GV26 label
+
+13. LI11_Quchi_elbow_acupressure_point_b6ecb42b.png
+    - Large Intestine 11 (Quchi) - Outer elbow at crease end
+    - Elbow outer view with red dot and LI11 label
+
+14. BL2_Zanzhu_eyebrow_acupressure_point_881d24ee.png
+    - Bladder 2 (Zanzhu) - Inner end of eyebrow
+    - Face view with red dot and BL2 label
+
+15. TE5_Waiguan_wrist_acupressure_point_6d3731a9.png
+    - Triple Energizer 5 (Waiguan) - Back of forearm above wrist
+    - Outer forearm view with red dot and TE5 label
+
+16. KI1_Yongquan_foot_acupressure_point_1cc77209.png
+    - Kidney 1 (Yongquan) - Center of foot sole
+    - Foot sole view with red dot and KI1 label
+
+17. TE17_Yifeng_ear_acupressure_point_c48cdf2e.png
+    - Triple Energizer 17 (Yifeng) - Behind earlobe depression
+    - Ear side view with red dot and TE17 label
+
+18. GB21_Jianjing_shoulder_acupressure_point_873be72c.png
+    - Gallbladder 21 (Jianjing) - Top of shoulder, highest point
+    - Shoulder top view with red dot and GB21 label
+
+19. CV4_Guanyuan_abdomen_acupressure_point_3e177c1d.png
+    - Conception Vessel 4 (Guanyuan) - Lower abdomen, 4 finger widths below navel
+    - Abdomen front view with red dot and CV4 label
+
+20. PC8_Laogong_palm_acupressure_point_20499451.png
+    - Pericardium 8 (Laogong) - Center of palm
+    - Palm view with red dot and PC8 label
+
+21. Taiyang_temple_acupressure_point_31a4ee19.png
+    - Taiyang - Temple depression between eyebrow and hairline
+    - Side head view with red dot and Taiyang label
+
+22. BL23_Shenshu_lower_back_point_4a3f81a2.png
+    - Bladder 23 (Shenshu) - Lower back, sides of 2nd lumbar vertebra
+    - Back view with red dot and BL23 label
+
+23. GB34_Yanglingquan_knee_acupressure_point_02064cf1.png
+    - Gallbladder 34 (Yanglingquan) - Outer knee, below fibula head
+    - Knee outer view with red dot and GB34 label
+
+24. ST25_Tianshu_abdomen_acupressure_point_66670710.png
+    - Stomach 25 (Tianshu) - Abdomen, 3 finger widths beside navel
+    - Abdomen front view with red dot and ST25 label
+
+25. SI3_Houxi_hand_acupressure_point_1ace32ce.png
+    - Small Intestine 3 (Houxi) - Hand edge, behind 5th metacarpal
+    - Hand side view with red dot and SI3 label
+
+26. LI20_Yingxiang_nose_acupressure_point_b4af4781.png
+    - Large Intestine 20 (Yingxiang) - Both sides of nostrils
+    - Nose front view with red dots and LI20 label
+
+REMAINING POINTS TO GENERATE (63/89):
+====================================
+
+The following acupressure points from the AccuHeal app still need medical illustrations:
+
+HEAD & FACE POINTS:
+- SP3 (Taibai) - Foot arch
+- BL60 (Kunlun) - Ankle back
+- REN6 (Qihai) - Below navel energy center
+- GV16 (Fengfu) - Base of skull
+- LU1 (Zhongfu) - Upper chest
+- EX21 (Erjian) - Ear apex
+- GB39 (Xuanzhong) - Outer ankle
+- DU14 (Dazhui) - 7th cervical vertebra
+- ST6 (Jiache) - Jaw muscle
+- SP4 (Gongsun) - Foot inner side
+- BL40 (Weizhong) - Behind knee
+- HT3 (Shaohai) - Inner elbow
+- KI27 (Shufu) - Below collarbone
+- TH3 (Zhongzhu) - Hand back
+- LI1 (Shangyang) - Index fingertip
+- SP21 (Dabao) - Side ribs
+- LV14 (Qimen) - Chest below nipple
+- SI19 (Tinggong) - Front of ear
+- LU5 (Chize) - Elbow thumb side
+- Anmian - Behind ear sleep point
+- Ear Shenmen - Ear point for stress
+- Zhongwan - Stomach center
+- Tianshu - Abdomen comfort
+- Zusanli Enhanced - Energy boost
+- Fengchi - Neck tension
+- Jianjing - Shoulder stress
+- Houxi - Wrist/back relief
+- Qihai - Core energy
+- Mingmen - Lower back support
+- Shenshu - Kidney support
+- Yongquan Enhanced - Better sleep
+- Sanyinjiao Enhanced - Women's health
+- Yingxiang Enhanced - Nasal congestion
+- Jingming - Eye strain relief
+- REN17 (Enhanced Danzhong) - Breathing support
+- GB14 (Yangbai) - Above eyebrow
+- SP9 (Yinlingquan) - Below knee
+- BL13 (Feishu) - Upper back
+- ST8 (Touwei) - Forehead corner
+- KI1 Enhanced - Enhanced sleep point
+- LI15 (Jianyu) - Shoulder depression
+- GV24 (Shenting) - Center forehead
+- ST12 (Quepen) - Above collarbone
+- LU7 (Lieque) - Forearm thumb side
+- LV8 (Ququan) - Inner knee
+- BL15 (Xinshu) - Heart back point
+- SP2 (Dadu) - Foot inner edge
+- TH21 (Ermen) - Front of ear
+- KI16 (Huangshu) - Lateral to navel
+- SI8 (Xiaohai) - Inner elbow
+- CV22 (Tiantu) - Throat center
+- Bitong - Nasal sides
+- LI18 (Futu) - Lateral neck
+- ST6 Cold Enhanced - Cold symptoms
+- SP4 Diarrhea Enhanced - Loose motions control
+- LI2 (Erjian) - Index finger joint
+- SP1 (Yinbai) - Big toe
+- LU11 (Shaoshang) - Thumb
+- BL67 (Zhiyin) - Little toe
+- HT9 (Shaochong) - Little finger
+- SI1 (Shaoze) - Little finger
+- SP10 (Xuehai) - Inner thigh
+- KI7 (Fuliu) - Above ankle
+
+TECHNICAL SPECIFICATIONS:
+========================
+- Style: Clean medical-style anatomical illustrations
+- Format: High-resolution PNG images
+- Background: White
+- Line art: Black, minimal, professional
+- Point marking: Bright red dot
+- Labels: Clean, clear acupressure code positioning
+- Anatomical accuracy: Professional healthcare illustration standard
+- Aspect ratio: 1:1 (square format)
+
+USAGE IN ACCUHEAL APP:
+=====================
+These images are designed for integration into the AccuHeal React Native/Expo app. 
+Each image can be imported using the @assets alias in the codebase:
+
+Example usage in React components:
+```jsx
+import LI4Image from '@assets/generated_images/LI4_Hegu_hand_acupressure_point_b8a97496.png'
+
+function PointDetailScreen() {
+  return (
+    <View>
+      <Image source={LI4Image} alt="LI4 Hegu acupressure point" />
+    </View>
+  )
+}
+```
+
+For Flask or other frameworks, copy images to appropriate static folders.
+
+All images follow consistent medical illustration standards suitable for 
+professional health and wellness applications.
