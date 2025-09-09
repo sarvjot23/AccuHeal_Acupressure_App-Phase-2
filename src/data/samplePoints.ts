@@ -66,7 +66,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'अपने अंगूठे से 1-3 मिनट तक मजबूत दबाव डालें। लयबद्ध तरीके से दबाएं और छोड़ें। दबाव डालते समय गहरी सांस लें।',
     },
     conditions: ['headache', 'stress', 'pain relief', 'tension'],
-    images: ['li4_location.jpg', 'li4_technique.jpg'],
+    images: ['@assets/acupressure_points/LI4_Hegu_hand_acupressure_point_b8a97496.png'],
   },
   {
     id: 'gv20',
@@ -131,7 +131,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'अपनी मध्यमा अंगुली से 1-2 मिनट तक धीरे से दबाएं। गोलाकार गति में हल्का से मध्यम दबाव का उपयोग करें।',
     },
     conditions: ['mental clarity', 'focus', 'dizziness', 'headache'],
-    images: ['gv20_location.jpg'],
+    images: ['@assets/acupressure_points/GV20_Baihui_crown_intersection_point_0794ad19.png'],
   },
   {
     id: 'lv3',
@@ -197,7 +197,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'अपने अंगूठे से 1-3 मिनट तक मजबूत दबाव डालें। गहराई से दबाएं और रोकें, फिर छोड़ें। दोनों पैरों पर दोहराएं।',
     },
     conditions: ['anxiety', 'anger', 'stress', 'insomnia', 'irritability'],
-    images: ['lv3_location.jpg'],
+    images: ['@assets/acupressure_points/LV3_Taichong_foot_acupressure_point_5548e99c.png'],
   },
   {
     id: 'sp6',
@@ -263,7 +263,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'अपने अंगूठे से 1-3 मिनट तक मध्यम से मजबूत दबाव डालें। दबाएं और रोकें, गहरी सांस लेते रहें।',
     },
     conditions: ['digestive issues', 'menstrual problems', 'insomnia', 'anxiety'],
-    images: ['sp6_location.jpg'],
+    images: ['@assets/acupressure_points/SP6_Sanyinjiao_inner_ankle_point_a9e8f6df.png'],
   },
   {
     id: 'pc6',
@@ -329,7 +329,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'अपने अंगूठे से 1-2 मिनट तक मजबूत दबाव डालें। गहरी सांस लेते हुए दबाएं और रोकें।',
     },
     conditions: ['nausea', 'motion sickness', 'anxiety', 'wrist pain', 'heart palpitations'],
-    images: ['pc6_location.jpg'],
+    images: ['@assets/acupressure_points/PC6_Neiguan_between_tendons_point_0cad7f27.png'],
   },
   {
     id: 'st36',
@@ -395,7 +395,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'अपने अंगूठे से 2-3 मिनट तक मजबूत दबाव डालें। घड़ी की दिशा में गोलाकार गति में मालिश करें।',
     },
     conditions: ['digestive issues', 'fatigue', 'immunity boost', 'leg weakness', 'nausea'],
-    images: ['st36_location.jpg'],
+    images: ['@assets/acupressure_points/ST36_Zusanli_tibia_leg_point_d593dc9b.png'],
   },
 
   // NEW ESSENTIAL POINTS (25 additional points from research)
@@ -463,7 +463,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'कोहनी को मोड़ते और सीधा करते हुए अंगूठे से 1-2 मिनट तक मजबूत दबाव डालें।',
     },
     conditions: ['fever', 'elbow pain', 'skin conditions', 'tennis elbow'],
-    images: ['li11_location.jpg'],
+    images: ['@assets/acupressure_points/LI11_Quchi_elbow_acupressure_point_b6ecb42b.png'],
   },
   {
     id: 'bl2',
@@ -529,7 +529,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'तर्जनी अंगुलियों से 30 सेकंड से 1 मिनट तक हल्की गोलाकार गति में धीरे से दबाएं।',
     },
     conditions: ['headache', 'eye strain', 'frontal sinusitis', 'eyebrow pain'],
-    images: ['bl2_location.jpg'],
+    images: ['@assets/acupressure_points/BL2_Zanzhu_eyebrow_acupressure_point_881d24ee.png'],
   },
   {
     id: 'te17',
@@ -595,7 +595,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'मध्यमा अंगुली से 1 मिनट तक हल्की गोलाकार गति में धीरे से दबाएं।',
     },
     conditions: ['tinnitus', 'hearing problems', 'ear infections', 'facial paralysis'],
-    images: ['te17_location.jpg'],
+    images: ['@assets/acupressure_points/TE17_Yifeng_ear_acupressure_point_c48cdf2e.png'],
   },
   {
     id: 'gv26',
@@ -660,7 +660,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'नाखून से 10-30 सेकंड तक ऊपर की ओर मजबूत दबाव डालें।',
     },
     conditions: ['emergency revival', 'fainting', 'shock', 'mental clarity'],
-    images: ['gv26_location.jpg'],
+    images: ['@assets/acupressure_points/GV26_Renzhong_face_acupressure_point_5a31f098.png'],
   },
   {
     id: 'ht7',
@@ -726,7 +726,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'अंगूठे से 1-3 मिनट तक हल्का दबाव डालें। दबाएं और गहरी सांस लें।',
     },
     conditions: ['insomnia', 'anxiety', 'heart palpitations', 'memory problems'],
-    images: ['ht7_location.jpg'],
+    images: ['@assets/acupressure_points/HT7_Shenmen_wrist_acupressure_point_c660a59c.png'],
   },
   {
     id: 'ki3',
@@ -792,7 +792,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'अंगूठे से 1-3 मिनट तक मजबूत दबाव डालें। दबाएं और धीरे से घुमाएं।',
     },
     conditions: ['fatigue', 'lower back pain', 'kidney support', 'reproductive health'],
-    images: ['ki3_location.jpg'],
+    images: ['@assets/acupressure_points/KI3_Taixi_ankle_acupressure_point_f8e5a56f.png'],
   },
   {
     id: 'lu9',
@@ -924,7 +924,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'सिर को थोड़ा आगे झुकाते हुए अंगूठों से 1-2 मिनट तक मजबूत दबाव डालें।',
     },
     conditions: ['tension headaches', 'neck pain', 'cold symptoms', 'eye strain'],
-    images: ['gb20_location.jpg'],
+    images: ['@assets/acupressure_points/GB20_Fengchi_skull_base_point_203a6a1d.png'],
   },
   {
     id: 'sp3',
@@ -1056,7 +1056,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'अंगूठों से 2-3 मिनट तक मजबूत दबाव डालें या किसी से उस क्षेत्र की मालिश कराएं।',
     },
     conditions: ['kidney support', 'lower back pain', 'urinary disorders', 'fatigue'],
-    images: ['bl23_location.jpg'],
+    images: ['@assets/acupressure_points/BL23_Shenshu_lower_back_point_4a3f81a2.png'],
   },
   {
     id: 'te5',
@@ -1122,7 +1122,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'कलाई को घुमाते हुए अंगूठे से 1-2 मिनट तक मजबूत दबाव डालें।',
     },
     conditions: ['headaches', 'neck tension', 'common cold', 'wrist pain'],
-    images: ['te5_location.jpg'],
+    images: ['@assets/acupressure_points/TE5_Waiguan_wrist_acupressure_point_6d3731a9.png'],
   },
   {
     id: 'cv17',
@@ -1187,7 +1187,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'गहरी सांस लेते हुए अंगुली के सिरों से 1-2 मिनट तक हल्का दबाव डालें।',
     },
     conditions: ['emotional stress', 'chest tightness', 'breathing difficulties', 'heart palpitations'],
-    images: ['cv17_location.jpg'],
+    images: ['@assets/acupressure_points/CV17_Danzhong_chest_acupressure_point_c3e55971.png'],
   },
   {
     id: 'si3',
@@ -1253,7 +1253,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'ढीली मुट्ठी बनाते हुए अंगूठे से 1-2 मिनट तक मजबूत दबाव डालें।',
     },
     conditions: ['neck stiffness', 'headaches', 'eye strain', 'computer fatigue'],
-    images: ['si3_location.jpg'],
+    images: ['@assets/acupressure_points/SI3_Houxi_hand_acupressure_point_1ace32ce.png'],
   },
   {
     id: 'gb34',
@@ -1319,7 +1319,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'घुटने को धीरे से हिलाते हुए अंगूठे से 1-3 मिनट तक मजबूत दबाव डालें।',
     },
     conditions: ['muscle problems', 'knee pain', 'hip pain', 'sciatica'],
-    images: ['gb34_location.jpg'],
+    images: ['@assets/acupressure_points/GB34_Yanglingquan_knee_acupressure_point_02064cf1.png'],
   },
   {
     id: 'sp10',
@@ -1451,7 +1451,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'गहरी सांस लेते हुए विपरीत अंगूठे से 1-2 मिनट तक हल्का दबाव डालें।',
     },
     conditions: ['anxiety', 'nervousness', 'insomnia', 'palm sweating'],
-    images: ['pc8_location.jpg'],
+    images: ['@assets/acupressure_points/PC8_Laogong_palm_acupressure_point_20499451.png'],
   },
   {
     id: 'bl60',
@@ -1583,7 +1583,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'तर्जनी अंगुलियों से 30 सेकंड से 1 मिनट तक ऊपर की ओर गोलाकार गति में हल्का दबाव डालें।',
     },
     conditions: ['nasal congestion', 'sinusitis', 'loss of smell', 'allergies'],
-    images: ['li20_location.jpg'],
+    images: ['@assets/acupressure_points/LI20_Yingxiang_nasolabial_groove_point_847df89e.png'],
   },
   {
     id: 'st25',
@@ -1649,7 +1649,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'अंगुली के सिरों से 1-2 मिनट तक घड़ी की दिशा में गोलाकार गति में मध्यम दबाव डालें।',
     },
     conditions: ['constipation', 'diarrhea', 'abdominal pain', 'bloating'],
-    images: ['st25_location.jpg'],
+    images: ['@assets/acupressure_points/ST25_Tianshu_abdomen_acupressure_point_66670710.png'],
   },
   {
     id: 'ki7',
@@ -2447,7 +2447,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'अंगूठे और अंगुलियों के बीच कंधे की मांसपेशी को दबाएं, 30-45 सेकंड तक पकड़ें।',
     },
     conditions: ['shoulder pain', 'neck stiffness', 'upper back pain', 'stress'],
-    images: ['gb21_location.jpg'],
+    images: ['@assets/acupressure_points/GB21_Jianjing_shoulder_acupressure_point_873be72c.png'],
   },
 
 
@@ -2652,7 +2652,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'गहरी सांस लेते हुए हथेली से 1-3 मिनट तक हल्का नीचे की ओर दबाव डालें।',
     },
     conditions: ['low energy', 'fatigue', 'reproductive issues', 'abdominal pain'],
-    images: ['cv4_location.jpg'],
+    images: ['@assets/acupressure_points/CV4_Guanyuan_abdomen_acupressure_point_3e177c1d.png'],
   },
 
   // Point 43: Large Intestine 1 (Shangyang) - Acute headaches and finger pain
@@ -4526,7 +4526,7 @@ export const samplePoints: AcupressurePoint[] = [
       hi: 'सोने से पहले अंगूठे से 2-3 मिनट तक गोलाकार गति में मजबूत दबाव डालें।',
     },
     conditions: ['insomnia', 'high blood pressure', 'anxiety'],
-    images: ['ki1_location.jpg', 'ki1_technique.jpg'],
+    images: ['@assets/acupressure_points/KI1_Yongquan_foot_acupressure_point_1cc77209.png'],
   },
   {
     id: 'li15',
