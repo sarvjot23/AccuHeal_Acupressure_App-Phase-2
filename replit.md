@@ -6,6 +6,19 @@ AccuHeal is a comprehensive mobile-first acupressure guide application built wit
 
 The app contains a database of 89 carefully documented acupressure points from classical TCM meridians, including detailed location descriptions, therapeutic indications, contraindications, and safety guidelines. Users can discover acupressure points through smart search functionality, guided questionnaires, and structured learning materials.
 
+## Recent Changes
+
+### UI Redesign - October 2025
+- **Modern Card-Based Design**: Completely redesigned UI with clean, modern aesthetic inspired by professional medical app references
+- **PointCard Component**: Redesigned with soft light green backgrounds, large circular point images (70px) with white borders, difficulty badges with star ratings, TCM badges, pill-shaped blue info buttons, and action icon buttons
+- **Design System Enhancements**: Added new shadow constants (sm, md, lg, xl, soft, glow, floating) for cleaner visual hierarchy; introduced BorderRadius.full (9999) for pill-shaped elements
+- **Bottom Navigation**: Modernized with blue rounded background (Colors.info), enhanced shadows, white active/inactive text colors, and 28px rounded top corners
+- **Screen Updates**: 
+  - HomeScreen: Cleaner background (#f8fafb), better typography hierarchy, improved spacing with bottom padding for tab bar
+  - SearchScreen: Refined with cleaner backgrounds, improved filter chips, and consistent card styling
+- **Button Component**: Updated to pill-shaped by default with proper event handling
+- **Safe Area Handling**: Added bottom padding (90px) to prevent content overlap with navigation bar
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
@@ -35,10 +48,11 @@ Preferred communication style: Simple, everyday language.
 - **Search Schema**: Optimized for symptom-based search, body part filtering, and point code lookup
 
 ### Design System
-- **Color Palette**: Green-themed healing colors with primary (#4ade80), secondary earth tones, and comprehensive neutral scales
-- **Typography**: Scalable text system with display, heading, body, and caption variants
-- **Spacing**: Consistent spacing scale from 4px to 96px with semantic naming
-- **Components**: Modular component architecture with variants for different use cases (default, elevated, outlined, gradient, glass morphism)
+- **Color Palette**: Green-themed healing colors with primary (#4ade80), blue info color (#3b82f6) for navigation, secondary earth tones, and comprehensive neutral scales
+- **Typography**: Scalable text system with display, heading, body, and caption variants with improved hierarchy
+- **Spacing**: Consistent spacing scale from 4px to 96px with semantic naming; BorderRadius from sm (4px) to full (9999) for pill-shaped elements
+- **Shadows**: Multi-layer shadow system (sm, md, lg, xl) plus enhanced shadows (soft, glow, floating) for improved depth and visual appeal
+- **Components**: Modular component architecture with modern variants including pill-shaped buttons, rounded cards with soft shadows, circular badges, and elevated navigation bars
 
 ## External Dependencies
 
