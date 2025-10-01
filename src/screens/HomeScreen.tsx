@@ -13,7 +13,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 
-import { Colors, Typography, Spacing, BorderRadius } from '@constants';
+import { Colors, Typography, Spacing, BorderRadius, Shadows } from '@constants';
 import { Card, Button, PointCard } from '@components';
 import { RootStackParamList, AcupressurePoint } from '@types';
 import { firestoreService } from '@services';
@@ -91,7 +91,7 @@ const HomeScreen: React.FC = () => {
   );
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
       <View style={styles.content}>
         {/* Welcome Section */}
         <View style={styles.welcomeSection}>
@@ -155,28 +155,34 @@ const HomeScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background.secondary,
+    backgroundColor: '#f8fafb',
+  },
+  scrollContent: {
+    paddingBottom: 90,
   },
   content: {
-    padding: Spacing.md,
+    padding: Spacing.lg,
   },
   welcomeSection: {
     marginBottom: Spacing.xl,
-    alignItems: 'center',
+    paddingTop: Spacing.md,
   },
   welcomeTitle: {
-    ...Typography.h2,
+    ...Typography.h1,
     color: Colors.text.primary,
-    textAlign: 'center',
-    marginBottom: Spacing.sm,
+    marginBottom: Spacing.xs,
+    fontSize: 28,
+    fontWeight: '700',
   },
   welcomeSubtitle: {
     ...Typography.body1,
     color: Colors.text.secondary,
-    textAlign: 'center',
+    fontSize: 15,
+    lineHeight: 22,
   },
   quickStartButton: {
     marginBottom: Spacing.xl,
+    borderRadius: BorderRadius.full,
   },
   section: {
     marginBottom: Spacing.xl,
@@ -185,35 +191,47 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: Spacing.md,
+    marginBottom: Spacing.lg,
   },
   sectionTitle: {
-    ...Typography.h4,
+    ...Typography.h3,
     color: Colors.text.primary,
+    fontWeight: '700',
+    fontSize: 20,
   },
   seeAllButton: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingVertical: Spacing.xs,
+    paddingHorizontal: Spacing.sm,
   },
   seeAllText: {
-    ...Typography.link,
+    ...Typography.body2,
     color: Colors.primary[600],
-    marginRight: Spacing.xs,
+    marginRight: 4,
+    fontWeight: '600',
+    fontSize: 14,
   },
   quickActionsList: {
-    gap: Spacing.sm,
+    gap: Spacing.md,
   },
   quickActionCard: {
     marginBottom: Spacing.sm,
+    backgroundColor: '#ffffff',
+    borderRadius: BorderRadius.xl,
+    ...Shadows.sm,
+    borderWidth: 1,
+    borderColor: Colors.border.light,
   },
   quickActionContent: {
     flexDirection: 'row',
     alignItems: 'center',
+    padding: Spacing.md,
   },
   quickActionIcon: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: 52,
+    height: 52,
+    borderRadius: 26,
     backgroundColor: Colors.primary[50],
     justifyContent: 'center',
     alignItems: 'center',
@@ -225,11 +243,14 @@ const styles = StyleSheet.create({
   quickActionTitle: {
     ...Typography.h6,
     color: Colors.text.primary,
-    marginBottom: Spacing.xs,
+    marginBottom: 4,
+    fontWeight: '600',
+    fontSize: 16,
   },
   quickActionSubtitle: {
     ...Typography.body2,
     color: Colors.text.secondary,
+    fontSize: 13,
   },
   loadingContainer: {
     padding: Spacing.xl,

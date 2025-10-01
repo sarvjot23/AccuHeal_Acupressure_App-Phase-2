@@ -12,7 +12,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 
-import { Colors, Typography, Spacing, BorderRadius } from '@constants';
+import { Colors, Typography, Spacing, BorderRadius, Shadows } from '@constants';
 import { SearchInput, Card, PointCard } from '@components';
 import { RootStackParamList, AcupressurePoint, SearchResult } from '@types';
 import { typesenseService } from '@services';
@@ -233,21 +233,14 @@ const SearchScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background.secondary,
+    backgroundColor: '#f8fafb',
   },
   searchHeader: {
     backgroundColor: Colors.background.primary,
-    padding: Spacing.md,
+    padding: Spacing.lg,
     paddingBottom: Spacing.lg,
     borderBottomWidth: 0,
-    shadowColor: Colors.shadow.light,
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
-    elevation: 2,
+    ...Shadows.sm,
   },
   searchInput: {
     marginBottom: Spacing.md,
@@ -309,6 +302,7 @@ const styles = StyleSheet.create({
   resultsContent: {
     padding: Spacing.md,
     paddingTop: Spacing.md,
+    paddingBottom: 90,
   },
   emptyState: {
     alignItems: 'center',

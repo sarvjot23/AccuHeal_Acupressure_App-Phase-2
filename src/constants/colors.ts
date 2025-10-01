@@ -75,4 +75,12 @@ export const Colors = {
     medium: 'rgba(0, 0, 0, 0.1)',
     dark: 'rgba(0, 0, 0, 0.15)',
   },
+  
+  // Card background colors for clean UI
+  card: {
+    background: '#ffffff',
+    hover: '#f8fafc',
+    light: '#f0fdf4', // Very light green
+    accent: '#e0f2fe', // Light blue accent
+  },
 };

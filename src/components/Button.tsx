@@ -89,10 +89,10 @@ export const Button: React.FC<ButtonProps> = ({
     }
   };
 
-  const handlePress = () => {
+  const handlePress = (event: any) => {
     if (props.onPress && !disabled && !loading) {
       // Call onPress directly since it's already on the JS thread
-      props.onPress();
+      props.onPress(event);
     }
   };
 
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: BorderRadius.md,
+    borderRadius: BorderRadius.full,
     gap: Spacing.sm,
     ...Shadows.sm,
   } as ViewStyle,
