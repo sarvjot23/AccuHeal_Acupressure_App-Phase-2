@@ -29,7 +29,7 @@ export const storage = getStorage(app);
 export const auth = getAuth(app);
 
 // Initialize Analytics (only in production)
-export let analytics;
+export let analytics: ReturnType<typeof getAnalytics> | undefined;
 if (!__DEV__) {
   analytics = getAnalytics(app);
 }
