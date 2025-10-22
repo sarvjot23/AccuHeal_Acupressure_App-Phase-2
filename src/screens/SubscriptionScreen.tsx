@@ -1,3 +1,28 @@
+/**
+ * SubscriptionScreen - Premium upgrade and subscription management
+ * 
+ * IMPLEMENTATION STATUS:
+ * ✅ UI/UX design complete with professional pricing card
+ * ✅ Subscription context and state management via Firebase
+ * ✅ Content gating system (15 free points, 74 premium points)
+ * ✅ Real-time subscription status monitoring
+ * ⚠️  Stripe payment integration - REQUIRES BACKEND SETUP
+ * 
+ * TO COMPLETE STRIPE INTEGRATION:
+ * 1. Create Stripe account at https://stripe.com
+ * 2. Get API keys and create Price ID for $5/month subscription
+ * 3. Add environment secrets: STRIPE_SECRET_KEY, VITE_STRIPE_PUBLIC_KEY, STRIPE_PRICE_ID
+ * 4. Implement backend webhook endpoint (Firebase Cloud Functions recommended) to handle:
+ *    - checkout.session.completed → Set user.isPremium = true in Firestore
+ *    - customer.subscription.updated → Update subscription status
+ *    - customer.subscription.deleted → Set user.isPremium = false
+ * 5. Replace handleSubscribe() below with Stripe Checkout Session creation
+ * 
+ * CURRENT BEHAVIOR:
+ * - Shows placeholder alert when "Upgrade to Premium" is clicked
+ * - For testing, premium status can be manually set in Firebase Console
+ */
+
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';

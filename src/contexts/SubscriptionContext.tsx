@@ -9,7 +9,7 @@ interface SubscriptionContextType {
   isLoading: boolean;
   subscriptionStatus: 'active' | 'canceled' | 'past_due' | 'trialing' | 'none';
   subscriptionExpiresAt: Date | null;
-  checkSubscription: () => Promise<void>;
+  checkSubscription: (user?: FirebaseUser | null) => Promise<void>;
   upgradeToPremium: () => void;
 }
 
@@ -39,7 +39,8 @@ export const SubscriptionProvider: React.FC<SubscriptionProviderProps> = ({ chil
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       setCurrentUser(user);
       if (user) {
-        await checkSubscription();
+        // Ensure user document exists before setting up snapshot listener
+        await ensureUserDocument(user);
       } else {
         setIsPremium(false);
         setSubscriptionStatus('none');
@@ -56,13 +57,28 @@ export const SubscriptionProvider: React.FC<SubscriptionProviderProps> = ({ chil
     if (!currentUser) return;
 
     const userDocRef = doc(db, 'users', currentUser.uid);
-    const unsubscribe = onSnapshot(userDocRef, (doc) => {
-      if (doc.exists()) {
-        const userData = doc.data() as User;
-        updateSubscriptionState(userData);
+    const unsubscribe = onSnapshot(
+      userDocRef, 
+      (doc) => {
+        if (doc.exists()) {
+          const userData = doc.data() as User;
+          updateSubscriptionState(userData);
+        } else {
+          // Doc doesn't exist (edge case); set free tier defaults
+          console.warn('⚠️ User document missing in snapshot');
+          setIsPremium(false);
+          setSubscriptionStatus('none');
+        }
+        setIsLoading(false);
+      },
+      (error) => {
+        console.error('❌ Subscription snapshot error:', error);
+        // On error, default to free tier and stop loading
+        setIsPremium(false);
+        setSubscriptionStatus('none');
+        setIsLoading(false);
       }
-      setIsLoading(false);
-    });
+    );
 
     return () => unsubscribe();
   }, [currentUser]);
@@ -85,21 +101,17 @@ export const SubscriptionProvider: React.FC<SubscriptionProviderProps> = ({ chil
     }
   };
 
-  const checkSubscription = async () => {
-    if (!currentUser) return;
-
+  // Ensure user document exists in Firestore (create if missing)
+  const ensureUserDocument = async (user: FirebaseUser) => {
     setIsLoading(true);
     try {
-      const userDocRef = doc(db, 'users', currentUser.uid);
+      const userDocRef = doc(db, 'users', user.uid);
       const userDoc = await getDoc(userDocRef);
 
-      if (userDoc.exists()) {
-        const userData = userDoc.data() as User;
-        updateSubscriptionState(userData);
-      } else {
+      if (!userDoc.exists()) {
         // Create user profile if it doesn't exist
         const newUser: Partial<User> = {
-          id: currentUser.uid,
+          id: user.uid,
           preferredLanguage: 'en',
           completedSessions: [],
           favorites: [],
@@ -108,14 +120,27 @@ export const SubscriptionProvider: React.FC<SubscriptionProviderProps> = ({ chil
           subscriptionStatus: 'none',
         };
         await setDoc(userDocRef, newUser);
-        setIsPremium(false);
-        setSubscriptionStatus('none');
+        console.log('✅ Created new user document for', user.uid);
       }
+      
+      // User doc now guaranteed to exist; onSnapshot will trigger
     } catch (error) {
-      console.error('Error checking subscription:', error);
-    } finally {
+      console.error('❌ Error ensuring user document:', error);
+      // Fallback: set default free tier state
+      setIsPremium(false);
+      setSubscriptionStatus('none');
       setIsLoading(false);
     }
+  };
+
+  const checkSubscription = async (user?: FirebaseUser | null) => {
+    const userToCheck = user || currentUser;
+    if (!userToCheck) {
+      setIsLoading(false);
+      return;
+    }
+
+    await ensureUserDocument(userToCheck);
   };
 
   const upgradeToPremium = () => {

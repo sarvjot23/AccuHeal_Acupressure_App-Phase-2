@@ -8,6 +8,17 @@ The app contains a database of 89 carefully documented acupressure points from c
 
 ## Recent Changes
 
+### Freemium Subscription System - October 2025
+- **Business Model**: Implemented freemium model with 15 free beginner points and 74 premium points unlocked via $5/month subscription
+- **Free Tier Content**: LI4, GV20, PC6, ST36, SP6, HT7, GB20, LI20, KI3, LU7, LI11, BL23, CV6, CV17, GV14 marked as free with `isFree: true` flag
+- **SubscriptionContext**: Created context provider managing premium status, subscription state, and real-time Firestore synchronization
+- **Content Gating**: Implemented filtering in SearchScreen and HomeScreen to show only free points for non-premium users
+- **PremiumGate Component**: Reusable component for protecting premium content with upgrade prompts
+- **SubscriptionScreen**: Professional pricing UI with feature comparison, premium benefits display, and subscription management
+- **Auth Integration**: Fixed race condition in subscription checking; now passes Firebase user directly from auth callback
+- **Search Cleanup**: Removed Algolia dependency completely; app now uses Typesense exclusively for search functionality
+- **⚠️ Stripe Integration Pending**: Payment processing requires backend webhook setup (Firebase Cloud Functions recommended)
+
 ### UI Redesign - October 2025
 - **Modern Card-Based Design**: Completely redesigned UI with clean, modern aesthetic inspired by professional medical app references
 - **PointCard Component**: Redesigned with soft light green backgrounds, large circular point images (70px) with white borders, difficulty badges with star ratings, TCM badges, pill-shaped blue info buttons, and action icon buttons
@@ -28,18 +39,26 @@ Preferred communication style: Simple, everyday language.
 ### Frontend Architecture
 - **Framework**: React Native with Expo SDK for cross-platform development (iOS, Android, Web)
 - **Navigation**: React Navigation v6 with bottom tab navigation and stack navigation for detail screens
-- **State Management**: Context API for language preferences and authentication state
-- **UI Components**: Custom component library with reusable Button, Card, SearchInput, and PointCard components
+- **State Management**: Context API for language preferences, authentication state, and subscription status
+  - `LanguageContext`: Manages app language (English/Hindi)
+  - `AuthContext`: Firebase authentication state
+  - `SubscriptionContext`: Premium subscription status with real-time Firestore sync
+- **UI Components**: Custom component library with reusable Button, Card, SearchInput, PointCard, and PremiumGate components
 - **Styling**: StyleSheet-based approach with design system constants for colors, typography, spacing, and shadows
 - **Animations**: React Native Reanimated v3 for smooth micro-interactions and loading animations
 - **Internationalization**: i18next for English/Hindi bilingual support with persistent language preferences
+- **Content Gating**: Free users see 15 essential beginner points; premium users see all 89 points
 
 ### Backend Architecture
-- **Database**: Firebase Firestore for storing acupressure point data and user preferences
+- **Database**: Firebase Firestore for storing acupressure point data, user profiles, and subscription status
 - **File Storage**: Firebase Storage for acupressure point anatomical images
-- **Search Engine**: Dual implementation with both Algolia Search and Typesense for enhanced search capabilities
+- **Search Engine**: Typesense for intelligent point discovery with symptom search and multilingual support
 - **Authentication**: Firebase Auth with support for email/password, Google Sign-In, and Apple Sign-In
 - **Analytics**: Firebase Analytics for usage tracking and app performance monitoring
+- **Subscriptions**: Freemium model with 15 free points and 74 premium points ($5/month)
+  - User subscription status stored in Firestore `users/{uid}` with fields: `isPremium`, `subscriptionStatus`, `subscriptionExpiresAt`
+  - Real-time subscription state synchronization using Firestore onSnapshot listeners
+  - ⚠️ Stripe payment backend pending (requires Cloud Functions for webhook handling)
 
 ### Data Structure
 - **Acupressure Points**: 89 points with multilingual names, locations, meridian information, therapeutic indications, contraindications, and technique instructions
@@ -58,8 +77,8 @@ Preferred communication style: Simple, everyday language.
 
 ### Cloud Services
 - **Firebase**: Primary backend infrastructure including Firestore database, Authentication, Storage, and Analytics
-- **Algolia**: Search-as-a-Service for intelligent acupressure point discovery with typo tolerance and faceted search
-- **Typesense**: Self-hosted search engine alternative for development and enhanced Hindi language search support
+- **Typesense**: Search engine for intelligent acupressure point discovery with typo tolerance, faceted search, and Hindi language support
+- **Stripe** (Pending): Payment processing for $5/month premium subscriptions - requires backend webhook setup
 
 ### Development Tools
 - **Expo**: Development platform and build service for React Native applications
