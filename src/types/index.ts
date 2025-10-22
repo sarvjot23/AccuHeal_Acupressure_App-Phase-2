@@ -29,6 +29,7 @@ export interface AcupressurePoint {
   popularity?: number; // 1-5 rating for featuring popular points
   imageUrl?: string; // Leave null for now, implement in later phase
   precautions?: LocalizedText[];
+  isFree?: boolean; // True for free tier points, false/undefined for premium
   
   // Legacy fields for backward compatibility
   method?: LocalizedText; // Maps to technique
@@ -81,6 +82,10 @@ export interface User {
   completedSessions: string[];
   favorites: string[];
   createdAt: Date;
+  isPremium?: boolean;
+  subscriptionId?: string;
+  subscriptionStatus?: 'active' | 'canceled' | 'past_due' | 'trialing';
+  subscriptionExpiresAt?: Date;
 }
 
 export type RootStackParamList = {

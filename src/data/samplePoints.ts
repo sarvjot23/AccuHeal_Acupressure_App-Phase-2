@@ -67,6 +67,7 @@ export const samplePoints: AcupressurePoint[] = [
     },
     conditions: ['headache', 'stress', 'pain relief', 'tension'],
     images: ['@assets/acupressure_points/LI4_Hegu_dorsal_hand_point_4753731a.png'],
+    isFree: true,
   },
   {
     id: 'gv20',
@@ -132,6 +133,7 @@ export const samplePoints: AcupressurePoint[] = [
     },
     conditions: ['mental clarity', 'focus', 'dizziness', 'headache'],
     images: ['@assets/acupressure_points/GV20_Baihui_crown_intersection_point_0794ad19.png'],
+    isFree: true,
   },
   {
     id: 'lv3',
@@ -264,6 +266,7 @@ export const samplePoints: AcupressurePoint[] = [
     },
     conditions: ['digestive issues', 'menstrual problems', 'insomnia', 'anxiety'],
     images: ['@assets/acupressure_points/SP6_Sanyinjiao_inner_ankle_point_a9e8f6df.png'],
+    isFree: true,
   },
   {
     id: 'pc6',
@@ -330,6 +333,7 @@ export const samplePoints: AcupressurePoint[] = [
     },
     conditions: ['nausea', 'motion sickness', 'anxiety', 'wrist pain', 'heart palpitations'],
     images: ['@assets/acupressure_points/PC6_Neiguan_between_tendons_point_0cad7f27.png'],
+    isFree: true,
   },
   {
     id: 'st36',
@@ -396,6 +400,7 @@ export const samplePoints: AcupressurePoint[] = [
     },
     conditions: ['digestive issues', 'fatigue', 'immunity boost', 'leg weakness', 'nausea'],
     images: ['@assets/acupressure_points/ST36_Zusanli_tibia_leg_point_d593dc9b.png'],
+    isFree: true,
   },
 
   // NEW ESSENTIAL POINTS (25 additional points from research)
@@ -464,6 +469,7 @@ export const samplePoints: AcupressurePoint[] = [
     },
     conditions: ['fever', 'elbow pain', 'skin conditions', 'tennis elbow'],
     images: ['@assets/acupressure_points/LI11_Quchi_elbow_acupressure_point_b6ecb42b.png'],
+    isFree: true,
   },
   {
     id: 'bl2',
@@ -727,6 +733,7 @@ export const samplePoints: AcupressurePoint[] = [
     },
     conditions: ['insomnia', 'anxiety', 'heart palpitations', 'memory problems'],
     images: ['@assets/acupressure_points/HT7_Shenmen_wrist_acupressure_point_c660a59c.png'],
+    isFree: true,
   },
   {
     id: 'ki3',
@@ -793,6 +800,7 @@ export const samplePoints: AcupressurePoint[] = [
     },
     conditions: ['fatigue', 'lower back pain', 'kidney support', 'reproductive health'],
     images: ['@assets/acupressure_points/KI3_Taixi_ankle_acupressure_point_f8e5a56f.png'],
+    isFree: true,
   },
   {
     id: 'lu9',
@@ -925,6 +933,7 @@ export const samplePoints: AcupressurePoint[] = [
     },
     conditions: ['tension headaches', 'neck pain', 'cold symptoms', 'eye strain'],
     images: ['@assets/acupressure_points/GB20_Fengchi_skull_base_point_203a6a1d.png'],
+    isFree: true,
   },
   {
     id: 'sp3',
@@ -1057,6 +1066,7 @@ export const samplePoints: AcupressurePoint[] = [
     },
     conditions: ['kidney support', 'lower back pain', 'urinary disorders', 'fatigue'],
     images: ['@assets/acupressure_points/BL23_Shenshu_lower_back_point_4a3f81a2.png'],
+    isFree: true,
   },
   {
     id: 'te5',
@@ -1188,6 +1198,7 @@ export const samplePoints: AcupressurePoint[] = [
     },
     conditions: ['emotional stress', 'chest tightness', 'breathing difficulties', 'heart palpitations'],
     images: ['@assets/acupressure_points/CV17_Danzhong_chest_acupressure_point_c3e55971.png'],
+    isFree: true,
   },
   {
     id: 'si3',
@@ -1584,6 +1595,7 @@ export const samplePoints: AcupressurePoint[] = [
     },
     conditions: ['nasal congestion', 'sinusitis', 'loss of smell', 'allergies'],
     images: ['@assets/acupressure_points/LI20_Yingxiang_nasolabial_groove_point_847df89e.png'],
+    isFree: true,
   },
   {
     id: 'st25',
@@ -4849,6 +4861,7 @@ export const samplePoints: AcupressurePoint[] = [
     },
     conditions: ['asthma', 'bronchitis', 'wrist pain'],
     images: ['lu7_location.jpg'],
+    isFree: true,
   },
 
   // Point 79: Liver 8 (Ququan) - Women's health and circulation
