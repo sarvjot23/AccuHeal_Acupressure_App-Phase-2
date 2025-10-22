@@ -18,24 +18,30 @@ import { Card, Button, PointCard } from '@components';
 import { RootStackParamList, AcupressurePoint } from '@types';
 import { firestoreService } from '@services';
 import { samplePoints } from '@data/samplePoints';
+import { useSubscription } from '@contexts/SubscriptionContext';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const { t } = useTranslation();
+  const { isPremium } = useSubscription();
   
   const [popularPoints, setPopularPoints] = useState<AcupressurePoint[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadPopularPoints();
-  }, []);
+  }, [isPremium]);
 
   const loadPopularPoints = async () => {
     try {
-      // For now, use sample data. In production, fetch from Firestore
-      setPopularPoints(samplePoints.slice(0, 5));
+      // Filter points based on subscription status
+      const availablePoints = isPremium 
+        ? samplePoints 
+        : samplePoints.filter(point => point.isFree === true);
+      
+      setPopularPoints(availablePoints.slice(0, 5));
     } catch (error) {
       console.error('Error loading popular points:', error);
       Alert.alert('Error', 'Failed to load popular points');

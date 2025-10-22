@@ -17,6 +17,7 @@ import { SearchInput, Card, PointCard } from '@components';
 import { RootStackParamList, AcupressurePoint, SearchResult } from '@types';
 import { typesenseService } from '@services';
 import { useLanguage } from '@contexts/LanguageContext';
+import { useSubscription } from '@contexts/SubscriptionContext';
 
 type SearchScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 type SearchScreenRouteProp = RouteProp<RootStackParamList, 'Search'>;
@@ -27,6 +28,7 @@ const SearchScreen: React.FC = () => {
   const route = useRoute<SearchScreenRouteProp>();
   const { t } = useTranslation();
   const { currentLanguage } = useLanguage();
+  const { isPremium } = useSubscription();
   
   const [searchQuery, setSearchQuery] = useState(route.params?.initialQuery || '');
   const [searchResults, setSearchResults] = useState<AcupressurePoint[]>([]);
@@ -91,7 +93,14 @@ const SearchScreen: React.FC = () => {
       
       console.log('✅ Typesense search completed. Found', searchResults.length, 'results');
       
-      setSearchResults(searchResults);
+      // Filter results based on subscription status
+      const filteredResults = isPremium 
+        ? searchResults 
+        : searchResults.filter(point => point.isFree === true);
+      
+      console.log(`🔒 Filtered to ${filteredResults.length} results (isPremium: ${isPremium})`);
+      
+      setSearchResults(filteredResults);
     } catch (error) {
       console.error('💥 Typesense search error:', error);
       console.error('Query:', query, 'Filter:', activeFilter, 'Language:', currentLanguage);

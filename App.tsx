@@ -9,6 +9,7 @@ import './src/localization/i18n';
 import MainNavigator from './src/navigation/MainNavigator';
 import { LanguageProvider } from './src/contexts/LanguageContext';
 import { AuthProvider } from './src/contexts/AuthContext';
+import { SubscriptionProvider } from './src/contexts/SubscriptionContext';
 import { TypesenseTest } from './src/components/TypesenseTest';
 
 export default function App() {
@@ -16,12 +17,14 @@ export default function App() {
     <GestureHandlerRootView style={styles.container}>
       <SafeAreaProvider>
         <AuthProvider>
-          <LanguageProvider>
-            <NavigationContainer>
-              <MainNavigator />
-              <StatusBar style="auto" />
-            </NavigationContainer>
-          </LanguageProvider>
+          <SubscriptionProvider>
+            <LanguageProvider>
+              <NavigationContainer>
+                <MainNavigator />
+                <StatusBar style="auto" />
+              </NavigationContainer>
+            </LanguageProvider>
+          </SubscriptionProvider>
         </AuthProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>

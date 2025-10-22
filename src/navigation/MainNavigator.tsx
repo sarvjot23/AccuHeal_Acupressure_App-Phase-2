@@ -22,6 +22,7 @@ import AdminLoginScreen from '@screens/AdminLoginScreen';
 import MyAccountScreen from '@screens/MyAccountScreen';
 import AuthSuccessScreen from '@screens/AuthSuccessScreen';
 import AuthFailureScreen from '@screens/AuthFailureScreen';
+import SubscriptionScreen from '@screens/SubscriptionScreen';
 import { TypesenseTest } from '@components/TypesenseTest';
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();
@@ -174,6 +175,14 @@ const MainNavigator = () => {
         component={BeginnerGuideScreen}
         options={{
           title: t('guide.beginnerGuideTitle'),
+          headerBackTitleVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="Subscription"
+        component={SubscriptionScreen}
+        options={{
+          title: 'Upgrade to Premium',
           headerBackTitleVisible: false,
         }}
       />

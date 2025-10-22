@@ -84,7 +84,7 @@ export interface User {
   createdAt: Date;
   isPremium?: boolean;
   subscriptionId?: string;
-  subscriptionStatus?: 'active' | 'canceled' | 'past_due' | 'trialing';
+  subscriptionStatus?: 'active' | 'canceled' | 'past_due' | 'trialing' | 'none';
   subscriptionExpiresAt?: Date;
 }
 
@@ -95,6 +95,7 @@ export type RootStackParamList = {
   BeginnerGuide: undefined;
   Search: { initialQuery?: string };
   Settings: undefined;
+  Subscription: undefined;
   TypesenseTest: undefined;
   AdminUpdate: undefined;
   Login: undefined;
