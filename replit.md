@@ -8,6 +8,21 @@ The app contains a database of 89 carefully documented acupressure points from c
 
 ## Recent Changes
 
+### Clerk Authentication Migration - November 2025
+- **Authentication Provider Switch**: Migrated from Firebase Auth to Clerk for simplified OAuth and improved UX
+- **Clerk Setup**: Installed @clerk/clerk-expo@2.19.4, expo-web-browser@15.0.9, expo-linking, configured ClerkProvider with secure token cache
+- **AuthContext Redesign**: Complete rewrite using Clerk hooks (useAuth, useUser, useSignIn, useSignUp, useOAuth)
+  - Email/password authentication via Clerk's signIn.create() and signUp.create()
+  - Email verification flow with verifyEmail(code) and resendVerificationEmail() methods
+  - Pending verification state management (pendingVerification, pendingVerificationEmail)
+  - Google OAuth via useOAuth with proper redirectUrl (Linking.createURL)
+  - Apple Sign-In via useOAuth with iOS-specific handling
+  - Maintains backward compatibility with existing AuthContext interface
+- **App Configuration**: Added 'accuheal' scheme to app.json, enabled usesAppleSignIn for iOS
+- **Environment Variables**: Added EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY for Clerk configuration
+- **Legacy Code**: Backed up original Firebase AuthContext to src/contexts/AuthContext.firebase.tsx.backup
+- **Next Steps**: Update LoginScreen and SignupScreen to use new verification flow, migrate SubscriptionContext to Clerk user IDs
+
 ### Freemium Subscription System - October 2025
 - **Business Model**: Implemented freemium model with 15 free beginner points and 74 premium points unlocked via $5/month subscription
 - **Free Tier Content**: LI4, GV20, PC6, ST36, SP6, HT7, GB20, LI20, KI3, LU7, LI11, BL23, CV6, CV17, GV14 marked as free with `isFree: true` flag
@@ -41,7 +56,7 @@ Preferred communication style: Simple, everyday language.
 - **Navigation**: React Navigation v6 with bottom tab navigation and stack navigation for detail screens
 - **State Management**: Context API for language preferences, authentication state, and subscription status
   - `LanguageContext`: Manages app language (English/Hindi)
-  - `AuthContext`: Firebase authentication state
+  - `AuthContext`: Clerk authentication state with email verification management
   - `SubscriptionContext`: Premium subscription status with real-time Firestore sync
 - **UI Components**: Custom component library with reusable Button, Card, SearchInput, PointCard, and PremiumGate components
 - **Styling**: StyleSheet-based approach with design system constants for colors, typography, spacing, and shadows
@@ -53,7 +68,7 @@ Preferred communication style: Simple, everyday language.
 - **Database**: Firebase Firestore for storing acupressure point data, user profiles, and subscription status
 - **File Storage**: Firebase Storage for acupressure point anatomical images
 - **Search Engine**: Typesense for intelligent point discovery with symptom search and multilingual support
-- **Authentication**: Firebase Auth with support for email/password, Google Sign-In, and Apple Sign-In
+- **Authentication**: Clerk for authentication with email/password, Google OAuth, and Apple Sign-In; includes email verification flow
 - **Analytics**: Firebase Analytics for usage tracking and app performance monitoring
 - **Subscriptions**: Freemium model with 15 free points and 74 premium points ($5/month)
   - User subscription status stored in Firestore `users/{uid}` with fields: `isPremium`, `subscriptionStatus`, `subscriptionExpiresAt`
@@ -76,7 +91,8 @@ Preferred communication style: Simple, everyday language.
 ## External Dependencies
 
 ### Cloud Services
-- **Firebase**: Primary backend infrastructure including Firestore database, Authentication, Storage, and Analytics
+- **Firebase**: Backend infrastructure for Firestore database, Storage, and Analytics (Auth migrated to Clerk)
+- **Clerk**: Authentication provider for email/password, Google OAuth, and Apple Sign-In with built-in email verification
 - **Typesense**: Search engine for intelligent acupressure point discovery with typo tolerance, faceted search, and Hindi language support
 - **Stripe** (Pending): Payment processing for $5/month premium subscriptions - requires backend webhook setup
 
