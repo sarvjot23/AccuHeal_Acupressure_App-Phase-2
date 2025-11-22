@@ -2,6 +2,7 @@
   "expo": {
     "name": "AccuHeal",
     "slug": "accuheal",
+    "scheme": "accuheal",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,6 +19,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.accuheal.prod",
       "buildNumber": "1.0.0",
+      "usesAppleSignIn": true,
       "infoPlist": {
         "NSHealthShareUsageDescription": "AccuHeal uses health data to provide personalized acupressure recommendations.",
         "NSHealthUpdateUsageDescription": "AccuHeal can track your wellness progress through health data."

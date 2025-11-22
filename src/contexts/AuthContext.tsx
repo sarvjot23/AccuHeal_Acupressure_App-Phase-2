@@ -1,8 +1,11 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { User as FirebaseUser } from 'firebase/auth';
+import { useAuth as useClerkAuth, useUser, useSignIn, useSignUp, useOAuth } from '@clerk/clerk-expo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as WebBrowser from 'expo-web-browser';
+import * as Linking from 'expo-linking';
+import { Platform } from 'react-native';
 
-import { authService } from '@services/authService';
+WebBrowser.maybeCompleteAuthSession();
 
 export interface User {
   uid: string;
@@ -19,25 +22,24 @@ interface AuthContextType {
   isLoading: boolean;
   isAuthenticated: boolean;
   staySignedIn: boolean;
+  pendingVerification: boolean;
+  pendingVerificationEmail: string | null;
   
-  // Authentication methods
   signInWithEmail: (email: string, password: string) => Promise<void>;
   signUpWithEmail: (email: string, password: string, displayName: string) => Promise<void>;
+  verifyEmail: (code: string) => Promise<void>;
+  resendVerificationEmail: () => Promise<void>;
   signInWithGoogle: () => Promise<void>;
   signInWithApple: () => Promise<void>;
   signInWithBiometric: () => Promise<void>;
   signOut: () => Promise<void>;
   
-  // Admin methods
   signInAsAdmin: (email: string, password: string) => Promise<void>;
   
-  // Profile methods
   updateProfile: (updates: Partial<User>) => Promise<void>;
   
-  // Preference methods
   setStaySignedIn: (value: boolean) => Promise<void>;
   
-  // Utility methods
   refreshUser: () => Promise<void>;
 }
 
@@ -48,50 +50,50 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const { isLoaded: clerkLoaded, userId, isSignedIn, signOut: clerkSignOut } = useClerkAuth();
+  const { user: clerkUser } = useUser();
+  const { signIn, setActive: setActiveSignIn } = useSignIn();
+  const { signUp, setActive: setActiveSignUp } = useSignUp();
+  const { startOAuthFlow: startGoogleOAuth } = useOAuth({ strategy: 'oauth_google' });
+  const { startOAuthFlow: startAppleOAuth } = useOAuth({ strategy: 'oauth_apple' });
+  
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [staySignedIn, setStaySignedInState] = useState(true);
+  const [pendingVerification, setPendingVerification] = useState(false);
+  const [pendingVerificationEmail, setPendingVerificationEmail] = useState<string | null>(null);
 
-  const isAuthenticated = !!user;
+  const isAuthenticated = !!user && isSignedIn;
+
+  useEffect(() => {
+    WebBrowser.warmUpAsync();
+    return () => {
+      WebBrowser.coolDownAsync();
+    };
+  }, []);
 
   useEffect(() => {
     initializeAuth();
   }, []);
 
+  useEffect(() => {
+    if (clerkLoaded) {
+      syncClerkUser();
+    }
+  }, [clerkLoaded, isSignedIn, clerkUser]);
+
   const initializeAuth = async () => {
     try {
-      setIsLoading(true);
-      
-      // Load 'stay signed in' preference
       const staySignedInPref = await AsyncStorage.getItem('staySignedIn');
       const shouldStaySignedIn = staySignedInPref !== null ? JSON.parse(staySignedInPref) : true;
       setStaySignedInState(shouldStaySignedIn);
       
-      // Check for stored auth state only if user prefers to stay signed in
       if (shouldStaySignedIn) {
         const storedUser = await AsyncStorage.getItem('user');
         if (storedUser) {
           setUser(JSON.parse(storedUser));
         }
       }
-      
-      // Set up Firebase auth state listener
-      const unsubscribe = authService.onAuthStateChanged(async (firebaseUser: FirebaseUser | null) => {
-        if (firebaseUser) {
-          const userData = await createUserFromFirebaseUser(firebaseUser);
-          setUser(userData);
-          
-          // Only store user data if stay signed in is enabled
-          if (staySignedIn) {
-            await AsyncStorage.setItem('user', JSON.stringify(userData));
-          }
-        } else {
-          setUser(null);
-          await AsyncStorage.removeItem('user');
-        }
-      });
-
-      return unsubscribe;
     } catch (error) {
       console.error('Auth initialization error:', error);
     } finally {
@@ -99,31 +101,67 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const createUserFromFirebaseUser = async (firebaseUser: FirebaseUser): Promise<User> => {
-    // Check if user is admin (you can customize this logic)
-    const isAdmin = firebaseUser.email === 'admin@accuheal.com';
+  const syncClerkUser = async () => {
+    try {
+      if (isSignedIn && clerkUser) {
+        const userData = await createUserFromClerkUser();
+        setUser(userData);
+        
+        if (staySignedIn) {
+          await AsyncStorage.setItem('user', JSON.stringify(userData));
+        }
+      } else {
+        setUser(null);
+        await AsyncStorage.removeItem('user');
+      }
+    } catch (error) {
+      console.error('Error syncing Clerk user:', error);
+    }
+  };
+
+  const createUserFromClerkUser = async (): Promise<User> => {
+    if (!clerkUser) {
+      throw new Error('No Clerk user available');
+    }
+
+    const email = clerkUser.primaryEmailAddress?.emailAddress || null;
+    const isAdmin = email === 'admin@accuheal.com';
     
-    // Get stored language preference or default to 'en'
     const storedLanguage = await AsyncStorage.getItem('preferredLanguage');
     
     return {
-      uid: firebaseUser.uid,
-      email: firebaseUser.email,
-      displayName: firebaseUser.displayName,
-      photoURL: firebaseUser.photoURL,
+      uid: clerkUser.id,
+      email,
+      displayName: clerkUser.fullName || clerkUser.firstName || email?.split('@')[0] || 'User',
+      photoURL: clerkUser.imageUrl || null,
       isAdmin,
       preferredLanguage: (storedLanguage as 'en' | 'hi') || 'en',
-      createdAt: new Date(firebaseUser.metadata.creationTime || Date.now()),
+      createdAt: new Date(clerkUser.createdAt || Date.now()),
     };
   };
 
   const signInWithEmail = async (email: string, password: string): Promise<void> => {
     try {
       setIsLoading(true);
-      await authService.signInWithEmailAndPassword(email, password);
-      // User state will be updated via onAuthStateChanged
-    } catch (error) {
-      throw error;
+      
+      if (!signIn) {
+        throw new Error('Sign in not ready');
+      }
+
+      const result = await signIn.create({
+        identifier: email,
+        password,
+      });
+
+      if (result.status === 'complete') {
+        await setActiveSignIn({ session: result.createdSessionId });
+        await syncClerkUser();
+      } else {
+        throw new Error('Sign in incomplete. Please try again.');
+      }
+    } catch (error: any) {
+      console.error('Email sign in error:', error);
+      throw new Error(error.errors?.[0]?.message || 'Failed to sign in. Please check your credentials.');
     } finally {
       setIsLoading(false);
     }
@@ -132,10 +170,85 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const signUpWithEmail = async (email: string, password: string, displayName: string): Promise<void> => {
     try {
       setIsLoading(true);
-      await authService.createUserWithEmailAndPassword(email, password, displayName);
-      // User state will be updated via onAuthStateChanged
-    } catch (error) {
-      throw error;
+      
+      if (!signUp) {
+        throw new Error('Sign up not ready');
+      }
+
+      const [firstName, ...lastNameParts] = displayName.split(' ');
+      const lastName = lastNameParts.join(' ');
+
+      const result = await signUp.create({
+        emailAddress: email,
+        password,
+        firstName: firstName || displayName,
+        lastName: lastName || undefined,
+      });
+
+      if (result.status === 'complete') {
+        await setActiveSignUp({ session: result.createdSessionId });
+        await syncClerkUser();
+        setPendingVerification(false);
+        setPendingVerificationEmail(null);
+      } else if (result.status === 'missing_requirements') {
+        await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
+        setPendingVerification(true);
+        setPendingVerificationEmail(email);
+      }
+    } catch (error: any) {
+      console.error('Email sign up error:', error);
+      throw new Error(error.errors?.[0]?.message || 'Failed to create account. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const verifyEmail = async (code: string): Promise<void> => {
+    try {
+      setIsLoading(true);
+      
+      if (!signUp) {
+        throw new Error('Sign up not ready');
+      }
+
+      if (!pendingVerification) {
+        throw new Error('No pending email verification');
+      }
+
+      const result = await signUp.attemptEmailAddressVerification({ code });
+
+      if (result.status === 'complete') {
+        await setActiveSignUp({ session: result.createdSessionId });
+        await syncClerkUser();
+        setPendingVerification(false);
+        setPendingVerificationEmail(null);
+      } else {
+        throw new Error('Verification incomplete. Please check the code and try again.');
+      }
+    } catch (error: any) {
+      console.error('Email verification error:', error);
+      throw new Error(error.errors?.[0]?.message || 'Failed to verify email. Please check the code.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const resendVerificationEmail = async (): Promise<void> => {
+    try {
+      setIsLoading(true);
+      
+      if (!signUp) {
+        throw new Error('Sign up not ready');
+      }
+
+      if (!pendingVerification) {
+        throw new Error('No pending email verification');
+      }
+
+      await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
+    } catch (error: any) {
+      console.error('Resend verification error:', error);
+      throw new Error(error.errors?.[0]?.message || 'Failed to resend verification email.');
     } finally {
       setIsLoading(false);
     }
@@ -144,10 +257,27 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const signInWithGoogle = async (): Promise<void> => {
     try {
       setIsLoading(true);
-      await authService.signInWithGoogle();
-      // User state will be updated via onAuthStateChanged
-    } catch (error) {
-      throw error;
+      
+      const redirectUrl = Linking.createURL('/', { scheme: 'accuheal' });
+      
+      const { createdSessionId, setActive } = await startGoogleOAuth({
+        redirectUrl,
+      });
+      
+      if (createdSessionId && setActive) {
+        await setActive({ session: createdSessionId });
+        await syncClerkUser();
+      } else {
+        throw new Error('Google sign in was cancelled or incomplete');
+      }
+    } catch (error: any) {
+      console.error('Google sign in error:', error);
+      
+      if (error.code === 'ERR_CANCELED' || error.code === 'ERR_REQUEST_CANCELED') {
+        throw new Error('Google sign in was cancelled');
+      }
+      
+      throw new Error(error.errors?.[0]?.message || error.message || 'Failed to sign in with Google');
     } finally {
       setIsLoading(false);
     }
@@ -156,36 +286,46 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const signInWithApple = async (): Promise<void> => {
     try {
       setIsLoading(true);
-      await authService.signInWithApple();
-      // User state will be updated via onAuthStateChanged
-    } catch (error) {
-      throw error;
+
+      if (Platform.OS !== 'ios') {
+        throw new Error('Apple Sign-In is only available on iOS');
+      }
+
+      const redirectUrl = Linking.createURL('/', { scheme: 'accuheal' });
+      
+      const { createdSessionId, setActive } = await startAppleOAuth({
+        redirectUrl,
+      });
+      
+      if (createdSessionId && setActive) {
+        await setActive({ session: createdSessionId });
+        await syncClerkUser();
+      } else {
+        throw new Error('Apple sign in was cancelled or incomplete');
+      }
+    } catch (error: any) {
+      console.error('Apple sign in error:', error);
+      
+      if (error.code === 'ERR_CANCELED' || error.code === 'ERR_REQUEST_CANCELED') {
+        throw new Error('Apple sign in was cancelled');
+      }
+      
+      throw new Error(error.errors?.[0]?.message || error.message || 'Failed to sign in with Apple');
     } finally {
       setIsLoading(false);
     }
   };
 
   const signInWithBiometric = async (): Promise<void> => {
-    try {
-      setIsLoading(true);
-      await authService.signInWithBiometric();
-      // User state will be updated via onAuthStateChanged
-    } catch (error) {
-      throw error;
-    } finally {
-      setIsLoading(false);
-    }
+    throw new Error('Biometric authentication not yet implemented with Clerk');
   };
 
   const signInAsAdmin = async (email: string, password: string): Promise<void> => {
-    try {
-      setIsLoading(true);
-      await authService.signInAsAdmin(email, password);
-      // User state will be updated via onAuthStateChanged
-    } catch (error) {
-      throw error;
-    } finally {
-      setIsLoading(false);
+    await signInWithEmail(email, password);
+    
+    if (email !== 'admin@accuheal.com') {
+      await signOut();
+      throw new Error('Unauthorized: Admin access only');
     }
   };
 
@@ -193,20 +333,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       console.log('AuthContext: Starting sign out process');
       setIsLoading(true);
-      console.log('AuthContext: Calling authService.signOut()');
-      await authService.signOut();
-      console.log('AuthContext: authService.signOut() completed');
-      console.log('AuthContext: Setting user to null');
+      
+      if (clerkSignOut) {
+        await clerkSignOut();
+      }
+      
       setUser(null);
-      console.log('AuthContext: Removing user from AsyncStorage');
+      setPendingVerification(false);
+      setPendingVerificationEmail(null);
       await AsyncStorage.removeItem('user');
       
-      // If user doesn't want to stay signed in, clear the preference
       if (!staySignedIn) {
-        console.log('AuthContext: Removing staySignedIn preference');
         await AsyncStorage.removeItem('staySignedIn');
       }
-      console.log('AuthContext: Sign out process completed successfully');
+      
+      console.log('AuthContext: Sign out completed successfully');
     } catch (error) {
       console.error('AuthContext: Sign out error:', error);
       throw error;
@@ -220,12 +361,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setStaySignedInState(value);
       await AsyncStorage.setItem('staySignedIn', JSON.stringify(value));
       
-      // If turning off stay signed in and user is authenticated, clear stored data
       if (!value && user) {
         await AsyncStorage.removeItem('user');
       }
       
-      // If turning on stay signed in and user is authenticated, store user data
       if (value && user) {
         await AsyncStorage.setItem('user', JSON.stringify(user));
       }
@@ -242,9 +381,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUser(updatedUser);
       await AsyncStorage.setItem('user', JSON.stringify(updatedUser));
       
-      // Update language preference separately
       if (updates.preferredLanguage) {
         await AsyncStorage.setItem('preferredLanguage', updates.preferredLanguage);
+      }
+
+      if (clerkUser && (updates.displayName || updates.photoURL)) {
+        await clerkUser.update({
+          firstName: updates.displayName?.split(' ')[0],
+          lastName: updates.displayName?.split(' ').slice(1).join(' '),
+        });
       }
     } catch (error) {
       throw error;
@@ -253,9 +398,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const refreshUser = async (): Promise<void> => {
     try {
-      const currentUser = authService.getCurrentUser();
-      if (currentUser) {
-        const userData = await createUserFromFirebaseUser(currentUser);
+      if (clerkUser) {
+        const userData = await createUserFromClerkUser();
         setUser(userData);
         await AsyncStorage.setItem('user', JSON.stringify(userData));
       }
@@ -266,11 +410,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const value: AuthContextType = {
     user,
-    isLoading,
-    isAuthenticated,
+    isLoading: isLoading || !clerkLoaded,
+    isAuthenticated: !!isAuthenticated,
     staySignedIn,
+    pendingVerification,
+    pendingVerificationEmail,
     signInWithEmail,
     signUpWithEmail,
+    verifyEmail,
+    resendVerificationEmail,
     signInWithGoogle,
     signInWithApple,
     signInWithBiometric,
