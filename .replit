@@ -8,7 +8,6 @@ channel = "stable-25_05"
 run = ["sh", "-c", "npm run start"]
 
 [workflows]
-runButton = "Project"
 
 [[workflows.workflow]]
 name = "Installation"
@@ -41,27 +40,6 @@ mode = "sequential"
 task = "shell.exec"
 args = "npm run start"
 
-[[workflows.workflow]]
-name = "Project"
-mode = "parallel"
-author = "agent"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
-args = "AccuHeal App"
-
-[[workflows.workflow]]
-name = "AccuHeal App"
-author = "agent"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "npx @expo/cli start --web --port 5000"
-waitForPort = 5000
-
-[workflows.workflow.metadata]
-outputType = "webview"
-
 [[ports]]
 localPort = 5000
 externalPort = 80
@@ -73,10 +51,6 @@ externalPort = 3000
 [[ports]]
 localPort = 8081
 externalPort = 80
-
-[[ports]]
-localPort = 36935
-externalPort = 3001
 
 [agent]
 expertMode = true
