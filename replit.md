@@ -8,8 +8,8 @@ The app contains a database of 89 carefully documented acupressure points from c
 
 ## Recent Changes
 
-### Clerk Authentication Migration - November 2025
-- **Authentication Provider Switch**: Migrated from Firebase Auth to Clerk for simplified OAuth and improved UX
+### Clerk Authentication Migration - November 22, 2025 ✅ COMPLETE
+- **Authentication Provider Switch**: Successfully migrated from Firebase Auth to Clerk for simplified OAuth and improved UX
 - **Clerk Setup**: Installed @clerk/clerk-expo@2.19.4, expo-web-browser@15.0.9, expo-linking, configured ClerkProvider with secure token cache
 - **AuthContext Redesign**: Complete rewrite using Clerk hooks (useAuth, useUser, useSignIn, useSignUp, useOAuth)
   - Email/password authentication via Clerk's signIn.create() and signUp.create()
@@ -17,20 +17,35 @@ The app contains a database of 89 carefully documented acupressure points from c
   - Pending verification state management (pendingVerification, pendingVerificationEmail)
   - Google OAuth via useOAuth with proper redirectUrl (Linking.createURL)
   - Apple Sign-In via useOAuth with iOS-specific handling
+  - Biometric authentication preserved from previous implementation
   - Maintains backward compatibility with existing AuthContext interface
+- **LoginScreen & SignupScreen**: Updated with Google/Apple OAuth buttons and complete email verification UI
+  - OAuth buttons for Google and Apple Sign-In (Apple iOS-only)
+  - Professional verification screen with 6-digit code input
+  - Resend verification email functionality
+  - Consistent modern UI design with pill-shaped buttons
+- **SubscriptionContext Migration**: Updated to use Clerk user IDs instead of Firebase UIDs
+  - Removed Firebase auth.onAuthStateChanged dependency
+  - Now uses Clerk's useAuth hook for authentication state
+  - Maintains real-time Firestore sync for subscription data
+  - User documents keyed by Clerk user.uid in Firestore
+- **Firebase Cleanup**: Removed Firebase Auth dependencies completely
+  - Deleted src/services/authService.ts (obsolete)
+  - Removed auth imports and initialization from firebase.ts
+  - Retained Firebase Firestore (for subscription data) and Storage (for images)
 - **App Configuration**: Added 'accuheal' scheme to app.json, enabled usesAppleSignIn for iOS
 - **Environment Variables**: Added EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY for Clerk configuration
 - **Legacy Code**: Backed up original Firebase AuthContext to src/contexts/AuthContext.firebase.tsx.backup
-- **Next Steps**: Update LoginScreen and SignupScreen to use new verification flow, migrate SubscriptionContext to Clerk user IDs
+- **⚠️ User Action Required**: Configure Google/Apple OAuth providers in Clerk Dashboard before testing social sign-in
 
 ### Freemium Subscription System - October 2025
 - **Business Model**: Implemented freemium model with 15 free beginner points and 74 premium points unlocked via $5/month subscription
 - **Free Tier Content**: LI4, GV20, PC6, ST36, SP6, HT7, GB20, LI20, KI3, LU7, LI11, BL23, CV6, CV17, GV14 marked as free with `isFree: true` flag
-- **SubscriptionContext**: Created context provider managing premium status, subscription state, and real-time Firestore synchronization
+- **SubscriptionContext**: Created context provider managing premium status, subscription state, and real-time Firestore synchronization (now uses Clerk user IDs)
 - **Content Gating**: Implemented filtering in SearchScreen and HomeScreen to show only free points for non-premium users
 - **PremiumGate Component**: Reusable component for protecting premium content with upgrade prompts
 - **SubscriptionScreen**: Professional pricing UI with feature comparison, premium benefits display, and subscription management
-- **Auth Integration**: Fixed race condition in subscription checking; now passes Firebase user directly from auth callback
+- **Auth Integration**: Uses Clerk authentication state for subscription management
 - **Search Cleanup**: Removed Algolia dependency completely; app now uses Typesense exclusively for search functionality
 - **⚠️ Stripe Integration Pending**: Payment processing requires backend webhook setup (Firebase Cloud Functions recommended)
 

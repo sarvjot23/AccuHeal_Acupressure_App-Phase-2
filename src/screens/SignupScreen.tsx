@@ -26,7 +26,17 @@ type SignupScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 const SignupScreen: React.FC = () => {
   const navigation = useNavigation<SignupScreenNavigationProp>();
   const { t } = useTranslation();
-  const { signUpWithEmail, signInWithEmail, signInWithGoogle, signInWithApple, signInWithBiometric } = useAuth();
+  const { 
+    signUpWithEmail, 
+    signInWithEmail, 
+    signInWithGoogle, 
+    signInWithApple, 
+    signInWithBiometric,
+    verifyEmail,
+    resendVerificationEmail,
+    pendingVerification,
+    pendingVerificationEmail
+  } = useAuth();
   
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -37,6 +47,7 @@ const SignupScreen: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [biometricAvailable, setBiometricAvailable] = useState(false);
   const [isSignInMode, setIsSignInMode] = useState(false);
+  const [verificationCode, setVerificationCode] = useState('');
 
   React.useEffect(() => {
     checkBiometricAvailability();
@@ -66,13 +77,47 @@ const SignupScreen: React.FC = () => {
         navigation.navigate('AuthSuccess', { method: 'email' });
       } else {
         await signUpWithEmail(email, password, fullName);
-        navigation.navigate('AuthSuccess', { method: 'email' });
+        if (!pendingVerification) {
+          navigation.navigate('AuthSuccess', { method: 'email' });
+        }
       }
     } catch (error: any) {
-      navigation.navigate('AuthFailure', { 
-        method: 'email', 
-        error: error.message || `${isSignInMode ? 'Sign in' : 'Sign up'} failed. Please try again.`
-      });
+      Alert.alert('Error', error.message || `${isSignInMode ? 'Sign in' : 'Sign up'} failed. Please try again.`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleVerifyEmail = async () => {
+    if (!verificationCode || verificationCode.length !== 6) {
+      Alert.alert('Error', 'Please enter a valid 6-digit verification code');
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      await verifyEmail(verificationCode);
+      Alert.alert('Success', 'Email verified successfully!', [
+        {
+          text: 'OK',
+          onPress: () => navigation.navigate('AuthSuccess', { method: 'email' })
+        }
+      ]);
+    } catch (error: any) {
+      Alert.alert('Error', error.message || 'Verification failed. Please check the code and try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleResendCode = async () => {
+    setIsLoading(true);
+    try {
+      await resendVerificationEmail();
+      Alert.alert('Success', 'Verification code sent! Check your email.');
+      setVerificationCode('');
+    } catch (error: any) {
+      Alert.alert('Error', error.message || 'Failed to resend code. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -186,9 +231,55 @@ const SignupScreen: React.FC = () => {
 
       {/* Main Content */}
       <View style={styles.content}>
-        {/* Signup Form */}
-        <View style={styles.formContainer}>
-          {isSignInMode ? (
+        {pendingVerification ? (
+          /* Email Verification Form */
+          <View style={styles.verificationContainer}>
+            <View style={styles.verificationHeader}>
+              <Ionicons name="mail-outline" size={64} color={Colors.primary[600]} />
+              <Text style={styles.verificationTitle}>Check your email</Text>
+              <Text style={styles.verificationSubtitle}>
+                We sent a verification code to{'\n'}
+                <Text style={styles.emailHighlight}>{pendingVerificationEmail}</Text>
+              </Text>
+            </View>
+
+            <View style={styles.codeInputGroup}>
+              <Text style={styles.inputLabel}>Verification Code</Text>
+              <TextInput
+                style={styles.codeInput}
+                value={verificationCode}
+                onChangeText={setVerificationCode}
+                placeholder="Enter 6-digit code"
+                placeholderTextColor={Colors.primary[300]}
+                keyboardType="number-pad"
+                maxLength={6}
+                autoFocus
+              />
+            </View>
+
+            <Button
+              title="Verify Email"
+              onPress={handleVerifyEmail}
+              loading={isLoading}
+              size="lg"
+              fullWidth
+              style={styles.verifyButton}
+            />
+
+            <TouchableOpacity 
+              onPress={handleResendCode}
+              style={styles.resendButton}
+              disabled={isLoading}
+            >
+              <Text style={styles.resendText}>
+                Didn't receive the code? <Text style={styles.resendLink}>Resend</Text>
+              </Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          /* Signup Form */
+          <View style={styles.formContainer}>
+            {isSignInMode ? (
             // Sign In Mode - Simplified form
             <>
               <View style={styles.inputGroup}>
@@ -319,10 +410,11 @@ const SignupScreen: React.FC = () => {
               </View>
             </>
           )}
-
-        </View>
+          </View>
+        )}
 
         {/* Bottom Section */}
+        {!pendingVerification && (
         <View style={styles.bottomSection}>
           {/* Terms & Privacy */}
           {!isSignInMode && (
@@ -378,6 +470,7 @@ const SignupScreen: React.FC = () => {
           </View>
 
         </View>
+        )}
       </View>
     </KeyboardAvoidingView>
   );
@@ -503,6 +596,68 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary[100],
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  verificationContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: Spacing.xl,
+  },
+  verificationHeader: {
+    alignItems: 'center',
+    marginBottom: Spacing['2xl'],
+  },
+  verificationTitle: {
+    ...Typography.h3,
+    color: Colors.primary[600],
+    fontWeight: '700',
+    marginTop: Spacing.lg,
+    marginBottom: Spacing.sm,
+  },
+  verificationSubtitle: {
+    ...Typography.body1,
+    color: Colors.text.secondary,
+    textAlign: 'center',
+    lineHeight: 24,
+  },
+  emailHighlight: {
+    color: Colors.primary[600],
+    fontWeight: '600',
+  },
+  codeInputGroup: {
+    width: '100%',
+    marginBottom: Spacing.xl,
+  },
+  codeInput: {
+    backgroundColor: Colors.primary[50],
+    borderRadius: BorderRadius.lg,
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.lg,
+    fontSize: 24,
+    color: Colors.primary[700],
+    borderWidth: 2,
+    borderColor: Colors.primary[200],
+    textAlign: 'center',
+    letterSpacing: 8,
+    fontWeight: '600',
+  },
+  verifyButton: {
+    width: '100%',
+    backgroundColor: Colors.primary[600],
+    marginBottom: Spacing.md,
+  },
+  resendButton: {
+    paddingVertical: Spacing.md,
+  },
+  resendText: {
+    ...Typography.body2,
+    color: Colors.text.secondary,
+    textAlign: 'center',
+  },
+  resendLink: {
+    color: Colors.primary[600],
+    fontWeight: '600',
+    textDecorationLine: 'underline',
   },
 });
 

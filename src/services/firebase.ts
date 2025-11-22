@@ -1,7 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 import { getStorage, connectStorageEmulator } from 'firebase/storage';
-import { getAuth, connectAuthEmulator } from 'firebase/auth';
 import { getAnalytics } from 'firebase/analytics';
 import Constants from 'expo-constants';
 
@@ -19,14 +18,11 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize Firestore
+// Initialize Firestore (for subscription data)
 export const db = getFirestore(app);
 
-// Initialize Storage
+// Initialize Storage (for acupressure point images)
 export const storage = getStorage(app);
-
-// Initialize Auth
-export const auth = getAuth(app);
 
 // Initialize Analytics (only in production)
 export let analytics: ReturnType<typeof getAnalytics> | undefined;
@@ -39,7 +35,6 @@ if (__DEV__) {
   // Uncomment these lines if you want to use Firebase emulators in development
   // connectFirestoreEmulator(db, 'localhost', 8080);
   // connectStorageEmulator(storage, 'localhost', 9199);
-  // connectAuthEmulator(auth, 'http://localhost:9099');
 }
 
 export default app;

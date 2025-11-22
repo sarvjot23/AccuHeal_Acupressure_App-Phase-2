@@ -26,7 +26,7 @@ type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 const LoginScreen: React.FC = () => {
   const navigation = useNavigation<LoginScreenNavigationProp>();
   const { t } = useTranslation();
-  const { signInWithEmail, signInWithBiometric, isLoading: authLoading } = useAuth();
+  const { signInWithEmail, signInWithGoogle, signInWithApple, signInWithBiometric, isLoading: authLoading } = useAuth();
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -61,6 +61,44 @@ const LoginScreen: React.FC = () => {
       ]);
     } catch (error: any) {
       Alert.alert('Error', error.message || 'Login failed. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setIsLoading(true);
+    try {
+      await signInWithGoogle();
+      Alert.alert('Success', 'Google sign-in successful!', [
+        {
+          text: 'OK',
+          onPress: () => navigation.goBack()
+        }
+      ]);
+    } catch (error: any) {
+      if (!error.message?.includes('cancelled')) {
+        Alert.alert('Error', error.message || 'Google sign-in failed');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleAppleLogin = async () => {
+    setIsLoading(true);
+    try {
+      await signInWithApple();
+      Alert.alert('Success', 'Apple sign-in successful!', [
+        {
+          text: 'OK',
+          onPress: () => navigation.goBack()
+        }
+      ]);
+    } catch (error: any) {
+      if (!error.message?.includes('cancelled')) {
+        Alert.alert('Error', error.message || 'Apple sign-in failed');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -178,17 +216,36 @@ const LoginScreen: React.FC = () => {
           {/* Divider */}
           <Text style={styles.dividerText}>or</Text>
 
-          {/* Biometric Login */}
-          {biometricAvailable && (
+          {/* OAuth Login Buttons */}
+          <View style={styles.oauthContainer}>
             <TouchableOpacity 
-              style={styles.biometricButton}
-              onPress={handleBiometricLogin}
+              style={styles.oauthButton}
+              onPress={handleGoogleLogin}
+              disabled={isLoading || authLoading}
             >
-              <View style={styles.biometricIcon}>
-                <Ionicons name="finger-print" size={32} color={Colors.primary[600]} />
-              </View>
+              <Ionicons name="logo-google" size={24} color={Colors.primary[600]} />
             </TouchableOpacity>
-          )}
+
+            {Platform.OS === 'ios' && (
+              <TouchableOpacity 
+                style={styles.oauthButton}
+                onPress={handleAppleLogin}
+                disabled={isLoading || authLoading}
+              >
+                <Ionicons name="logo-apple" size={24} color={Colors.primary[600]} />
+              </TouchableOpacity>
+            )}
+
+            {biometricAvailable && (
+              <TouchableOpacity 
+                style={styles.oauthButton}
+                onPress={handleBiometricLogin}
+                disabled={isLoading || authLoading}
+              >
+                <Ionicons name="finger-print" size={24} color={Colors.primary[600]} />
+              </TouchableOpacity>
+            )}
+          </View>
 
           {/* Sign Up Link */}
           <View style={styles.signupContainer}>
@@ -285,14 +342,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: Spacing.lg,
   },
-  biometricButton: {
+  oauthContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
+    gap: Spacing.md,
     marginBottom: Spacing.xl,
   },
-  biometricIcon: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
+  oauthButton: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
     backgroundColor: Colors.primary[100],
     justifyContent: 'center',
     alignItems: 'center',
