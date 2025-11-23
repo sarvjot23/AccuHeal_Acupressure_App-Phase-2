@@ -1,7 +1,6 @@
 import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
-import { doc, getDoc, setDoc, onSnapshot, Timestamp } from 'firebase/firestore';
-import { db } from '@services/firebase';
-import { User } from '@types';
+import { supabaseService } from '@services/supabaseService';
+import type { UserRow } from '@services/supabase';
 import { useAuth } from './AuthContext';
 
 interface SubscriptionContextType {
@@ -49,49 +48,42 @@ export const SubscriptionProvider: React.FC<SubscriptionProviderProps> = ({ chil
         return;
       }
 
-      // Ensure user document exists before subscribing
-      const success = await ensureUserDocument(clerkUser.uid);
-      
-      // Check if component unmounted or user changed during ensureUserDocument
-      if (isCancelled) return;
+      try {
+        // Ensure user document exists in Supabase
+        const existingUser = await supabaseService.getUserByClerkId(clerkUser.uid);
+        
+        if (isCancelled) return;
 
-      if (!success) {
-        // Document creation failed; default to free tier
-        console.error('⚠️ Failed to ensure user document; defaulting to free tier');
-        setIsPremium(false);
-        setSubscriptionStatus('none');
-        setIsLoading(false);
-        return;
-      }
+        if (!existingUser) {
+          // Create user if doesn't exist
+          await supabaseService.upsertUser({
+            clerk_user_id: clerkUser.uid,
+            email: clerkUser.emailAddresses?.[0]?.emailAddress,
+            is_premium: false,
+            subscription_status: 'none',
+          });
+        }
 
-      // Document ensured; now attach real-time listener
-      const userDocRef = doc(db, 'users', clerkUser.uid);
-      unsubscribe = onSnapshot(
-        userDocRef,
-        (doc) => {
-          if (isCancelled) return; // Ignore updates if effect was cancelled
+        // Subscribe to real-time changes
+        unsubscribe = supabaseService.subscribeToUserChanges(clerkUser.uid, (userData) => {
+          if (isCancelled) return;
           
-          if (doc.exists()) {
-            const userData = doc.data() as User;
+          if (userData) {
             updateSubscriptionState(userData);
           } else {
-            // Doc doesn't exist (edge case); set free tier defaults
-            console.warn('⚠️ User document missing in snapshot');
             setIsPremium(false);
             setSubscriptionStatus('none');
           }
           setIsLoading(false);
-        },
-        (error) => {
-          if (isCancelled) return;
-          
-          console.error('❌ Subscription snapshot error:', error);
-          // On error, default to free tier and stop loading
-          setIsPremium(false);
-          setSubscriptionStatus('none');
-          setIsLoading(false);
-        }
-      );
+        });
+      } catch (error) {
+        if (isCancelled) return;
+        
+        console.error('❌ Subscription setup error:', error);
+        setIsPremium(false);
+        setSubscriptionStatus('none');
+        setIsLoading(false);
+      }
     };
 
     setupSubscription();
@@ -105,21 +97,13 @@ export const SubscriptionProvider: React.FC<SubscriptionProviderProps> = ({ chil
     };
   }, [isAuthenticated, clerkUser]);
 
-  const updateSubscriptionState = (userData: User) => {
-    const premium = userData.isPremium || false;
-    const status = userData.subscriptionStatus || 'none';
+  const updateSubscriptionState = (userData: UserRow) => {
+    const premium = userData.is_premium || false;
+    const status = userData.subscription_status || 'none';
     
-    // Handle Firestore Timestamp conversion properly
     let expiresAt: Date | null = null;
-    if (userData.subscriptionExpiresAt) {
-      if (userData.subscriptionExpiresAt instanceof Timestamp) {
-        expiresAt = userData.subscriptionExpiresAt.toDate();
-      } else if (userData.subscriptionExpiresAt instanceof Date) {
-        expiresAt = userData.subscriptionExpiresAt;
-      } else if (typeof userData.subscriptionExpiresAt === 'object' && 'seconds' in userData.subscriptionExpiresAt) {
-        // Handle plain object with seconds field (from Firestore serialization)
-        expiresAt = new Date((userData.subscriptionExpiresAt as any).seconds * 1000);
-      }
+    if (userData.subscription_expires_at) {
+      expiresAt = new Date(userData.subscription_expires_at);
     }
 
     setIsPremium(premium);
@@ -133,37 +117,6 @@ export const SubscriptionProvider: React.FC<SubscriptionProviderProps> = ({ chil
     }
   };
 
-  // Ensure user document exists in Firestore (create if missing)
-  // Returns true on success, false on failure
-  const ensureUserDocument = async (userId: string): Promise<boolean> => {
-    try {
-      const userDocRef = doc(db, 'users', userId);
-      const userDoc = await getDoc(userDocRef);
-
-      if (!userDoc.exists()) {
-        // Create user profile if it doesn't exist (use Firestore Timestamp for consistency)
-        const newUser: Partial<User> = {
-          id: userId,
-          preferredLanguage: 'en',
-          completedSessions: [],
-          favorites: [],
-          createdAt: Timestamp.now(),
-          isPremium: false,
-          subscriptionStatus: 'none',
-        };
-        await setDoc(userDocRef, newUser);
-        console.log('✅ Created new user document for Clerk user:', userId);
-      }
-      
-      // User doc now guaranteed to exist
-      return true;
-    } catch (error) {
-      console.error('❌ Error ensuring user document:', error);
-      // Note: Transient failures leave user on free tier until reload
-      // Future enhancement: Add retry logic with exponential backoff
-      return false;
-    }
-  };
 
   const checkSubscription = async () => {
     if (!clerkUser) {
@@ -171,13 +124,15 @@ export const SubscriptionProvider: React.FC<SubscriptionProviderProps> = ({ chil
       return;
     }
 
-    const success = await ensureUserDocument(clerkUser.uid);
-    if (!success) {
-      // Document creation failed; default to free tier
-      setIsPremium(false);
-      setSubscriptionStatus('none');
-      setIsLoading(false);
+    try {
+      const user = await supabaseService.getUserByClerkId(clerkUser.uid);
+      if (user) {
+        updateSubscriptionState(user);
+      }
+    } catch (error) {
+      console.error('Error checking subscription:', error);
     }
+    setIsLoading(false);
   };
 
   const upgradeToPremium = () => {

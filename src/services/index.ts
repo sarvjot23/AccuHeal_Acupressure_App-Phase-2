@@ -1,3 +1,3 @@
-export { firestoreService } from './firestore';
+export { supabaseService } from './supabaseService';
 export { typesenseService } from './typesense';
-export { default as firebase } from './firebase';
+export { supabase } from './supabase';
