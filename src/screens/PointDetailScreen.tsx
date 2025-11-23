@@ -14,6 +14,8 @@ import { ViewStyle, TextStyle } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useFavorites } from '../contexts/FavoritesContext';
+import { useSessionHistory } from '../contexts/SessionHistoryContext';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
 import { BreathingTimer } from '../components/BreathingTimer';
@@ -31,6 +33,8 @@ const PointDetailScreen = () => {
   const navigation = useNavigation();
   const { t } = useTranslation();
   const { currentLanguage } = useLanguage();
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const { addSession } = useSessionHistory();
   const [activeTab, setActiveTab] = useState<'location' | 'method' | 'benefits'>('location');
   
   // Timer state
@@ -39,6 +43,7 @@ const PointDetailScreen = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(0);
   const [timerDuration, setTimerDuration] = useState(0);
+  const [sessionStartTime, setSessionStartTime] = useState<number | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   
   // Get pointId from route params
@@ -46,6 +51,16 @@ const PointDetailScreen = () => {
   
   // Look up the point by ID from sample data
   const point = samplePoints.find(p => p.id === pointId);
+
+  // Clean up timer on unmount
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, []);
 
   // If no point found, show error
   if (!point) {
@@ -79,6 +94,7 @@ const PointDetailScreen = () => {
   const startSession = () => {
     setIsTimerRunning(true);
     setIsPaused(false);
+    setSessionStartTime(Date.now());
     
     intervalRef.current = setInterval(() => {
       setTimeRemaining(prev => {
@@ -87,11 +103,24 @@ const PointDetailScreen = () => {
           if (intervalRef.current) {
             clearInterval(intervalRef.current);
           }
+          // Track session completion
+          trackSessionCompletion();
           return 0;
         }
         return prev - 1;
       });
     }, 1000);
+  };
+
+  const trackSessionCompletion = async () => {
+    if (!sessionStartTime || !point) return;
+    
+    try {
+      const durationSeconds = Math.floor((Date.now() - sessionStartTime) / 1000);
+      await addSession(point.id, durationSeconds);
+    } catch (error) {
+      console.error('Error tracking session:', error);
+    }
   };
 
   const pauseSession = () => {
@@ -305,6 +334,13 @@ const PointDetailScreen = () => {
               </Text>
               <Text style={styles.pointCode}>{point.code}</Text>
             </View>
+            <TouchableOpacity onPress={() => toggleFavorite(point.id)} style={styles.favoriteButton}>
+              <Ionicons 
+                name={isFavorite(point.id) ? "heart" : "heart-outline"} 
+                size={28} 
+                color={isFavorite(point.id) ? Colors.error : Colors.text.secondary} 
+              />
+            </TouchableOpacity>
           </View>
         </Card>
 
@@ -390,6 +426,13 @@ const PointDetailScreen = () => {
               </Text>
               <Text style={styles.pointCode}>{point.code}</Text>
             </View>
+            <TouchableOpacity onPress={() => toggleFavorite(point.id)} style={styles.favoriteButton}>
+              <Ionicons 
+                name={isFavorite(point.id) ? "heart" : "heart-outline"} 
+                size={28} 
+                color={isFavorite(point.id) ? Colors.error : Colors.text.secondary} 
+              />
+            </TouchableOpacity>
           </View>
         </Card>
 
@@ -518,6 +561,10 @@ const styles = StyleSheet.create({
   },
   headerText: {
     flex: 1,
+  },
+  favoriteButton: {
+    padding: Spacing.sm,
+    marginLeft: Spacing.sm,
   },
   pointName: {
     ...Typography.h3,

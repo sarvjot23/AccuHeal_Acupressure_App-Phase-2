@@ -18,6 +18,14 @@ AccuHeal is a comprehensive, mobile-first acupressure guide application built wi
 
 ## Recent Changes (November 23, 2025)
 
+### ✅ NEW FEATURES - Favorites, History & Reminders
+- **Favorites System**: Heart icon on point details, save favorite points to user profile
+- **Session History**: Automatic tracking when users complete practice sessions
+- **Practice Reminders**: Full CRUD reminder system with daily/weekly/monthly repeats
+- **Database Tables**: favorites, session_history, reminders (all with RLS)
+- **Context Providers**: FavoritesContext, SessionHistoryContext for real-time data
+- **UI Components**: RemindersScreen with modal form, favorite button in PointDetailScreen
+
 ### FINAL IMPLEMENTATION - Razorpay Checkout Integration
 - **Status**: ✅ COMPLETE
 - **Razorpay Checkout Modal**: Now fully integrated in SubscriptionScreen
@@ -28,10 +36,15 @@ AccuHeal is a comprehensive, mobile-first acupressure guide application built wi
 
 ### Backend Architecture (MIGRATED TO SUPABASE)
 - **Database**: Supabase PostgreSQL
-  - acupressure_points table: 24+ points with full TCM data
-  - users table: Subscription status and user profiles
+  - ✅ acupressure_points table: Schema created, **needs data migration** from samplePoints
+  - ✅ users table: Active with auto-creation on first use
+  - ✅ favorites table: Fully functional
+  - ✅ session_history table: Fully functional
+  - ✅ reminders table: Fully functional
   - Real-time subscriptions enabled
   - Row Level Security policies for data protection
+  
+**⚠️ IMPORTANT**: The app currently uses local `samplePoints` data. To make favorites/history/reminders fully persistent, you need to migrate the samplePoints data to Supabase.
   
 - **File Storage**: Supabase Storage for acupressure point images
 - **Search Engine**: Typesense (runs on localhost:8108, Docker required)
@@ -44,12 +57,14 @@ AccuHeal is a comprehensive, mobile-first acupressure guide application built wi
 ### Frontend Architecture
 - **Framework**: React Native with Expo SDK for cross-platform development (iOS, Android, Web).
 - **Navigation**: React Navigation v6 with OpenRouter.ai-style top navigation bar.
-- **State Management**: Context API for language preferences, Clerk authentication, and real-time Supabase subscription status.
-- **UI Components**: Custom component library including Button, Card, SearchInput, PointCard, TopNavigationBar, and PremiumGate.
+- **State Management**: Context API for language preferences, Clerk authentication, real-time Supabase subscription, favorites, and session history.
+- **Context Providers**: AuthContext, SubscriptionContext, FavoritesContext, SessionHistoryContext, LanguageContext
+- **UI Components**: Custom component library including Button, Card, SearchInput, PointCard, TopNavigationBar, PremiumGate, and RemindersScreen.
 - **Styling**: StyleSheet-based approach with comprehensive design system.
 - **Animations**: React Native Reanimated v3 for micro-interactions.
 - **Internationalization**: i18next for English/Hindi bilingual support.
 - **Content Gating**: Freemium model (15 free beginner points, 74 premium points).
+- **User Engagement**: Favorites, session history tracking, practice reminders
 
 ### Payment Integration (COMPLETE)
 - **Service Layer**: razorpayService.ts handles order creation, verification, signature validation
@@ -100,6 +115,8 @@ AccuHeal is a comprehensive, mobile-first acupressure guide application built wi
 1. Click "Sign Up" to create account
 2. Browse 15 free acupressure points
 3. Search and filter by symptom
+4. ❤️ Tap heart icon to save favorites
+5. Complete a practice session to track history
 
 ### Test Premium Subscription
 1. Click "Upgrade to Premium"
@@ -107,7 +124,12 @@ AccuHeal is a comprehensive, mobile-first acupressure guide application built wi
 3. Any future expiry date, any 3-digit CVV
 4. Razorpay checkout modal opens
 5. Complete payment
-6. Instantly unlock all 89 points
+6. Instantly unlock all 81 points
+
+### Test New Features
+- **Favorites**: Tap heart icon on point detail screen, check profile for saved points
+- **Session History**: Start practice timer, complete session, view history in profile
+- **Reminders**: Create practice reminder with daily/weekly/monthly repeat
 
 ### Test Details
 - **Test API Key**: rzp_test_Rj6yjOjAdPuSzU
@@ -142,13 +164,21 @@ AccuHeal is a comprehensive, mobile-first acupressure guide application built wi
    - Monitor Supabase usage
    - Get user feedback
 
+## Immediate Next Steps
+
+### Data Migration Required
+1. **Migrate samplePoints to Supabase**: Run migration script to populate acupressure_points table
+2. **Update PointDetailScreen**: Switch from samplePoints to Supabase API calls
+3. **Test favorites/history**: Verify persistence with real database data
+
 ## Future Enhancements (Post-MVP)
 1. 🔄 Replace Typesense with Supabase full-text search (eliminate Docker)
-2. 🧹 Remove Firebase SDK completely
+2. 🧹 Remove Firebase SDK completely (✅ DONE - removed from code)
 3. 📊 Add analytics dashboard
 4. 🎯 Implement AI recommendations
 5. 🌍 Add more languages
 6. 💳 Add alternative payment methods
+7. 🖼️ Professional acupressure point illustrations
 
 ## Important Notes
 - **No Stripe integration** - Using Razorpay for Indian market

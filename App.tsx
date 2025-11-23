@@ -11,6 +11,8 @@ import MainNavigator from './src/navigation/MainNavigator';
 import { LanguageProvider } from './src/contexts/LanguageContext';
 import { AuthProvider } from './src/contexts/AuthContext';
 import { SubscriptionProvider } from './src/contexts/SubscriptionContext';
+import { FavoritesProvider } from './src/contexts/FavoritesContext';
+import { SessionHistoryProvider } from './src/contexts/SessionHistoryContext';
 import { TypesenseTest } from './src/components/TypesenseTest';
 import { tokenCache } from './src/config/clerkTokenCache';
 
@@ -34,12 +36,16 @@ export default function App() {
         <SafeAreaProvider>
           <AuthProvider>
             <SubscriptionProvider>
-              <LanguageProvider>
-                <NavigationContainer>
-                  <MainNavigator />
-                  <StatusBar style="auto" />
-                </NavigationContainer>
-              </LanguageProvider>
+              <FavoritesProvider>
+                <SessionHistoryProvider>
+                  <LanguageProvider>
+                    <NavigationContainer>
+                      <MainNavigator />
+                      <StatusBar style="auto" />
+                    </NavigationContainer>
+                  </LanguageProvider>
+                </SessionHistoryProvider>
+              </FavoritesProvider>
             </SubscriptionProvider>
           </AuthProvider>
         </SafeAreaProvider>

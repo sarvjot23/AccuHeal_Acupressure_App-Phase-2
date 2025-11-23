@@ -1,4 +1,4 @@
-modules = ["cpp-clang14", "nodejs-20", "c-clang14"]
+modules = ["cpp-clang14", "nodejs-20", "c-clang14", "postgresql-16"]
 run = "npm run start"
 
 [nix]
@@ -70,6 +70,10 @@ externalPort = 80
 [[ports]]
 localPort = 8081
 externalPort = 80
+
+[[ports]]
+localPort = 41013
+externalPort = 3000
 
 [agent]
 expertMode = true

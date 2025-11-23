@@ -609,6 +609,281 @@ export class SupabaseService {
       image_url: point.imageUrl,
     };
   }
+
+  // ============================================
+  // FAVORITES METHODS
+  // ============================================
+
+  /**
+   * Add acupressure point to favorites
+   */
+  async addFavorite(clerkUserId: string, pointId: string): Promise<void> {
+    try {
+      // Ensure user exists in Supabase
+      let user = await this.getUserByClerkId(clerkUserId);
+      if (!user) {
+        // Create user if doesn't exist
+        user = await this.createOrUpdateUser({
+          clerk_user_id: clerkUserId,
+          email: null,
+        });
+      }
+
+      const { error } = await supabase
+        .from('favorites')
+        .insert({ user_id: user.id, point_id: pointId });
+
+      if (error) {
+        if (error.code === '23505') {
+          // Unique violation - already favorited, ignore
+          return;
+        }
+        throw error;
+      }
+    } catch (error) {
+      console.error('Error adding favorite:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Remove acupressure point from favorites
+   */
+  async removeFavorite(clerkUserId: string, pointId: string): Promise<void> {
+    try {
+      const user = await this.getUserByClerkId(clerkUserId);
+      if (!user) return; // No user, nothing to remove
+
+      const { error} = await supabase
+        .from('favorites')
+        .delete()
+        .eq('user_id', user.id)
+        .eq('point_id', pointId);
+
+      if (error && error.code !== 'PGRST116') { // Ignore "no rows deleted" error
+        throw error;
+      }
+    } catch (error) {
+      console.error('Error removing favorite:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get all favorite points for a user
+   */
+  async getFavorites(clerkUserId: string): Promise<string[]> {
+    try {
+      const user = await this.getUserByClerkId(clerkUserId);
+      if (!user) return [];
+
+      const { data, error } = await supabase
+        .from('favorites')
+        .select('point_id')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      return (data || []).map(fav => fav.point_id);
+    } catch (error) {
+      console.error('Error fetching favorites:', error);
+      return [];
+    }
+  }
+
+  /**
+   * Check if a point is favorited
+   */
+  async isFavorite(clerkUserId: string, pointId: string): Promise<boolean> {
+    try {
+      const user = await this.getUserByClerkId(clerkUserId);
+      if (!user) return false;
+
+      const { data, error } = await supabase
+        .from('favorites')
+        .select('id')
+        .eq('user_id', user.id)
+        .eq('point_id', pointId)
+        .single();
+
+      return !error && !!data;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  // ============================================
+  // SESSION HISTORY METHODS
+  // ============================================
+
+  /**
+   * Add session history entry
+   */
+  async addSessionHistory(
+    clerkUserId: string,
+    pointId: string,
+    durationSeconds?: number,
+    notes?: string
+  ): Promise<void> {
+    try {
+      // Ensure user exists in Supabase
+      let user = await this.getUserByClerkId(clerkUserId);
+      if (!user) {
+        user = await this.createOrUpdateUser({
+          clerk_user_id: clerkUserId,
+          email: null,
+        });
+      }
+
+      const { error } = await supabase
+        .from('session_history')
+        .insert({
+          user_id: user.id,
+          point_id: pointId,
+          duration_seconds: durationSeconds,
+          notes,
+        });
+
+      if (error) throw error;
+    } catch (error) {
+      console.error('Error adding session history:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get session history for a user
+   */
+  async getSessionHistory(clerkUserId: string, limit: number = 20): Promise<any[]> {
+    try {
+      const user = await this.getUserByClerkId(clerkUserId);
+      if (!user) return [];
+
+      const { data, error } = await supabase
+        .from('session_history')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false })
+        .limit(limit);
+
+      if (error) throw error;
+
+      return data || [];
+    } catch (error) {
+      console.error('Error fetching session history:', error);
+      return [];
+    }
+  }
+
+  // ============================================
+  // REMINDERS METHODS
+  // ============================================
+
+  /**
+   * Create a new reminder
+   */
+  async createReminder(
+    clerkUserId: string,
+    title: string,
+    scheduledTime: Date,
+    pointId?: string,
+    message?: string,
+    repeatPattern?: string
+  ): Promise<void> {
+    try {
+      // Ensure user exists in Supabase
+      let user = await this.getUserByClerkId(clerkUserId);
+      if (!user) {
+        user = await this.createOrUpdateUser({
+          clerk_user_id: clerkUserId,
+          email: null,
+        });
+      }
+
+      const { error } = await supabase
+        .from('reminders')
+        .insert({
+          user_id: user.id,
+          point_id: pointId || null,
+          title,
+          message,
+          scheduled_time: scheduledTime.toISOString(),
+          repeat_pattern: repeatPattern,
+        });
+
+      if (error) throw error;
+    } catch (error) {
+      console.error('Error creating reminder:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get all active reminders for a user
+   */
+  async getReminders(clerkUserId: string): Promise<any[]> {
+    try {
+      const user = await this.getUserByClerkId(clerkUserId);
+      if (!user) return [];
+
+      const { data, error } = await supabase
+        .from('reminders')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('is_active', true)
+        .order('scheduled_time', { ascending: true });
+
+      if (error) throw error;
+
+      return data || [];
+    } catch (error) {
+      console.error('Error fetching reminders:', error);
+      return [];
+    }
+  }
+
+  /**
+   * Delete a reminder
+   */
+  async deleteReminder(clerkUserId: string, reminderId: string): Promise<void> {
+    try {
+      const user = await this.getUserByClerkId(clerkUserId);
+      if (!user) throw new Error('User not found');
+
+      const { error } = await supabase
+        .from('reminders')
+        .delete()
+        .eq('id', reminderId)
+        .eq('user_id', user.id);
+
+      if (error) throw error;
+    } catch (error) {
+      console.error('Error deleting reminder:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Toggle reminder active status
+   */
+  async toggleReminder(clerkUserId: string, reminderId: string, isActive: boolean): Promise<void> {
+    try {
+      const user = await this.getUserByClerkId(clerkUserId);
+      if (!user) throw new Error('User not found');
+
+      const { error } = await supabase
+        .from('reminders')
+        .update({ is_active: isActive })
+        .eq('id', reminderId)
+        .eq('user_id', user.id);
+
+      if (error) throw error;
+    } catch (error) {
+      console.error('Error toggling reminder:', error);
+      throw error;
+    }
+  }
 }
 
 export const supabaseService = new SupabaseService();
