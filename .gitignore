@@ -53,3 +53,7 @@ firestore-debug.log
 # Logs
 logs/
 *.log
+
+# Attached assets (secrets, credentials)
+attached_assets/
+*.pasted*
