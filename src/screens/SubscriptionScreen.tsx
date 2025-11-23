@@ -31,7 +31,7 @@ import { Colors, Typography, Spacing, BorderRadius, Shadows } from '@constants';
 import { useSubscription } from '@contexts/SubscriptionContext';
 import { useAuth } from '@contexts/AuthContext';
 import { Button } from '@components';
-import { razorpayService } from '@services';
+import { openRazorpayCheckout, isRazorpayConfigured } from '@services/razorpayCheckout';
 
 export const SubscriptionScreen = () => {
   const navigation = useNavigation();
@@ -45,7 +45,7 @@ export const SubscriptionScreen = () => {
       return;
     }
 
-    if (!razorpayService.isConfigured()) {
+    if (!isRazorpayConfigured()) {
       Alert.alert('Configuration Needed', 'Razorpay API keys are not configured. Please check environment variables.');
       return;
     }
@@ -53,33 +53,24 @@ export const SubscriptionScreen = () => {
     setIsProcessing(true);
     
     try {
-      // Create Razorpay order (₹499/month)
-      const order = await razorpayService.createOrder(499, 'INR');
-      
-      // In a real app, you would open Razorpay Checkout modal here
-      // For now, show success message with order details
-      Alert.alert(
-        'Payment Ready',
-        `Order ID: ${order.id}\n\nIn production, Razorpay checkout modal would open here.\n\nAmount: ₹499/month`,
-        [
-          { 
-            text: 'Cancel', 
-            onPress: () => setIsProcessing(false),
-            style: 'cancel'
-          },
-          { 
-            text: 'Proceed to Payment', 
-            onPress: () => {
-              // TODO: Integrate Razorpay Checkout modal
-              Alert.alert('Next Step', 'Open Razorpay Checkout UI');
-              setIsProcessing(false);
-            }
-          }
-        ]
-      );
+      // Open Razorpay Checkout Modal
+      const success = await openRazorpayCheckout({
+        clerkUserId: user.id,
+        amount: 499,
+        currency: 'INR',
+        email: user.primaryEmailAddress?.emailAddress || '',
+        name: user.firstName || 'AccuHeal User',
+      });
+
+      if (success) {
+        // Subscription activated, user will be navigated automatically
+        setTimeout(() => {
+          navigation.goBack();
+        }, 1500);
+      }
     } catch (error) {
-      Alert.alert('Error', 'Failed to create payment order');
-      console.error(error);
+      console.error('Subscription error:', error);
+      Alert.alert('Error', 'Failed to process subscription. Please try again.');
     }
     
     setIsProcessing(false);
@@ -111,7 +102,7 @@ export const SubscriptionScreen = () => {
           </View>
           <View style={styles.statusRow}>
             <Text style={styles.statusLabel}>Price:</Text>
-            <Text style={styles.statusValue}>$5.00/month</Text>
+            <Text style={styles.statusValue}>₹499/month</Text>
           </View>
         </View>
 
@@ -151,7 +142,7 @@ export const SubscriptionScreen = () => {
 
       <View style={styles.pricingCard}>
         <View style={styles.priceHeader}>
-          <Text style={styles.priceAmount}>$5</Text>
+          <Text style={styles.priceAmount}>₹499</Text>
           <Text style={styles.pricePeriod}>/month</Text>
         </View>
         <Text style={styles.priceDescription}>Cancel anytime • No commitments</Text>
@@ -166,12 +157,12 @@ export const SubscriptionScreen = () => {
             style={styles.subscribeGradient}
           >
             <Text style={styles.subscribeText}>
-              {isProcessing ? 'Processing...' : 'Start Free Trial'}
+              {isProcessing ? 'Processing...' : 'Subscribe Now'}
             </Text>
           </LinearGradient>
         </TouchableOpacity>
 
-        <Text style={styles.trialNote}>7 days free, then $5/month</Text>
+        <Text style={styles.trialNote}>Secure payment powered by Razorpay</Text>
       </View>
 
       <View style={styles.featuresSection}>
