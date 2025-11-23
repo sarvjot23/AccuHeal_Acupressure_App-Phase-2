@@ -346,59 +346,95 @@ const PointDetailScreen = () => {
           paddingBottom: 100
         }}>
         {/* Header Card */}
-        <Card variant="gradient" style={styles.headerCard}>
-          <View style={styles.headerContent}>
-            <View style={styles.pointIcon}>
-              <Ionicons name="radio-button-on" size={32} color={Colors.primary[600]} />
-            </View>
-            <View style={styles.headerText}>
-              <Text style={styles.pointName}>
+        <div style={{
+          background: 'linear-gradient(135deg, #4ade80 0%, #22c55e 100%)',
+          borderRadius: 12,
+          padding: 16,
+          marginBottom: 16,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          color: 'white'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', flex: 1 }}>
+            <div style={{
+              width: 64,
+              height: 64,
+              borderRadius: 32,
+              backgroundColor: '#dcfce7',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginRight: 16
+            }}>
+              📍
+            </div>
+            <div>
+              <div style={{ fontSize: 18, fontWeight: 'bold' }}>
                 {point.name[currentLanguage] || point.name.en}
-              </Text>
-              <Text style={styles.pointCode}>{point.code}</Text>
-            </View>
+              </div>
+              <div style={{ fontSize: 14, color: '#e0e7ff' }}>
+                {point.code}
+              </div>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
             <button 
               onClick={handleToggleFavorite}
               style={{
-                background: 'none',
+                background: 'rgba(255,255,255,0.2)',
                 border: 'none',
+                color: 'white',
                 cursor: 'pointer',
                 padding: 8,
-                marginLeft: 8
+                borderRadius: 8,
+                fontSize: 24,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}
+              title="Add to favorites"
             >
-              <Ionicons 
-                name={isFavorite(point.id) ? "heart" : "heart-outline"} 
-                size={28} 
-                color={isFavorite(point.id) ? '#ef4444' : '#94a3b8'} 
-              />
+              {isFavorite(point.id) ? '❤️' : '🤍'}
             </button>
             <button 
               onClick={handleOpenReminders}
               style={{
-                background: 'none',
+                background: 'rgba(255,255,255,0.2)',
                 border: 'none',
+                color: 'white',
                 cursor: 'pointer',
                 padding: 8,
-                marginLeft: 8
+                borderRadius: 8,
+                fontSize: 20,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}
+              title="Set reminder"
             >
-              <Ionicons name="calendar" size={24} color={'#22c55e'} />
+              📅
             </button>
             <button 
               onClick={handleShowInfo}
               style={{
-                background: 'none',
+                background: 'rgba(255,255,255,0.2)',
                 border: 'none',
+                color: 'white',
                 cursor: 'pointer',
                 padding: 8,
-                marginLeft: 8
+                borderRadius: 8,
+                fontSize: 20,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}
+              title="Show info"
             >
-              <Ionicons name="information-circle" size={24} color={'#94a3b8'} />
+              ℹ️
             </button>
-          </View>
-        </Card>
+          </div>
+        </div>
 
         {/* Tab Navigation */}
         <View style={styles.tabContainer}>
