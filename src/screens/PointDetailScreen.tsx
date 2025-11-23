@@ -164,7 +164,7 @@ const PointDetailScreen = () => {
   };
 
   const handleOpenReminders = () => {
-    navigation.navigate('Reminders' as any);
+    (navigation as any).navigate('Reminders');
   };
 
   const handleShowInfo = () => {
@@ -357,19 +357,46 @@ const PointDetailScreen = () => {
               </Text>
               <Text style={styles.pointCode}>{point.code}</Text>
             </View>
-            <TouchableOpacity onPress={handleToggleFavorite} style={styles.favoriteButton}>
+            <button 
+              onClick={handleToggleFavorite}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: 8,
+                marginLeft: 8
+              }}
+            >
               <Ionicons 
                 name={isFavorite(point.id) ? "heart" : "heart-outline"} 
                 size={28} 
-                color={isFavorite(point.id) ? Colors.error : Colors.text.secondary} 
+                color={isFavorite(point.id) ? '#ef4444' : '#94a3b8'} 
               />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleOpenReminders} style={styles.favoriteButton}>
-              <Ionicons name="calendar" size={24} color={Colors.primary[600]} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleShowInfo} style={styles.favoriteButton}>
-              <Ionicons name="information-circle" size={24} color={Colors.text.secondary} />
-            </TouchableOpacity>
+            </button>
+            <button 
+              onClick={handleOpenReminders}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: 8,
+                marginLeft: 8
+              }}
+            >
+              <Ionicons name="calendar" size={24} color={'#22c55e'} />
+            </button>
+            <button 
+              onClick={handleShowInfo}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: 8,
+                marginLeft: 8
+              }}
+            >
+              <Iconics name="information-circle" size={24} color={'#94a3b8'} />
+            </button>
           </View>
         </Card>
 
@@ -455,19 +482,46 @@ const PointDetailScreen = () => {
               </Text>
               <Text style={styles.pointCode}>{point.code}</Text>
             </View>
-            <TouchableOpacity onPress={handleToggleFavorite} style={styles.favoriteButton}>
+            <button 
+              onClick={handleToggleFavorite}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: 8,
+                marginLeft: 8
+              }}
+            >
               <Ionicons 
                 name={isFavorite(point.id) ? "heart" : "heart-outline"} 
                 size={28} 
-                color={isFavorite(point.id) ? Colors.error : Colors.text.secondary} 
+                color={isFavorite(point.id) ? '#ef4444' : '#94a3b8'} 
               />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleOpenReminders} style={styles.favoriteButton}>
-              <Ionicons name="calendar" size={24} color={Colors.primary[600]} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleShowInfo} style={styles.favoriteButton}>
-              <Ionicons name="information-circle" size={24} color={Colors.text.secondary} />
-            </TouchableOpacity>
+            </button>
+            <button 
+              onClick={handleOpenReminders}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: 8,
+                marginLeft: 8
+              }}
+            >
+              <Ionicons name="calendar" size={24} color={'#22c55e'} />
+            </button>
+            <button 
+              onClick={handleShowInfo}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: 8,
+                marginLeft: 8
+              }}
+            >
+              <Iconics name="information-circle" size={24} color={'#94a3b8'} />
+            </button>
           </View>
         </Card>
 
