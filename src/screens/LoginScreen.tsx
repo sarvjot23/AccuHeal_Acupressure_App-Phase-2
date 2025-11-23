@@ -16,6 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
+import * as LocalAuthentication from 'expo-local-authentication';
 
 import { Colors, Typography, Spacing, BorderRadius, Shadows } from '@constants';
 import { RootStackParamList } from '@types';
@@ -26,12 +27,23 @@ type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 const LoginScreen: React.FC = () => {
   const navigation = useNavigation<LoginScreenNavigationProp>();
   const { t } = useTranslation();
-  const { signInWithEmail, signInWithGoogle, signInWithApple, isLoading: authLoading } = useAuth();
+  const { signInWithEmail, signInWithGoogle, signInWithApple, signInWithBiometric, isLoading: authLoading } = useAuth();
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [biometricAvailable, setBiometricAvailable] = useState(false);
+
+  React.useEffect(() => {
+    checkBiometricAvailability();
+  }, []);
+
+  const checkBiometricAvailability = async () => {
+    const hasHardware = await LocalAuthentication.hasHardwareAsync();
+    const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+    setBiometricAvailable(hasHardware && isEnrolled);
+  };
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -77,6 +89,15 @@ const LoginScreen: React.FC = () => {
       }
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleBiometricLogin = async () => {
+    try {
+      await signInWithBiometric();
+      navigation.goBack();
+    } catch (error: any) {
+      Alert.alert('Error', error.message || 'Biometric authentication failed');
     }
   };
 
@@ -207,6 +228,21 @@ const LoginScreen: React.FC = () => {
             >
               <Ionicons name="logo-apple" size={20} color={Colors.neutral[700]} />
               <Text style={styles.oauthButtonText}>Login with Apple</Text>
+            </Pressable>
+          )}
+
+          {biometricAvailable && (
+            <Pressable
+              style={({ pressed, hovered }: any) => [
+                styles.oauthButton,
+                hovered && styles.oauthButtonHovered,
+                pressed && styles.buttonPressed,
+              ]}
+              onPress={handleBiometricLogin}
+              disabled={isLoading || authLoading}
+            >
+              <Ionicons name="finger-print" size={20} color={Colors.neutral[700]} />
+              <Text style={styles.oauthButtonText}>Login with Biometric</Text>
             </Pressable>
           )}
 
