@@ -183,7 +183,7 @@ const HomeScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8fafb',
+    backgroundColor: Colors.background.secondary,
   },
   scrollView: {
     flex: 1,
@@ -197,6 +197,12 @@ const styles = StyleSheet.create({
   welcomeSection: {
     marginBottom: Spacing.xl,
     paddingTop: Spacing.md,
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.lg,
+    backgroundColor: Colors.background.primary,
+    borderRadius: BorderRadius.lg,
+    marginHorizontal: -Spacing.lg,
+    marginTop: -Spacing.lg,
   },
   welcomeTitle: {
     ...Typography.h1,
