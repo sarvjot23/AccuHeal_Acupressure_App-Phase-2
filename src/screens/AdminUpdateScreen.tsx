@@ -2,7 +2,21 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Button } from '@components';
 import { Colors, Typography, Spacing } from '@constants';
-import { updateSearchIndex, testNewPoints } from '@utils/updateSearchIndex';
+import { supabaseService } from '@services';
+
+const updateSearchIndex = async () => {
+  console.log('🔍 Updating search index with Supabase data...');
+  const points = await supabaseService.getAllPoints();
+  console.log(`✅ Loaded ${points.length} points for search`);
+  return points;
+};
+
+const testNewPoints = async () => {
+  console.log('🧪 Testing points...');
+  const points = await supabaseService.getPointsByDifficulty('Beginner');
+  console.log(`✅ Found ${points.length} beginner points`);
+  return points;
+};
 
 export const AdminUpdateScreen: React.FC = () => {
   const [status, setStatus] = useState<string>('Ready to update search index');
