@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 
 import { Colors, Typography, Spacing, BorderRadius, Shadows } from '@constants';
-import { Card, Button, PointCard } from '@components';
+import { Card, Button, PointCard, TopNavigationBar } from '@components';
 import { RootStackParamList, AcupressurePoint } from '@types';
 import { firestoreService } from '@services';
 import { samplePoints } from '@data/samplePoints';
@@ -29,6 +29,7 @@ const HomeScreen: React.FC = () => {
   
   const [popularPoints, setPopularPoints] = useState<AcupressurePoint[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     loadPopularPoints();
@@ -96,9 +97,25 @@ const HomeScreen: React.FC = () => {
     />
   );
 
+  const handleSearchChange = (text: string) => {
+    setSearchQuery(text);
+    if (text.trim()) {
+      navigation.navigate('Search', { initialQuery: text });
+    }
+  };
+
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-      <View style={styles.content}>
+    <View style={styles.container}>
+      <TopNavigationBar 
+        onSearchChange={handleSearchChange}
+        searchQuery={searchQuery}
+      />
+      <ScrollView 
+        style={styles.scrollView} 
+        showsVerticalScrollIndicator={false} 
+        contentContainerStyle={styles.scrollContent}
+      >
+        <View style={styles.content}>
         {/* Welcome Section */}
         <View style={styles.welcomeSection}>
           <Text style={styles.welcomeTitle}>{t('home.welcome')}</Text>
@@ -154,7 +171,8 @@ const HomeScreen: React.FC = () => {
           )}
         </View>
       </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -163,8 +181,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f8fafb',
   },
+  scrollView: {
+    flex: 1,
+  },
   scrollContent: {
-    paddingBottom: 90,
+    paddingBottom: Spacing.xl,
   },
   content: {
     padding: Spacing.lg,
