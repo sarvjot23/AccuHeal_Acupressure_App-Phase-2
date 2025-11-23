@@ -8,6 +8,30 @@ The app contains a database of 89 carefully documented acupressure points from c
 
 ## Recent Changes
 
+### OpenRouter.ai-Style UI Redesign - November 23, 2025 ✅ COMPLETE
+- **Top Navigation Bar**: Replaced bottom tab navigation with OpenRouter.ai-style top navigation bar across all screens
+  - Left side: AccuHeal logo that acts as home button
+  - Center: Integrated search bar with submit-on-Enter functionality (no search-on-keystroke)
+  - Right side: Dynamic auth buttons (Login/Sign Up when logged out, Account/Premium when logged in)
+  - Unified search state: SearchScreen synchronizes TopNavigationBar input with search results for consistent UX
+- **Smooth Hover Animations**: Added comprehensive hover effects using Pressable component for web compatibility
+  - PointCard: Scale (1.0 → 1.02) and shadow transitions on hover for premium feel
+  - All buttons: Existing smooth animations with scale, opacity, and shadow effects preserved
+  - Interactive elements respond to hover states with visual feedback
+- **Navigation Architecture**: Simplified from tab-based to stack-based navigation with consistent top bar
+  - Removed BottomTabNavigator completely from MainNavigator
+  - TopNavigationBar component integrated into HomeScreen, SearchScreen, GuideScreen, and SettingsScreen
+  - Cleaner screen hierarchy with proper flex layouts (container View + ScrollView structure)
+  - Fixed Modal positioning on SettingsScreen (now properly outside ScrollView)
+- **Search UX Improvements**: Enhanced search interaction to prevent duplicate submissions
+  - Search only triggers on Enter key press or input blur (not on every keystroke)
+  - Single unified search query state eliminates sync issues between nav bar and results
+  - Prevents redundant navigation pushes when already on Search screen
+- **Layout Fixes**: Ensured proper component nesting and flex layouts across all screens
+  - All main screens use consistent structure: container View → TopNavigationBar + ScrollView with content
+  - Modal components properly positioned outside scrollable content
+  - No overlapping content or broken scroll behavior
+
 ### Clerk Authentication Migration - November 22, 2025 ✅ COMPLETE
 - **Authentication Provider Switch**: Successfully migrated from Firebase Auth to Clerk for simplified OAuth and improved UX
 - **Clerk Setup**: Installed @clerk/clerk-expo@2.19.4, expo-web-browser@15.0.9, expo-linking, configured ClerkProvider with secure token cache
@@ -68,12 +92,12 @@ Preferred communication style: Simple, everyday language.
 
 ### Frontend Architecture
 - **Framework**: React Native with Expo SDK for cross-platform development (iOS, Android, Web)
-- **Navigation**: React Navigation v6 with bottom tab navigation and stack navigation for detail screens
+- **Navigation**: React Navigation v6 with stack-based navigation and OpenRouter.ai-style top navigation bar on all main screens
 - **State Management**: Context API for language preferences, authentication state, and subscription status
   - `LanguageContext`: Manages app language (English/Hindi)
   - `AuthContext`: Clerk authentication state with email verification management
   - `SubscriptionContext`: Premium subscription status with real-time Firestore sync
-- **UI Components**: Custom component library with reusable Button, Card, SearchInput, PointCard, and PremiumGate components
+- **UI Components**: Custom component library with reusable Button, Card, SearchInput, PointCard, TopNavigationBar, and PremiumGate components
 - **Styling**: StyleSheet-based approach with design system constants for colors, typography, spacing, and shadows
 - **Animations**: React Native Reanimated v3 for smooth micro-interactions and loading animations
 - **Internationalization**: i18next for English/Hindi bilingual support with persistent language preferences
