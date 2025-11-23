@@ -232,6 +232,18 @@ const SignupScreen: React.FC = () => {
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
+        {/* Back Button */}
+        <Pressable
+          style={({ pressed, hovered }: any) => [
+            styles.backButton,
+            hovered && styles.backButtonHovered,
+            pressed && styles.backButtonPressed,
+          ]}
+          onPress={() => navigation.goBack()}
+        >
+          <Ionicons name="chevron-back" size={24} color={Colors.primary[600]} />
+        </Pressable>
+
         {/* Logo at top */}
         <View style={styles.logoContainer}>
           <Image 
@@ -393,6 +405,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  backButton: {
+    position: 'absolute',
+    top: Spacing.lg,
+    left: Spacing.lg,
+    padding: Spacing.sm,
+    borderRadius: BorderRadius.md,
+    ...Platform.select({
+      web: {
+        cursor: 'pointer' as any,
+        transition: 'all 0.2s ease' as any,
+      },
+    }),
+  },
+  backButtonHovered: {
+    backgroundColor: Colors.primary[50],
+  },
+  backButtonPressed: {
+    opacity: 0.7,
+  },
   logoContainer: {
     alignItems: 'center',
     marginBottom: Spacing.xl,
@@ -453,7 +484,7 @@ const styles = StyleSheet.create({
     padding: Spacing.xs,
   },
   loginButton: {
-    backgroundColor: Colors.neutral[900],
+    backgroundColor: Colors.primary[600],
     borderRadius: BorderRadius.md,
     paddingVertical: Spacing.md + 2,
     alignItems: 'center',
@@ -467,8 +498,9 @@ const styles = StyleSheet.create({
     }),
   },
   loginButtonHovered: {
-    backgroundColor: Colors.neutral[800],
+    backgroundColor: Colors.primary[700],
     ...Shadows.md,
+    transform: [{ scale: 1.02 }],
   },
   buttonPressed: {
     opacity: 0.8,
@@ -516,8 +548,10 @@ const styles = StyleSheet.create({
     }),
   },
   oauthButtonHovered: {
-    backgroundColor: Colors.neutral[50],
-    borderColor: Colors.neutral[300],
+    backgroundColor: Colors.primary[50],
+    borderColor: Colors.primary[300],
+    transform: [{ scale: 1.01 }],
+    ...Shadows.sm,
   },
   oauthButtonText: {
     ...Typography.body2,
