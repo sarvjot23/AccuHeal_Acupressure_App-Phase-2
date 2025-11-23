@@ -200,9 +200,9 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   logoImage: {
-    width: 40,
-    height: 40,
-    marginRight: 2,
+    width: 56,
+    height: 56,
+    marginRight: 4,
   },
   logoText: {
     ...Typography.h5,
