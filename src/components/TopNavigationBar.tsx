@@ -200,8 +200,8 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   logoImage: {
-    width: 32,
-    height: 32,
+    width: 40,
+    height: 40,
     marginRight: Spacing.sm,
   },
   logoText: {

@@ -307,8 +307,8 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.xl,
   },
   logo: {
-    width: 60,
-    height: 60,
+    width: 100,
+    height: 100,
   },
   card: {
     width: '100%',
