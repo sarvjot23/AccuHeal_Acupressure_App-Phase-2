@@ -154,6 +154,29 @@ const PointDetailScreen = () => {
     return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
+  const handleToggleFavorite = async () => {
+    try {
+      await toggleFavorite(point.id);
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+      alert('Failed to update favorite. Please try again.');
+    }
+  };
+
+  const handleOpenReminders = () => {
+    navigation.navigate('Reminders' as any);
+  };
+
+  const handleShowInfo = () => {
+    alert(
+      `${point.name[currentLanguage] || point.name.en}\n\n` +
+      `Location: ${point.location[currentLanguage] || point.location.en}\n` +
+      `Meridian: ${point.meridian.name[currentLanguage] || point.meridian.name.en}\n` +
+      `Difficulty: ${point.difficulty}\n` +
+      `Duration: ${typeof point.duration === 'string' ? point.duration : point.duration + ' minutes'}`
+    );
+  };
+
   const tabs = [
     { id: 'location', label: 'Location', icon: 'location-outline' },
     { id: 'method', label: 'Method', icon: 'hand-left-outline' },
@@ -334,12 +357,18 @@ const PointDetailScreen = () => {
               </Text>
               <Text style={styles.pointCode}>{point.code}</Text>
             </View>
-            <TouchableOpacity onPress={() => toggleFavorite(point.id)} style={styles.favoriteButton}>
+            <TouchableOpacity onPress={handleToggleFavorite} style={styles.favoriteButton}>
               <Ionicons 
                 name={isFavorite(point.id) ? "heart" : "heart-outline"} 
                 size={28} 
                 color={isFavorite(point.id) ? Colors.error : Colors.text.secondary} 
               />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleOpenReminders} style={styles.favoriteButton}>
+              <Ionicons name="calendar" size={24} color={Colors.primary[600]} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleShowInfo} style={styles.favoriteButton}>
+              <Ionicons name="information-circle" size={24} color={Colors.text.secondary} />
             </TouchableOpacity>
           </View>
         </Card>
@@ -426,12 +455,18 @@ const PointDetailScreen = () => {
               </Text>
               <Text style={styles.pointCode}>{point.code}</Text>
             </View>
-            <TouchableOpacity onPress={() => toggleFavorite(point.id)} style={styles.favoriteButton}>
+            <TouchableOpacity onPress={handleToggleFavorite} style={styles.favoriteButton}>
               <Ionicons 
                 name={isFavorite(point.id) ? "heart" : "heart-outline"} 
                 size={28} 
                 color={isFavorite(point.id) ? Colors.error : Colors.text.secondary} 
               />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleOpenReminders} style={styles.favoriteButton}>
+              <Ionicons name="calendar" size={24} color={Colors.primary[600]} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleShowInfo} style={styles.favoriteButton}>
+              <Ionicons name="information-circle" size={24} color={Colors.text.secondary} />
             </TouchableOpacity>
           </View>
         </Card>
