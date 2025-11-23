@@ -21,6 +21,7 @@ import MyAccountScreen from '@screens/MyAccountScreen';
 import AuthSuccessScreen from '@screens/AuthSuccessScreen';
 import AuthFailureScreen from '@screens/AuthFailureScreen';
 import SubscriptionScreen from '@screens/SubscriptionScreen';
+import RemindersScreen from '@screens/RemindersScreen';
 import { TypesenseTest } from '@components/TypesenseTest';
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -99,6 +100,22 @@ const MainNavigator = () => {
             fontWeight: '600',
           },
           title: t('guide.beginnerGuideTitle'),
+          headerBackTitleVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="Reminders"
+        component={RemindersScreen}
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: Colors.primary[500],
+          },
+          headerTintColor: Colors.text.inverse,
+          headerTitleStyle: {
+            fontWeight: '600',
+          },
+          title: 'Practice Reminders',
           headerBackTitleVisible: false,
         }}
       />

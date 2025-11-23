@@ -104,6 +104,8 @@ export type RootStackParamList = {
   MyAccount: undefined;
   AuthSuccess: { method?: 'email' | 'google' | 'apple' | 'biometric' };
   AuthFailure: { method?: 'email' | 'google' | 'apple' | 'biometric'; error?: string };
+  Reminders: undefined;
+  Guide: undefined;
 };
 
 export type BottomTabParamList = {
