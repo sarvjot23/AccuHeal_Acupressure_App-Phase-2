@@ -21,7 +21,13 @@ export const PointCard: React.FC<PointCardProps> = ({
 }) => {
   const { currentLanguage } = useLanguage();
   const scale = useSharedValue(1);
-  
+
+  // Debug logging
+  if (!point || !point.name || !point.meridian) {
+    console.error('Invalid point data:', JSON.stringify(point));
+    return null;
+  }
+
   const isFeatured = variant === 'featured';
   const isPremium = variant === 'premium';
   const primaryBenefit = point.symptoms?.[0] || point.conditions?.[0] || 'Healing';
@@ -102,10 +108,10 @@ export const PointCard: React.FC<PointCardProps> = ({
         {/* Text Content */}
         <View style={styles.textContent}>
           <Text style={styles.pointName} numberOfLines={1}>
-            {point.name[currentLanguage]}
+            {String(point.name?.[currentLanguage] || point.name?.en || point.code || 'Unknown')}
           </Text>
           <Text style={styles.meridianText} numberOfLines={1}>
-            {point.meridian?.name[currentLanguage] || point.meridian?.name.en || point.code}
+            {String(point.meridian?.name?.[currentLanguage] || point.meridian?.name?.en || point.code || 'Unknown Meridian')}
           </Text>
         </View>
       </View>

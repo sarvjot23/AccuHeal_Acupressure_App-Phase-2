@@ -78,7 +78,11 @@ export const SubscriptionScreen = () => {
 
   if (isPremium) {
     return (
-      <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+      >
         <LinearGradient
           colors={[Colors.primary[500], Colors.primary[700]]}
           style={styles.premiumBanner}
@@ -128,7 +132,11 @@ export const SubscriptionScreen = () => {
   }
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.content}
+      showsVerticalScrollIndicator={false}
+    >
       <LinearGradient
         colors={[Colors.primary[50], Colors.primary[100]]}
         style={styles.header}
@@ -221,10 +229,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8fafb',
+    overflow: 'scroll',
   },
   content: {
     padding: Spacing.lg,
-    paddingBottom: 90,
+    paddingBottom: 120,
+    flexGrow: 1,
   },
   premiumBanner: {
     padding: Spacing.xl,

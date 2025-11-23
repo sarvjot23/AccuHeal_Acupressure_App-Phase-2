@@ -17,7 +17,6 @@ import { Colors, Typography, Spacing, BorderRadius, Shadows } from '@constants';
 import { Card, Button, PointCard, TopNavigationBar } from '@components';
 import { RootStackParamList, AcupressurePoint } from '@types';
 import { supabaseService } from '@services';
-import { samplePoints } from '@data/samplePoints';
 import { useSubscription } from '@contexts/SubscriptionContext';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList>;
@@ -26,7 +25,7 @@ const HomeScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const { t } = useTranslation();
   const { isPremium } = useSubscription();
-  
+
   const [popularPoints, setPopularPoints] = useState<AcupressurePoint[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -37,15 +36,16 @@ const HomeScreen: React.FC = () => {
 
   const loadPopularPoints = async () => {
     try {
-      // Filter points based on subscription status
-      const availablePoints = isPremium 
-        ? samplePoints 
-        : samplePoints.filter(point => point.isFree === true);
-      
-      setPopularPoints(availablePoints.slice(0, 5));
+      // Fetch popular points from Supabase (sorted by popularity)
+      const points = await supabaseService.getPopularPoints(5);
+
+      // For now, all points are accessible
+      // Premium features can be added later (e.g., detailed instructions, videos, etc.)
+      setPopularPoints(points);
     } catch (error) {
       console.error('Error loading popular points:', error);
-      Alert.alert('Error', 'Failed to load popular points');
+      // Don't show alert for home screen errors, just show empty state
+      setPopularPoints([]);
     } finally {
       setLoading(false);
     }
@@ -109,14 +109,14 @@ const HomeScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <TopNavigationBar 
+      <TopNavigationBar
         onSearchChange={handleSearchChange}
         onSearchSubmit={handleSearchSubmit}
         searchQuery={searchQuery}
       />
-      <ScrollView 
-        style={styles.scrollView} 
-        showsVerticalScrollIndicator={false} 
+      <ScrollView
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
         <View style={styles.content}>
@@ -187,9 +187,11 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
+    overflow: 'scroll',
   },
   scrollContent: {
-    paddingBottom: Spacing.xl,
+    paddingBottom: 120,
+    flexGrow: 1,
   },
   content: {
     padding: Spacing.lg,

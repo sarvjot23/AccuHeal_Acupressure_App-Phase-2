@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { ClerkProvider } from '@clerk/clerk-expo';
 
 import './src/localization/i18n';
@@ -13,6 +13,11 @@ import { AuthProvider } from './src/contexts/AuthContext';
 import { SubscriptionProvider } from './src/contexts/SubscriptionContext';
 import { TypesenseTest } from './src/components/TypesenseTest';
 import { tokenCache } from './src/config/clerkTokenCache';
+
+// Import web-specific styles
+if (Platform.OS === 'web') {
+  require('./web/index.css');
+}
 
 const clerkPublishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 

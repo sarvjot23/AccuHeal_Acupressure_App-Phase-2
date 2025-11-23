@@ -15,7 +15,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Colors, Typography, Spacing, BorderRadius, Shadows } from '@constants';
 import { SearchInput, Card, PointCard, TopNavigationBar } from '@components';
 import { RootStackParamList, AcupressurePoint, SearchResult } from '@types';
-import { typesenseService } from '@services';
+import { searchService } from '@services';
 import { useLanguage } from '@contexts/LanguageContext';
 import { useSubscription } from '@contexts/SubscriptionContext';
 
@@ -69,11 +69,11 @@ const SearchScreen: React.FC = () => {
 
     setLoading(true);
     try {
-      console.log('🔍 Starting Typesense search with query:', query, 'filter:', activeFilter);
-      
-      // Build filters for Typesense
+      console.log('🔍 Starting search with query:', query, 'filter:', activeFilter);
+
+      // Build filters
       const filters: any = {};
-      
+
       if (activeFilter) {
         switch (activeFilter) {
           case 'beginner':
@@ -90,32 +90,30 @@ const SearchScreen: React.FC = () => {
             break;
         }
       }
-      
-      // Use Typesense for search
-      const searchResults = await typesenseService.searchPoints(
+
+      // Use unified search service (automatically uses Supabase or Typesense based on config)
+      const searchResults = await searchService.search(
         query || '*',
         filters,
         currentLanguage
       );
-      
-      console.log('✅ Typesense search completed. Found', searchResults.length, 'results');
-      
-      // Filter results based on subscription status
-      const filteredResults = isPremium 
-        ? searchResults 
-        : searchResults.filter(point => point.isFree === true);
-      
-      console.log(`🔒 Filtered to ${filteredResults.length} results (isPremium: ${isPremium})`);
+
+      console.log('✅ Search completed. Found', searchResults.length, 'results');
+
+      // For now, all points are accessible (premium features can be added later)
+      const filteredResults = searchResults;
+
+      console.log(`✅ Showing ${filteredResults.length} results`);
       
       setSearchResults(filteredResults);
     } catch (error) {
-      console.error('💥 Typesense search error:', error);
+      console.error('💥 Search error:', error);
       console.error('Query:', query, 'Filter:', activeFilter, 'Language:', currentLanguage);
-      
+
       // Fallback to empty results with user-friendly message
       Alert.alert(
-        'Search Error', 
-        'Unable to connect to search service. Please check your connection.',
+        'Search Error',
+        'Unable to perform search. Please check your connection and try again.',
         [{ text: 'OK', onPress: () => setSearchResults([]) }]
       );
     } finally {
@@ -207,11 +205,12 @@ const SearchScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <TopNavigationBar 
+      <TopNavigationBar
         onSearchChange={handleTopNavSearchChange}
         onSearchSubmit={handleTopNavSearchSubmit}
         searchQuery={searchQuery}
       />
+      <View style={styles.searchContainer}>
       <View style={styles.searchHeader}>
         <SearchInput
           placeholder={t('search.placeholder')}
@@ -257,6 +256,7 @@ const SearchScreen: React.FC = () => {
         refreshing={loading}
         onRefresh={() => handleSearch(searchQuery)}
       />
+      </View>
     </View>
   );
 };
@@ -265,6 +265,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8fafb',
+  },
+  searchContainer: {
+    flex: 1,
+    overflow: 'hidden',
   },
   searchHeader: {
     backgroundColor: Colors.background.primary,
@@ -329,11 +333,13 @@ const styles = StyleSheet.create({
   },
   resultsList: {
     flex: 1,
+    overflow: 'scroll',
   },
   resultsContent: {
     padding: Spacing.md,
     paddingTop: Spacing.md,
-    paddingBottom: 90,
+    paddingBottom: 120,
+    flexGrow: 1,
   },
   emptyState: {
     alignItems: 'center',

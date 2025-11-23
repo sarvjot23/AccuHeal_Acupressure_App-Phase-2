@@ -85,7 +85,11 @@ const MyAccountScreen: React.FC = () => {
   }
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.scrollContent}
+      showsVerticalScrollIndicator={false}
+    >
       <View style={styles.content}>
         {/* User Profile Header */}
         <Card style={styles.profileCard}>
@@ -239,6 +243,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background.secondary,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: 100, // Extra space for bottom navigation
   },
   content: {
     padding: Spacing.md,

@@ -355,6 +355,153 @@ export class SupabaseService {
   }
 
   // ============================================
+  // SEARCH METHODS (Full-Text Search)
+  // ============================================
+
+  /**
+   * Search acupressure points using PostgreSQL Full-Text Search
+   * Supports typo tolerance via trigram similarity
+   */
+  async searchPointsWithFTS(
+    query: string,
+    filters?: {
+      bodyPart?: string;
+      difficulty?: string;
+      meridian?: string;
+      category?: string;
+    },
+    language: 'en' | 'hi' = 'en'
+  ): Promise<AcupressurePoint[]> {
+    try {
+      let queryBuilder = supabase
+        .from('acupressure_points')
+        .select('*');
+
+      // Apply filters first
+      if (filters?.bodyPart) {
+        queryBuilder = queryBuilder.contains('body_parts', [filters.bodyPart]);
+      }
+      if (filters?.difficulty) {
+        queryBuilder = queryBuilder.eq('difficulty', filters.difficulty);
+      }
+      if (filters?.meridian) {
+        queryBuilder = queryBuilder.eq('meridian_code', filters.meridian);
+      }
+      if (filters?.category) {
+        queryBuilder = queryBuilder.eq('category', filters.category);
+      }
+
+      // If no query, just return filtered results
+      if (!query || query.trim() === '' || query === '*') {
+        const { data, error } = await queryBuilder.order('popularity', { ascending: false });
+
+        if (error) throw error;
+        return (data || []).map(row => this.convertFromSupabaseFormat(row));
+      }
+
+      // Full-text search with ranking
+      const searchColumn = language === 'hi' ? 'search_vector_hi' : 'search_vector_en';
+      const searchQuery = query.trim().split(/\s+/).join(' | '); // Convert to tsquery format
+
+      // Use textSearch for full-text search
+      queryBuilder = queryBuilder
+        .textSearch(searchColumn, searchQuery, {
+          type: 'websearch',
+          config: language === 'hi' ? 'simple' : 'english'
+        });
+
+      const { data: ftsResults, error: ftsError } = await queryBuilder;
+
+      if (ftsError) throw ftsError;
+
+      // If FTS returns results, use them
+      if (ftsResults && ftsResults.length > 0) {
+        console.log(`✅ Supabase FTS found ${ftsResults.length} results`);
+        return ftsResults.map(row => this.convertFromSupabaseFormat(row));
+      }
+
+      console.log('⚠️ FTS returned no results, trying fuzzy search fallback');
+
+      // Fallback: Trigram similarity search for typo tolerance
+      const nameColumn = language === 'hi' ? 'name_hi' : 'name_en';
+
+      queryBuilder = supabase
+        .from('acupressure_points')
+        .select('*');
+
+      // Re-apply filters
+      if (filters?.bodyPart) {
+        queryBuilder = queryBuilder.contains('body_parts', [filters.bodyPart]);
+      }
+      if (filters?.difficulty) {
+        queryBuilder = queryBuilder.eq('difficulty', filters.difficulty);
+      }
+
+      // Use ILIKE for fuzzy matching as fallback
+      queryBuilder = queryBuilder.or(
+        `${nameColumn}.ilike.%${query}%,` +
+        `code.ilike.%${query}%,` +
+        `symptoms.cs.{${query}}`
+      );
+
+      const { data: fuzzyResults, error: fuzzyError } = await queryBuilder
+        .order('popularity', { ascending: false })
+        .limit(50);
+
+      if (fuzzyError) throw fuzzyError;
+
+      console.log(`✅ Fuzzy search found ${fuzzyResults?.length || 0} results`);
+      return (fuzzyResults || []).map(row => this.convertFromSupabaseFormat(row));
+
+    } catch (error) {
+      console.error('❌ Supabase FTS search error:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get search suggestions using trigram similarity
+   */
+  async getSearchSuggestions(
+    query: string,
+    language: 'en' | 'hi' = 'en',
+    limit: number = 10
+  ): Promise<string[]> {
+    try {
+      if (query.length < 2) return [];
+
+      const nameColumn = language === 'hi' ? 'name_hi' : 'name_en';
+
+      const { data, error } = await supabase
+        .from('acupressure_points')
+        .select(`${nameColumn}, code, symptoms`)
+        .ilike(nameColumn, `%${query}%`)
+        .limit(limit);
+
+      if (error) throw error;
+
+      const suggestions = new Set<string>();
+
+      data?.forEach((point: any) => {
+        if (point[nameColumn]) suggestions.add(point[nameColumn]);
+        if (point.code?.toLowerCase().includes(query.toLowerCase())) {
+          suggestions.add(point.code);
+        }
+        point.symptoms?.forEach((symptom: string) => {
+          if (symptom.toLowerCase().includes(query.toLowerCase())) {
+            suggestions.add(symptom);
+          }
+        });
+      });
+
+      return Array.from(suggestions).slice(0, limit);
+    } catch (error) {
+      console.error('❌ Error getting suggestions:', error);
+      return [];
+    }
+  }
+
+  // ============================================
   // CONVERSION HELPERS
   // ============================================
 
@@ -363,58 +510,58 @@ export class SupabaseService {
    */
   private convertFromSupabaseFormat(row: AcupressurePointRow): AcupressurePoint {
     return {
-      id: row.id,
-      code: row.code,
+      id: row.id || '',
+      code: row.code || '',
       name: {
-        en: row.name_en,
-        hi: row.name_hi,
+        en: row.name_en || '',
+        hi: row.name_hi || '',
       },
       chineseName: row.chinese_traditional || row.chinese_pinyin ? {
-        traditional: row.chinese_traditional,
-        pinyin: row.chinese_pinyin,
+        traditional: row.chinese_traditional || '',
+        pinyin: row.chinese_pinyin || '',
       } : undefined,
       alternateNames: row.alternate_names_en || row.alternate_names_hi ? {
         en: row.alternate_names_en || [],
         hi: row.alternate_names_hi || [],
       } : undefined,
       location: {
-        en: row.location_en,
-        hi: row.location_hi,
+        en: row.location_en || '',
+        hi: row.location_hi || '',
       },
       meridian: {
         name: {
-          en: row.meridian_name_en,
-          hi: row.meridian_name_hi,
+          en: row.meridian_name_en || '',
+          hi: row.meridian_name_hi || '',
         },
-        code: row.meridian_code,
-        element: row.meridian_element,
-        polarity: row.meridian_polarity,
+        code: row.meridian_code || '',
+        element: row.meridian_element || undefined,
+        polarity: row.meridian_polarity || undefined,
       },
-      bodyPart: row.body_parts,
-      difficulty: row.difficulty,
-      pressure: row.pressure,
-      duration: row.duration,
-      symptoms: row.symptoms,
-      conditions: row.symptoms, // For backwards compatibility
-      indications: row.indications_en.map((indication, index) => ({
-        en: indication,
-        hi: row.indications_hi[index] || indication,
+      bodyPart: row.body_parts || [],
+      difficulty: row.difficulty || 'Beginner',
+      pressure: row.pressure || 'Moderate',
+      duration: row.duration || '1-3 minutes',
+      symptoms: row.symptoms || [],
+      conditions: row.symptoms || [], // For backwards compatibility
+      indications: (row.indications_en || []).map((indication, index) => ({
+        en: indication || '',
+        hi: (row.indications_hi || [])[index] || indication || '',
       })),
       contraindications: {
-        en: row.contraindications_en,
-        hi: row.contraindications_hi,
+        en: row.contraindications_en || '',
+        hi: row.contraindications_hi || '',
       },
       technique: {
-        en: row.technique_en,
-        hi: row.technique_hi,
+        en: row.technique_en || '',
+        hi: row.technique_hi || '',
       },
       method: { // For backwards compatibility
-        en: row.technique_en,
-        hi: row.technique_hi,
+        en: row.technique_en || '',
+        hi: row.technique_hi || '',
       },
-      category: row.category,
-      popularity: row.popularity,
-      imageUrl: row.image_url,
+      category: row.category || 'Classical',
+      popularity: row.popularity || 3,
+      imageUrl: row.image_url || undefined,
     } as AcupressurePoint;
   }
 

@@ -1,3 +1,4 @@
+export { searchService } from './searchService';
 export { supabaseService } from './supabaseService';
 export { typesenseService } from './typesense';
 export { razorpayService } from './razorpayService';
