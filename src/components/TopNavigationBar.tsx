@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   logoImage: {
     width: 56,
     height: 56,
-    marginRight: 4,
+    marginRight: 0,
   },
   logoText: {
     ...Typography.h5,
