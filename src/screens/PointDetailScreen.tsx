@@ -395,7 +395,7 @@ const PointDetailScreen = () => {
                 marginLeft: 8
               }}
             >
-              <Iconics name="information-circle" size={24} color={'#94a3b8'} />
+              <Ionicons name="information-circle" size={24} color={'#94a3b8'} />
             </button>
           </View>
         </Card>
@@ -520,7 +520,7 @@ const PointDetailScreen = () => {
                 marginLeft: 8
               }}
             >
-              <Iconics name="information-circle" size={24} color={'#94a3b8'} />
+              <Ionicons name="information-circle" size={24} color={'#94a3b8'} />
             </button>
           </View>
         </Card>
