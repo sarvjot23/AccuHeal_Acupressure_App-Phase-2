@@ -47,11 +47,11 @@ export const Colors = {
   error: '#ef4444',
   info: '#3b82f6',
   
-  // Background colors
+  // Background colors - Light blue palette for calm + trust (medical design)
   background: {
-    primary: '#ffffff',
-    secondary: '#f8fafc',
-    tertiary: '#f1f5f9',
+    primary: '#E8F2F8', // Pale blue
+    secondary: '#DFF4F0', // Soft teal-blue
+    tertiary: '#E3EEF7', // Lighter blue
   },
   
   // Text colors
@@ -78,9 +78,9 @@ export const Colors = {
   
   // Card background colors for clean UI
   card: {
-    background: '#ffffff',
-    hover: '#f8fafc',
+    background: '#ffffff', // White cards for contrast against blue background
+    hover: '#f0fdf4', // Light green hover
     light: '#f0fdf4', // Very light green
-    accent: '#e0f2fe', // Light blue accent
+    accent: '#E8F2F8', // Light blue accent matching new background
   },
 };
