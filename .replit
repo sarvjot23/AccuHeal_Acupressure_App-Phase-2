@@ -78,3 +78,5 @@ expertMode = true
 
 [userenv.shared]
 EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY = "pk_test_ZW5hYmxlZC1zcXVpcnJlbC0zNi5jbGVyay5hY2NvdW50cy5kZXYk"
+EXPO_PUBLIC_SUPABASE_URL = "https://ignobvlfgvcrgywkldbz.supabase.co"
+EXPO_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlnbm9idmxmZ3Zjcmd5d2tsZGJ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM4ODEyMDEsImV4cCI6MjA3OTQ1NzIwMX0.rViT4DY-WibGoKrrMJuR40Ry4gaCGsGA1Igu7DIZGNM"
