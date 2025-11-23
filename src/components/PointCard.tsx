@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet, ViewStyle, TextStyle, ImageStyle, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ViewStyle, TextStyle, ImageStyle, Pressable } from 'react-native';
 import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
+import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
 import { Colors, Typography, Spacing, BorderRadius, Shadows } from '@constants';
 import { AcupressurePoint } from '@types';
 import { useLanguage } from '@contexts/LanguageContext';
@@ -19,6 +20,7 @@ export const PointCard: React.FC<PointCardProps> = ({
   variant = 'default',
 }) => {
   const { currentLanguage } = useLanguage();
+  const scale = useSharedValue(1);
   
   const isFeatured = variant === 'featured';
   const isPremium = variant === 'premium';
@@ -33,16 +35,32 @@ export const PointCard: React.FC<PointCardProps> = ({
   
   const difficultyColor = difficultyColors[point.difficulty as keyof typeof difficultyColors] || difficultyColors.Beginner;
 
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  const handlePressIn = () => {
+    scale.value = withSpring(0.98, { damping: 15, stiffness: 300 });
+  };
+
+  const handlePressOut = () => {
+    scale.value = withSpring(1, { damping: 15, stiffness: 300 });
+  };
+
   return (
-    <TouchableOpacity
-      style={[
-        styles.card,
-        isFeatured && styles.featuredCard,
-        isPremium && styles.premiumCard
-      ]}
-      onPress={onPress}
-      activeOpacity={0.7}
-    >
+    <Animated.View style={animatedStyle}>
+      <Pressable
+        style={({ pressed, hovered }: any) => [
+          styles.card,
+          isFeatured && styles.featuredCard,
+          isPremium && styles.premiumCard,
+          hovered && styles.cardHovered,
+          pressed && styles.cardPressed,
+        ]}
+        onPress={onPress}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+      >
       {/* Card Header - Badge and Rating */}
       <View style={styles.cardHeader}>
         <View style={styles.badgeContainer}>
@@ -94,28 +112,48 @@ export const PointCard: React.FC<PointCardProps> = ({
 
       {/* Action Button */}
       <View style={styles.footer}>
-        <TouchableOpacity 
-          style={styles.infoButton}
+        <Pressable 
+          style={({ pressed, hovered }: any) => [
+            styles.infoButton,
+            hovered && styles.infoButtonHovered,
+            pressed && styles.infoButtonPressed,
+          ]}
           onPress={onPress}
         >
           <Text style={styles.infoButtonText}>Info</Text>
-        </TouchableOpacity>
+        </Pressable>
         
         <View style={styles.actionIcons}>
-          <TouchableOpacity style={styles.iconButton}>
+          <Pressable 
+            style={({ pressed, hovered }: any) => [
+              styles.iconButton,
+              hovered && styles.iconButtonHovered,
+            ]}
+          >
             <Ionicons name="calendar-outline" size={18} color={Colors.primary[600]} />
-          </TouchableOpacity>
+          </Pressable>
           
-          <TouchableOpacity style={styles.iconButton}>
+          <Pressable 
+            style={({ pressed, hovered }: any) => [
+              styles.iconButton,
+              hovered && styles.iconButtonHovered,
+            ]}
+          >
             <Ionicons name="information-circle-outline" size={18} color={Colors.primary[600]} />
-          </TouchableOpacity>
+          </Pressable>
           
-          <TouchableOpacity style={styles.iconButton}>
+          <Pressable 
+            style={({ pressed, hovered }: any) => [
+              styles.iconButton,
+              hovered && styles.iconButtonHovered,
+            ]}
+          >
             <Ionicons name="heart-outline" size={18} color={Colors.primary[600]} />
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
-    </TouchableOpacity>
+    </Pressable>
+    </Animated.View>
   );
 };
 
@@ -128,6 +166,16 @@ const styles = StyleSheet.create({
     ...Shadows.md,
     borderWidth: 1,
     borderColor: 'rgba(34, 197, 94, 0.1)',
+  } as ViewStyle,
+
+  cardHovered: {
+    backgroundColor: Colors.card.hover,
+    ...Shadows.lg,
+    borderColor: Colors.primary[200],
+  } as ViewStyle,
+
+  cardPressed: {
+    opacity: 0.95,
   } as ViewStyle,
 
   featuredCard: {
@@ -244,6 +292,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   } as ViewStyle,
 
+  infoButtonHovered: {
+    backgroundColor: '#2563eb',
+    ...Shadows.md,
+  } as ViewStyle,
+
+  infoButtonPressed: {
+    opacity: 0.9,
+  } as ViewStyle,
+
   infoButtonText: {
     ...Typography.body2,
     color: '#ffffff',
@@ -265,5 +322,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: Colors.border.light,
+  } as ViewStyle,
+
+  iconButtonHovered: {
+    backgroundColor: Colors.primary[50],
+    borderColor: Colors.primary[300],
   } as ViewStyle,
 });

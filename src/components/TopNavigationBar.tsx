@@ -1,0 +1,280 @@
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  TextInput,
+  Platform,
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Ionicons } from '@expo/vector-icons';
+import { useAuth } from '@contexts/AuthContext';
+import { Colors, Typography, Spacing, BorderRadius, Shadows } from '@constants';
+import { RootStackParamList } from '@types';
+
+type NavigationProp = StackNavigationProp<RootStackParamList>;
+
+interface TopNavigationBarProps {
+  onSearchChange?: (text: string) => void;
+  searchQuery?: string;
+}
+
+export const TopNavigationBar: React.FC<TopNavigationBarProps> = ({
+  onSearchChange,
+  searchQuery = '',
+}) => {
+  const navigation = useNavigation<NavigationProp>();
+  const { isAuthenticated, user } = useAuth();
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+
+  const handleLogoPress = () => {
+    navigation.navigate('Main');
+  };
+
+  const handleSearchSubmit = () => {
+    if (searchQuery.trim()) {
+      navigation.navigate('Search', { initialQuery: searchQuery });
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.content}>
+        {/* Left Section: Logo + Search */}
+        <View style={styles.leftSection}>
+          {/* AccuHeal Logo/Home Button */}
+          <Pressable
+            onPress={handleLogoPress}
+            style={({ pressed, hovered }: any) => [
+              styles.logoButton,
+              hovered && styles.logoButtonHovered,
+              pressed && styles.logoButtonPressed,
+            ]}
+          >
+            <Text style={styles.logoText}>AccuHeal</Text>
+          </Pressable>
+
+          {/* Search Bar */}
+          <View
+            style={[
+              styles.searchContainer,
+              isSearchFocused && styles.searchContainerFocused,
+            ]}
+          >
+            <Ionicons
+              name="search"
+              size={18}
+              color={Colors.neutral[400]}
+              style={styles.searchIcon}
+            />
+            <TextInput
+              value={searchQuery}
+              onChangeText={onSearchChange}
+              placeholder="Search acupressure points..."
+              placeholderTextColor={Colors.neutral[400]}
+              style={styles.searchInput}
+              onFocus={() => setIsSearchFocused(true)}
+              onBlur={() => setIsSearchFocused(false)}
+              onSubmitEditing={handleSearchSubmit}
+              returnKeyType="search"
+            />
+          </View>
+        </View>
+
+        {/* Right Section: Auth Buttons */}
+        <View style={styles.rightSection}>
+          {isAuthenticated ? (
+            <>
+              <Pressable
+                onPress={() => navigation.navigate('MyAccount')}
+                style={({ pressed, hovered }: any) => [
+                  styles.authButton,
+                  styles.loginButton,
+                  hovered && styles.loginButtonHovered,
+                  pressed && styles.buttonPressed,
+                ]}
+              >
+                <Ionicons name="person-circle-outline" size={20} color={Colors.neutral[700]} />
+                <Text style={styles.loginButtonText}>
+                  {user?.displayName || 'Account'}
+                </Text>
+              </Pressable>
+
+              <Pressable
+                onPress={() => navigation.navigate('Subscription')}
+                style={({ pressed, hovered }: any) => [
+                  styles.authButton,
+                  styles.signupButton,
+                  hovered && styles.signupButtonHovered,
+                  pressed && styles.buttonPressed,
+                ]}
+              >
+                <Ionicons name="star" size={16} color="#ffffff" style={{ marginRight: 6 }} />
+                <Text style={styles.signupButtonText}>Premium</Text>
+              </Pressable>
+            </>
+          ) : (
+            <>
+              <Pressable
+                onPress={() => navigation.navigate('Login')}
+                style={({ pressed, hovered }: any) => [
+                  styles.authButton,
+                  styles.loginButton,
+                  hovered && styles.loginButtonHovered,
+                  pressed && styles.buttonPressed,
+                ]}
+              >
+                <Text style={styles.loginButtonText}>Login</Text>
+              </Pressable>
+
+              <Pressable
+                onPress={() => navigation.navigate('Signup')}
+                style={({ pressed, hovered }: any) => [
+                  styles.authButton,
+                  styles.signupButton,
+                  hovered && styles.signupButtonHovered,
+                  pressed && styles.buttonPressed,
+                ]}
+              >
+                <Text style={styles.signupButtonText}>Sign Up</Text>
+              </Pressable>
+            </>
+          )}
+        </View>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.background.primary,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.neutral[200],
+    ...Shadows.sm,
+  },
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: Spacing.xl,
+    paddingVertical: Spacing.md,
+    maxWidth: 1400,
+    alignSelf: 'center',
+    width: '100%',
+  },
+  leftSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+    marginRight: Spacing.lg,
+  },
+  logoButton: {
+    marginRight: Spacing.lg,
+    paddingVertical: Spacing.sm,
+    paddingHorizontal: Spacing.md,
+    borderRadius: BorderRadius.md,
+    ...Platform.select({
+      web: {
+        cursor: 'pointer' as any,
+        transition: 'all 0.2s ease' as any,
+      },
+    }),
+  },
+  logoButtonHovered: {
+    backgroundColor: Colors.neutral[50],
+  },
+  logoButtonPressed: {
+    opacity: 0.7,
+  },
+  logoText: {
+    ...Typography.h5,
+    color: Colors.primary[600],
+    fontWeight: '700',
+    fontSize: 22,
+  },
+  searchContainer: {
+    flex: 1,
+    maxWidth: 500,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: Colors.neutral[50],
+    borderRadius: BorderRadius.full,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
+    borderWidth: 1,
+    borderColor: Colors.neutral[200],
+    ...Platform.select({
+      web: {
+        transition: 'all 0.2s ease' as any,
+      },
+    }),
+  },
+  searchContainerFocused: {
+    backgroundColor: Colors.background.primary,
+    borderColor: Colors.primary[400],
+    ...Shadows.md,
+  },
+  searchIcon: {
+    marginRight: Spacing.sm,
+  },
+  searchInput: {
+    flex: 1,
+    ...Typography.body1,
+    color: Colors.text.primary,
+    fontSize: 14,
+    paddingVertical: 6,
+  },
+  rightSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
+  },
+  authButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.sm + 2,
+    borderRadius: BorderRadius.full,
+    ...Platform.select({
+      web: {
+        cursor: 'pointer' as any,
+        transition: 'all 0.2s ease' as any,
+      },
+    }),
+  },
+  loginButton: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: Colors.neutral[300],
+  },
+  loginButtonHovered: {
+    backgroundColor: Colors.neutral[100],
+    borderColor: Colors.neutral[400],
+  },
+  loginButtonText: {
+    ...Typography.body2,
+    color: Colors.neutral[700],
+    fontWeight: '600',
+    fontSize: 14,
+  },
+  signupButton: {
+    backgroundColor: Colors.primary[600],
+    ...Shadows.md,
+  },
+  signupButtonHovered: {
+    backgroundColor: Colors.primary[700],
+    ...Shadows.lg,
+  },
+  buttonPressed: {
+    opacity: 0.8,
+  },
+  signupButtonText: {
+    ...Typography.body2,
+    color: '#ffffff',
+    fontWeight: '600',
+    fontSize: 14,
+  },
+});

@@ -4,4 +4,5 @@ export { SearchInput } from './SearchInput';
 export { PointCard } from './PointCard';
 export { PremiumGate } from './PremiumGate';
 export { TypesenseTest } from './TypesenseTest';
+export { TopNavigationBar } from './TopNavigationBar';
 export { default as WaveProgressRing } from './WaveProgressRing';
