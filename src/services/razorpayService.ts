@@ -41,10 +41,10 @@ class RazorpayPaymentService {
         amount: amount * 100, // Convert to smallest currency unit (paise)
         currency,
         receipt: `order_${Date.now()}`,
-        payment_capture: 1, // Auto-capture payment
+        payment_capture: true, // Auto-capture payment
       });
 
-      console.log('✅ Order created:', order.id);
+      console.log('✅ Order created:', (order as any).id);
       return order;
     } catch (error) {
       console.error('❌ Error creating order:', error);

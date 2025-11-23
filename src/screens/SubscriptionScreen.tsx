@@ -55,11 +55,11 @@ export const SubscriptionScreen = () => {
     try {
       // Open Razorpay Checkout Modal
       const success = await openRazorpayCheckout({
-        clerkUserId: user.id,
+        clerkUserId: user?.uid || '',
         amount: 499,
         currency: 'INR',
-        email: user.primaryEmailAddress?.emailAddress || '',
-        name: user.firstName || 'AccuHeal User',
+        email: user?.email || '',
+        name: user?.displayName || 'AccuHeal User',
       });
 
       if (success) {
