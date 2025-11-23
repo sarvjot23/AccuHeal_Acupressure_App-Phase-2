@@ -209,6 +209,7 @@ const styles = StyleSheet.create({
     color: Colors.primary[600],
     fontWeight: '700',
     fontSize: 22,
+    letterSpacing: -1.5,
   },
   searchContainer: {
     flex: 1,
