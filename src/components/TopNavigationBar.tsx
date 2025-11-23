@@ -61,7 +61,7 @@ export const TopNavigationBar: React.FC<TopNavigationBarProps> = ({
               style={styles.logoImage}
               resizeMode="contain"
             />
-            <Text style={styles.logoText}>AccuHeal</Text>
+            <Text style={styles.logoText}>ccuHeal</Text>
           </Pressable>
 
           {/* Search Bar */}
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   logoImage: {
     width: 40,
     height: 40,
-    marginRight: Spacing.sm,
+    marginRight: 2,
   },
   logoText: {
     ...Typography.h5,
