@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 
 import { Colors, Typography, Spacing, BorderRadius } from '@constants';
-import { Card } from '@components';
+import { Card, TopNavigationBar } from '@components';
 import { RootStackParamList } from '@types';
 import { useLanguage } from '@contexts/LanguageContext';
 import { useAuth } from '@contexts/AuthContext';
@@ -27,6 +27,17 @@ const SettingsScreen: React.FC = () => {
   const { currentLanguage, changeLanguage } = useLanguage();
   const { user, isAuthenticated, staySignedIn, setStaySignedIn, signOut, isLoading } = useAuth();
   const [showLanguageModal, setShowLanguageModal] = useState(false);
+  const [searchQuery, setSearchQuery] = React.useState('');
+  
+  const handleSearchChange = (text: string) => {
+    setSearchQuery(text);
+  };
+  
+  const handleSearchSubmit = () => {
+    if (searchQuery.trim()) {
+      navigation.navigate('Search', { initialQuery: searchQuery });
+    }
+  };
 
   // Common settings available to all users
   const commonSettings = [
@@ -164,8 +175,14 @@ const SettingsScreen: React.FC = () => {
   );
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={styles.content}>
+    <View style={styles.container}>
+      <TopNavigationBar 
+        onSearchChange={handleSearchChange}
+        onSearchSubmit={handleSearchSubmit}
+        searchQuery={searchQuery}
+      />
+      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+        <View style={styles.content}>
         {/* App Info */}
         <View style={styles.appInfo}>
           <View style={styles.appIcon}>
@@ -237,7 +254,8 @@ const SettingsScreen: React.FC = () => {
           </Text>
         </View>
       </View>
-
+      </ScrollView>
+      
       {/* Language Selection Modal */}
       <Modal
         visible={showLanguageModal}
@@ -300,11 +318,14 @@ const SettingsScreen: React.FC = () => {
           </View>
         </View>
       </Modal>
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollView: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: Colors.background.secondary,

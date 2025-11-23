@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 
 import { Colors, Typography, Spacing, BorderRadius, Shadows } from '@constants';
-import { SearchInput, Card, PointCard } from '@components';
+import { SearchInput, Card, PointCard, TopNavigationBar } from '@components';
 import { RootStackParamList, AcupressurePoint, SearchResult } from '@types';
 import { typesenseService } from '@services';
 import { useLanguage } from '@contexts/LanguageContext';
@@ -35,6 +35,13 @@ const SearchScreen: React.FC = () => {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
+  
+  // Sync top nav search with main search query
+  useEffect(() => {
+    if (route.params?.initialQuery) {
+      setSearchQuery(route.params.initialQuery);
+    }
+  }, [route.params?.initialQuery]);
 
   // Separate effect for search query changes
   useEffect(() => {
@@ -126,6 +133,16 @@ const SearchScreen: React.FC = () => {
     setSearchResults([]);
     setSuggestions([]);
   };
+  
+  const handleTopNavSearchChange = (text: string) => {
+    setSearchQuery(text);
+  };
+  
+  const handleTopNavSearchSubmit = () => {
+    if (searchQuery.trim()) {
+      handleSearch(searchQuery);
+    }
+  };
 
   const filters = [
     { id: 'beginner', label: 'Beginner', type: 'difficulty' },
@@ -190,6 +207,11 @@ const SearchScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <TopNavigationBar 
+        onSearchChange={handleTopNavSearchChange}
+        onSearchSubmit={handleTopNavSearchSubmit}
+        searchQuery={searchQuery}
+      />
       <View style={styles.searchHeader}>
         <SearchInput
           placeholder={t('search.placeholder')}

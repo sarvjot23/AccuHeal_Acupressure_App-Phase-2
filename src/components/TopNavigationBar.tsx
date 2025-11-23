@@ -18,11 +18,13 @@ type NavigationProp = StackNavigationProp<RootStackParamList>;
 
 interface TopNavigationBarProps {
   onSearchChange?: (text: string) => void;
+  onSearchSubmit?: () => void;
   searchQuery?: string;
 }
 
 export const TopNavigationBar: React.FC<TopNavigationBarProps> = ({
   onSearchChange,
+  onSearchSubmit,
   searchQuery = '',
 }) => {
   const navigation = useNavigation<NavigationProp>();
@@ -77,7 +79,7 @@ export const TopNavigationBar: React.FC<TopNavigationBarProps> = ({
               style={styles.searchInput}
               onFocus={() => setIsSearchFocused(true)}
               onBlur={() => setIsSearchFocused(false)}
-              onSubmitEditing={handleSearchSubmit}
+              onSubmitEditing={onSearchSubmit || handleSearchSubmit}
               returnKeyType="search"
             />
           </View>

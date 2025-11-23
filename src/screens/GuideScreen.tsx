@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 
 import { Colors, Typography, Spacing, BorderRadius } from '@constants';
-import { Card, Button } from '@components';
+import { Card, Button, TopNavigationBar } from '@components';
 import { RootStackParamList } from '@types';
 
 type GuideScreenNavigationProp = StackNavigationProp<RootStackParamList>;
@@ -20,6 +20,17 @@ type GuideScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 const GuideScreen: React.FC = () => {
   const navigation = useNavigation<GuideScreenNavigationProp>();
   const { t } = useTranslation();
+  const [searchQuery, setSearchQuery] = React.useState('');
+  
+  const handleSearchChange = (text: string) => {
+    setSearchQuery(text);
+  };
+  
+  const handleSearchSubmit = () => {
+    if (searchQuery.trim()) {
+      navigation.navigate('Search', { initialQuery: searchQuery });
+    }
+  };
 
   const guideOptions = [
     {
@@ -110,8 +121,14 @@ const GuideScreen: React.FC = () => {
   );
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={styles.content}>
+    <View style={styles.container}>
+      <TopNavigationBar 
+        onSearchChange={handleSearchChange}
+        onSearchSubmit={handleSearchSubmit}
+        searchQuery={searchQuery}
+      />
+      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+        <View style={styles.content}>
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.headerTitle}>How can we help you today?</Text>
@@ -162,7 +179,8 @@ const GuideScreen: React.FC = () => {
           </View>
         </Card>
       </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -170,6 +188,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background.secondary,
+  },
+  scrollView: {
+    flex: 1,
   },
   content: {
     padding: Spacing.md,

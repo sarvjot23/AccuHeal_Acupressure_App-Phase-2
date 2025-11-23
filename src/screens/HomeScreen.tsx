@@ -99,8 +99,11 @@ const HomeScreen: React.FC = () => {
 
   const handleSearchChange = (text: string) => {
     setSearchQuery(text);
-    if (text.trim()) {
-      navigation.navigate('Search', { initialQuery: text });
+  };
+  
+  const handleSearchSubmit = () => {
+    if (searchQuery.trim()) {
+      navigation.navigate('Search', { initialQuery: searchQuery });
     }
   };
 
@@ -108,6 +111,7 @@ const HomeScreen: React.FC = () => {
     <View style={styles.container}>
       <TopNavigationBar 
         onSearchChange={handleSearchChange}
+        onSearchSubmit={handleSearchSubmit}
         searchQuery={searchQuery}
       />
       <ScrollView 
