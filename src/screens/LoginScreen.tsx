@@ -9,15 +9,15 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
+  Pressable,
+  Image,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
-import * as LocalAuthentication from 'expo-local-authentication';
 
-import { Colors, Typography, Spacing, BorderRadius } from '@constants';
-import { Button } from '@components';
+import { Colors, Typography, Spacing, BorderRadius, Shadows } from '@constants';
 import { RootStackParamList } from '@types';
 import { useAuth } from '@contexts/AuthContext';
 
@@ -26,23 +26,12 @@ type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 const LoginScreen: React.FC = () => {
   const navigation = useNavigation<LoginScreenNavigationProp>();
   const { t } = useTranslation();
-  const { signInWithEmail, signInWithGoogle, signInWithApple, signInWithBiometric, isLoading: authLoading } = useAuth();
+  const { signInWithEmail, signInWithGoogle, signInWithApple, isLoading: authLoading } = useAuth();
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [biometricAvailable, setBiometricAvailable] = useState(false);
-
-  React.useEffect(() => {
-    checkBiometricAvailability();
-  }, []);
-
-  const checkBiometricAvailability = async () => {
-    const hasHardware = await LocalAuthentication.hasHardwareAsync();
-    const isEnrolled = await LocalAuthentication.isEnrolledAsync();
-    setBiometricAvailable(hasHardware && isEnrolled);
-  };
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -53,12 +42,7 @@ const LoginScreen: React.FC = () => {
     setIsLoading(true);
     try {
       await signInWithEmail(email, password);
-      Alert.alert('Success', 'Login successful!', [
-        {
-          text: 'OK',
-          onPress: () => navigation.goBack()
-        }
-      ]);
+      navigation.goBack();
     } catch (error: any) {
       Alert.alert('Error', error.message || 'Login failed. Please try again.');
     } finally {
@@ -70,12 +54,7 @@ const LoginScreen: React.FC = () => {
     setIsLoading(true);
     try {
       await signInWithGoogle();
-      Alert.alert('Success', 'Google sign-in successful!', [
-        {
-          text: 'OK',
-          onPress: () => navigation.goBack()
-        }
-      ]);
+      navigation.goBack();
     } catch (error: any) {
       if (!error.message?.includes('cancelled')) {
         Alert.alert('Error', error.message || 'Google sign-in failed');
@@ -86,15 +65,12 @@ const LoginScreen: React.FC = () => {
   };
 
   const handleAppleLogin = async () => {
+    if (Platform.OS !== 'ios') return;
+    
     setIsLoading(true);
     try {
       await signInWithApple();
-      Alert.alert('Success', 'Apple sign-in successful!', [
-        {
-          text: 'OK',
-          onPress: () => navigation.goBack()
-        }
-      ]);
+      navigation.goBack();
     } catch (error: any) {
       if (!error.message?.includes('cancelled')) {
         Alert.alert('Error', error.message || 'Apple sign-in failed');
@@ -104,30 +80,12 @@ const LoginScreen: React.FC = () => {
     }
   };
 
-  const handleBiometricLogin = async () => {
-    try {
-      await signInWithBiometric();
-      Alert.alert('Success', 'Biometric login successful!', [
-        {
-          text: 'OK',
-          onPress: () => navigation.goBack()
-        }
-      ]);
-    } catch (error: any) {
-      Alert.alert('Error', error.message || 'Biometric authentication failed');
-    }
-  };
-
   const handleForgotPassword = () => {
     Alert.alert(
       'Forgot Password',
       'Password reset functionality will be implemented soon.',
       [{ text: 'OK' }]
     );
-  };
-
-  const handleSignUp = () => {
-    navigation.navigate('Signup' as any);
   };
 
   return (
@@ -140,31 +98,28 @@ const LoginScreen: React.FC = () => {
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
-        {/* Header */}
-        <View style={styles.header}>
-          <TouchableOpacity 
-            style={styles.backButton}
-            onPress={() => navigation.goBack()}
-          >
-            <Ionicons name="chevron-back" size={24} color={Colors.primary[600]} />
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>Hello!</Text>
+        {/* Logo at top */}
+        <View style={styles.logoContainer}>
+          <Image 
+            source={require('../../assets/images/logo.png')} 
+            style={styles.logo}
+            resizeMode="contain"
+          />
         </View>
 
-        {/* Welcome Text */}
-        <Text style={styles.welcomeText}>Welcome</Text>
+        {/* Centered Login Card */}
+        <View style={styles.card}>
+          <Text style={styles.title}>Log in</Text>
 
-        {/* Login Form */}
-        <View style={styles.formContainer}>
           {/* Email Input */}
           <View style={styles.inputGroup}>
-            <Text style={styles.inputLabel}>Email or Mobile Number</Text>
+            <Text style={styles.inputLabel}>Email</Text>
             <TextInput
               style={styles.textInput}
               value={email}
               onChangeText={setEmail}
-              placeholder="example@example.com"
-              placeholderTextColor={Colors.primary[300]}
+              placeholder="user@company.com"
+              placeholderTextColor={Colors.neutral[400]}
               keyboardType="email-address"
               autoCapitalize="none"
               autoCorrect={false}
@@ -173,14 +128,19 @@ const LoginScreen: React.FC = () => {
 
           {/* Password Input */}
           <View style={styles.inputGroup}>
-            <Text style={styles.inputLabel}>Password</Text>
+            <View style={styles.passwordHeader}>
+              <Text style={styles.inputLabel}>Password</Text>
+              <TouchableOpacity onPress={handleForgotPassword}>
+                <Text style={styles.forgotPasswordText}>Forgot password?</Text>
+              </TouchableOpacity>
+            </View>
             <View style={styles.passwordContainer}>
               <TextInput
-                style={[styles.textInput, styles.passwordInput]}
+                style={styles.textInput}
                 value={password}
                 onChangeText={setPassword}
-                placeholder="••••••••••••••"
-                placeholderTextColor={Colors.primary[300]}
+                placeholder="Password"
+                placeholderTextColor={Colors.neutral[400]}
                 secureTextEntry={!showPassword}
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -192,66 +152,69 @@ const LoginScreen: React.FC = () => {
                 <Ionicons 
                   name={showPassword ? "eye-off-outline" : "eye-outline"} 
                   size={20} 
-                  color={Colors.primary[400]} 
+                  color={Colors.neutral[400]} 
                 />
               </TouchableOpacity>
             </View>
           </View>
 
-          {/* Forgot Password */}
-          <TouchableOpacity onPress={handleForgotPassword}>
-            <Text style={styles.forgotPasswordText}>Forgot Password</Text>
-          </TouchableOpacity>
-
           {/* Login Button */}
-          <Button
-            title="Log In"
+          <Pressable
+            style={({ pressed, hovered }: any) => [
+              styles.loginButton,
+              hovered && styles.loginButtonHovered,
+              pressed && styles.buttonPressed,
+              (isLoading || authLoading) && styles.buttonDisabled,
+            ]}
             onPress={handleLogin}
-            loading={isLoading || authLoading}
-            size="lg"
-            fullWidth
-            style={styles.loginButton}
-          />
+            disabled={isLoading || authLoading}
+          >
+            <Text style={styles.loginButtonText}>
+              {isLoading || authLoading ? 'Logging in...' : 'Log in'}
+            </Text>
+          </Pressable>
 
           {/* Divider */}
-          <Text style={styles.dividerText}>or</Text>
+          <View style={styles.dividerContainer}>
+            <View style={styles.dividerLine} />
+            <Text style={styles.dividerText}>or</Text>
+            <View style={styles.dividerLine} />
+          </View>
 
-          {/* OAuth Login Buttons */}
-          <View style={styles.oauthContainer}>
-            <TouchableOpacity 
-              style={styles.oauthButton}
-              onPress={handleGoogleLogin}
+          {/* OAuth Buttons */}
+          <Pressable
+            style={({ pressed, hovered }: any) => [
+              styles.oauthButton,
+              hovered && styles.oauthButtonHovered,
+              pressed && styles.buttonPressed,
+            ]}
+            onPress={handleGoogleLogin}
+            disabled={isLoading || authLoading}
+          >
+            <Ionicons name="logo-google" size={20} color={Colors.neutral[700]} />
+            <Text style={styles.oauthButtonText}>Login with Google</Text>
+          </Pressable>
+
+          {Platform.OS === 'ios' && (
+            <Pressable
+              style={({ pressed, hovered }: any) => [
+                styles.oauthButton,
+                hovered && styles.oauthButtonHovered,
+                pressed && styles.buttonPressed,
+              ]}
+              onPress={handleAppleLogin}
               disabled={isLoading || authLoading}
             >
-              <Ionicons name="logo-google" size={24} color={Colors.primary[600]} />
-            </TouchableOpacity>
-
-            {Platform.OS === 'ios' && (
-              <TouchableOpacity 
-                style={styles.oauthButton}
-                onPress={handleAppleLogin}
-                disabled={isLoading || authLoading}
-              >
-                <Ionicons name="logo-apple" size={24} color={Colors.primary[600]} />
-              </TouchableOpacity>
-            )}
-
-            {biometricAvailable && (
-              <TouchableOpacity 
-                style={styles.oauthButton}
-                onPress={handleBiometricLogin}
-                disabled={isLoading || authLoading}
-              >
-                <Ionicons name="finger-print" size={24} color={Colors.primary[600]} />
-              </TouchableOpacity>
-            )}
-          </View>
+              <Ionicons name="logo-apple" size={20} color={Colors.neutral[700]} />
+              <Text style={styles.oauthButtonText}>Login with Apple</Text>
+            </Pressable>
+          )}
 
           {/* Sign Up Link */}
           <View style={styles.signupContainer}>
             <Text style={styles.signupText}>Don't have an account? </Text>
-            <TouchableOpacity onPress={handleSignUp}>
-              <Text style={styles.signupLink}>Sign Up</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Signup' as any)}>
+              <Text style={styles.signupLink}>Sign up for free</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -263,60 +226,66 @@ const LoginScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background.primary,
+    backgroundColor: Colors.background.secondary,
   },
   scrollContainer: {
     flexGrow: 1,
     paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.md,
+    paddingVertical: Spacing.xl,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  header: {
-    flexDirection: 'row',
+  logoContainer: {
     alignItems: 'center',
     marginBottom: Spacing.xl,
-    marginTop: Spacing.md,
   },
-  backButton: {
-    marginRight: Spacing.md,
+  logo: {
+    width: 60,
+    height: 60,
   },
-  headerTitle: {
-    ...Typography.h4,
-    color: Colors.primary[600],
-    fontWeight: '600',
+  card: {
+    width: '100%',
+    maxWidth: 420,
+    backgroundColor: Colors.card.background,
+    borderRadius: BorderRadius.xl,
+    padding: Spacing.xl * 1.5,
+    ...Shadows.lg,
   },
-  welcomeText: {
+  title: {
     ...Typography.h2,
-    color: Colors.primary[600],
+    color: Colors.text.primary,
     fontWeight: '700',
+    fontSize: 28,
     marginBottom: Spacing.xl,
-  },
-  formContainer: {
-    flex: 1,
   },
   inputGroup: {
     marginBottom: Spacing.lg,
   },
+  passwordHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: Spacing.sm,
+  },
   inputLabel: {
-    ...Typography.body1,
+    ...Typography.body2,
     color: Colors.text.primary,
     fontWeight: '500',
     marginBottom: Spacing.sm,
+    fontSize: 13,
   },
   textInput: {
-    backgroundColor: Colors.primary[50],
-    borderRadius: BorderRadius.lg,
-    paddingHorizontal: Spacing.lg,
+    backgroundColor: Colors.neutral[50],
+    borderRadius: BorderRadius.md,
+    paddingHorizontal: Spacing.md,
     paddingVertical: Spacing.md,
-    fontSize: 16,
-    color: Colors.primary[700],
+    fontSize: 15,
+    color: Colors.text.primary,
     borderWidth: 1,
-    borderColor: 'transparent',
+    borderColor: Colors.border.light,
   },
   passwordContainer: {
     position: 'relative',
-  },
-  passwordInput: {
-    paddingRight: 50,
   },
   eyeButton: {
     position: 'absolute',
@@ -327,51 +296,100 @@ const styles = StyleSheet.create({
   },
   forgotPasswordText: {
     ...Typography.body2,
-    color: Colors.primary[600],
-    textAlign: 'right',
-    marginBottom: Spacing.xl,
-    fontWeight: '500',
+    color: Colors.neutral[500],
+    fontSize: 13,
+    textDecorationLine: 'underline',
   },
   loginButton: {
-    backgroundColor: Colors.primary[600],
-    marginBottom: Spacing.lg,
+    backgroundColor: Colors.neutral[900],
+    borderRadius: BorderRadius.md,
+    paddingVertical: Spacing.md + 2,
+    alignItems: 'center',
+    marginTop: Spacing.sm,
+    ...Shadows.sm,
+    ...Platform.select({
+      web: {
+        cursor: 'pointer' as any,
+        transition: 'all 0.2s ease' as any,
+      },
+    }),
+  },
+  loginButtonHovered: {
+    backgroundColor: Colors.neutral[800],
+    ...Shadows.md,
+  },
+  buttonPressed: {
+    opacity: 0.8,
+  },
+  buttonDisabled: {
+    opacity: 0.6,
+  },
+  loginButtonText: {
+    ...Typography.body1,
+    color: '#ffffff',
+    fontWeight: '600',
+    fontSize: 15,
+  },
+  dividerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: Spacing.lg,
+  },
+  dividerLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: Colors.border.light,
   },
   dividerText: {
     ...Typography.body2,
     color: Colors.text.secondary,
-    textAlign: 'center',
-    marginBottom: Spacing.lg,
-  },
-  oauthContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: Spacing.md,
-    marginBottom: Spacing.xl,
+    marginHorizontal: Spacing.md,
+    fontSize: 13,
   },
   oauthButton: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: Colors.primary[100],
-    justifyContent: 'center',
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.card.background,
+    borderRadius: BorderRadius.md,
+    paddingVertical: Spacing.md,
+    marginBottom: Spacing.sm,
+    borderWidth: 1,
+    borderColor: Colors.border.light,
+    ...Platform.select({
+      web: {
+        cursor: 'pointer' as any,
+        transition: 'all 0.2s ease' as any,
+      },
+    }),
+  },
+  oauthButtonHovered: {
+    backgroundColor: Colors.neutral[50],
+    borderColor: Colors.neutral[300],
+  },
+  oauthButtonText: {
+    ...Typography.body2,
+    color: Colors.text.primary,
+    fontWeight: '500',
+    marginLeft: Spacing.sm,
+    fontSize: 14,
   },
   signupContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 'auto',
-    paddingBottom: Spacing.lg,
+    marginTop: Spacing.lg,
   },
   signupText: {
     ...Typography.body2,
     color: Colors.text.secondary,
+    fontSize: 14,
   },
   signupLink: {
     ...Typography.body2,
-    color: Colors.primary[600],
+    color: Colors.text.primary,
     fontWeight: '600',
+    fontSize: 14,
   },
 });
 

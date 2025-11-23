@@ -6,6 +6,7 @@ import {
   Pressable,
   TextInput,
   Platform,
+  Image,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -55,6 +56,11 @@ export const TopNavigationBar: React.FC<TopNavigationBarProps> = ({
               pressed && styles.logoButtonPressed,
             ]}
           >
+            <Image 
+              source={require('../../assets/images/logo.png')} 
+              style={styles.logoImage}
+              resizeMode="contain"
+            />
             <Text style={styles.logoText}>AccuHeal</Text>
           </Pressable>
 
@@ -174,6 +180,8 @@ const styles = StyleSheet.create({
     marginRight: Spacing.lg,
   },
   logoButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
     marginRight: Spacing.lg,
     paddingVertical: Spacing.sm,
     paddingHorizontal: Spacing.md,
@@ -190,6 +198,11 @@ const styles = StyleSheet.create({
   },
   logoButtonPressed: {
     opacity: 0.7,
+  },
+  logoImage: {
+    width: 32,
+    height: 32,
+    marginRight: Spacing.sm,
   },
   logoText: {
     ...Typography.h5,
