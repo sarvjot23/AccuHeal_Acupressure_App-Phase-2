@@ -302,9 +302,11 @@ const PointDetailScreen = () => {
         bottom: 0,
         zIndex: 1000,
         backgroundColor: '#f8fafc',
-        overflowY: 'auto',
+        overflow: 'hidden',
         padding: 0,
-        margin: 0
+        margin: 0,
+        display: 'flex',
+        flexDirection: 'column'
       }}>
         {/* Navigation Header */}
         <div style={{
@@ -343,7 +345,10 @@ const PointDetailScreen = () => {
         {/* Content Container */}
         <div style={{
           padding: 16,
-          paddingBottom: 100
+          paddingBottom: 100,
+          overflow: 'auto',
+          flex: 1,
+          WebkitOverflowScrolling: 'touch'
         }}>
         {/* Header Card */}
         <div style={{
