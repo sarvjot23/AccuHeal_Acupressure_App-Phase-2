@@ -16,7 +16,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Colors, Typography, Spacing, BorderRadius, Shadows } from '@constants';
 import { Card, Button, PointCard, TopNavigationBar } from '@components';
 import { RootStackParamList, AcupressurePoint } from '@types';
-import { firestoreService } from '@services';
+import { supabaseService } from '@services';
 import { samplePoints } from '@data/samplePoints';
 import { useSubscription } from '@contexts/SubscriptionContext';
 
