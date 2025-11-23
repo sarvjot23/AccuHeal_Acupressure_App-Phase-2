@@ -152,7 +152,7 @@ export const TopNavigationBar: React.FC<TopNavigationBarProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.background.primary,
+    backgroundColor: Colors.background.navbar,
     borderBottomWidth: 1,
     borderBottomColor: Colors.neutral[200],
     ...Shadows.sm,

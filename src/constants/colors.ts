@@ -52,6 +52,7 @@ export const Colors = {
     primary: '#E8F2F8', // Pale blue
     secondary: '#DFF4F0', // Soft teal-blue
     tertiary: '#E3EEF7', // Lighter blue
+    navbar: '#C4E3F5', // Darker blue for navbar distinction
   },
   
   // Text colors
