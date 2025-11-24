@@ -26,24 +26,43 @@ export interface CheckoutOptions {
  */
 export const openRazorpayCheckout = async (options: CheckoutOptions): Promise<boolean> => {
   try {
+    console.log('🚀 Starting Razorpay checkout with options:', {
+      clerkUserId: options.clerkUserId,
+      amount: options.amount,
+      email: options.email
+    });
+
     const { clerkUserId, amount = 499, currency = 'INR', email = '', name = 'AccuHeal User' } = options;
 
     // Create order
+    console.log('📦 Creating order...');
     const order = await razorpayService.createOrder(amount, currency);
+    console.log('✅ Order created:', order);
 
     // Load Razorpay script if not already loaded
     if (!window.Razorpay) {
+      console.log('📜 Loading Razorpay script...');
       const script = document.createElement('script');
       script.src = 'https://checkout.razorpay.com/v1/checkout.js';
       script.async = true;
       document.body.appendChild(script);
-      
-      await new Promise(resolve => {
-        script.onload = resolve;
+
+      await new Promise((resolve, reject) => {
+        script.onload = () => {
+          console.log('✅ Razorpay script loaded successfully');
+          resolve(true);
+        };
+        script.onerror = () => {
+          console.error('❌ Failed to load Razorpay script');
+          reject(new Error('Failed to load Razorpay script'));
+        };
       });
+    } else {
+      console.log('✅ Razorpay script already loaded');
     }
 
     // Create Razorpay instance
+    console.log('🎨 Creating Razorpay instance with key:', process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID);
     const razorpay = new window.Razorpay({
       key: process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID,
       order_id: order.id,
@@ -127,12 +146,14 @@ export const openRazorpayCheckout = async (options: CheckoutOptions): Promise<bo
     });
 
     // Open Razorpay modal
+    console.log('🚪 Opening Razorpay modal...');
     razorpay.open();
+    console.log('✅ Razorpay modal opened');
     return true;
 
   } catch (error) {
-    console.error('Razorpay checkout error:', error);
-    Alert.alert('❌ Error', 'Failed to open payment checkout');
+    console.error('❌ Razorpay checkout error:', error);
+    Alert.alert('❌ Error', 'Failed to open payment checkout. Check console for details.');
     return false;
   }
 };

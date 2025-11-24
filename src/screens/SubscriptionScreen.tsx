@@ -40,20 +40,38 @@ export const SubscriptionScreen = () => {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleSubscribe = async () => {
+    console.log('🎯 Subscribe button clicked');
+    console.log('👤 User:', user);
+
     if (!user) {
+      console.log('❌ No user found');
       Alert.alert('Sign In Required', 'Please sign in to subscribe');
       return;
     }
 
-    if (!isRazorpayConfigured()) {
+    console.log('🔧 Checking Razorpay configuration...');
+    const isConfigured = isRazorpayConfigured();
+    console.log('Razorpay configured:', isConfigured);
+
+    if (!isConfigured) {
+      console.log('❌ Razorpay not configured');
       Alert.alert('Configuration Needed', 'Razorpay API keys are not configured. Please check environment variables.');
       return;
     }
 
+    console.log('✅ All checks passed, starting payment flow...');
     setIsProcessing(true);
-    
+
     try {
       // Open Razorpay Checkout Modal
+      console.log('📞 Calling openRazorpayCheckout with:', {
+        clerkUserId: user?.uid,
+        amount: 499,
+        currency: 'INR',
+        email: user?.email,
+        name: user?.displayName
+      });
+
       const success = await openRazorpayCheckout({
         clerkUserId: user?.uid || '',
         amount: 499,
@@ -62,6 +80,8 @@ export const SubscriptionScreen = () => {
         name: user?.displayName || 'AccuHeal User',
       });
 
+      console.log('💳 openRazorpayCheckout result:', success);
+
       if (success) {
         // Subscription activated, user will be navigated automatically
         setTimeout(() => {
@@ -69,10 +89,10 @@ export const SubscriptionScreen = () => {
         }, 1500);
       }
     } catch (error) {
-      console.error('Subscription error:', error);
+      console.error('❌ Subscription error:', error);
       Alert.alert('Error', 'Failed to process subscription. Please try again.');
     }
-    
+
     setIsProcessing(false);
   };
 
