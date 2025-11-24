@@ -34,7 +34,7 @@ export const openRazorpayCheckout = async (options: CheckoutOptions): Promise<bo
 
     const { clerkUserId, amount = 499, currency = 'INR', email = '', name = 'AccuHeal User' } = options;
 
-    // Create order
+    // Create order via Edge Function
     console.log('📦 Creating order...');
     const order = await razorpayService.createOrder(amount, currency);
     console.log('✅ Order created:', order);
@@ -61,7 +61,7 @@ export const openRazorpayCheckout = async (options: CheckoutOptions): Promise<bo
       console.log('✅ Razorpay script already loaded');
     }
 
-    // Create Razorpay instance
+    // Create Razorpay instance with real order
     console.log('🎨 Creating Razorpay instance with key:', process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID);
     const razorpay = new window.Razorpay({
       key: process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID,
@@ -79,6 +79,7 @@ export const openRazorpayCheckout = async (options: CheckoutOptions): Promise<bo
       handler: async (response: PaymentResponse) => {
         try {
           console.log('💳 Payment completed, verifying...');
+          console.log('📝 Payment response:', response);
 
           // Process payment with secure server-side verification
           const result: PaymentVerificationResult = await razorpayService.processSubscription(

@@ -31,8 +31,8 @@ class RazorpayPaymentService {
   }
 
   /**
-   * Create a Razorpay order for subscription (client-side mock for now)
-   * In production, this should be done on the backend
+   * Create a Razorpay order via Supabase Edge Function
+   * This is done server-side to keep the API secret secure
    */
   async createOrder(amount: number, currency: string = 'INR'): Promise<any> {
     if (!this.keyId) {
@@ -40,17 +40,38 @@ class RazorpayPaymentService {
     }
 
     try {
-      // For now, create a mock order ID
-      // In production, you'd call your backend API to create the order
-      const order = {
-        id: `order_${Date.now()}`,
-        amount: amount * 100, // Convert to smallest currency unit (paise)
-        currency,
-        receipt: `receipt_${Date.now()}`,
-      };
+      // Get current session for auth
+      const { data: { session } } = await supabase.auth.getSession();
 
-      console.log('✅ Order created:', order.id);
-      return order;
+      if (!session) {
+        throw new Error('No active session. Please sign in again.');
+      }
+
+      console.log('📞 Calling create-order Edge Function...');
+
+      // Call Supabase Edge Function to create order
+      const { data, error } = await supabase.functions.invoke('create-order', {
+        body: {
+          amount: amount,
+          currency: currency,
+        },
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      });
+
+      if (error) {
+        console.error('❌ Edge Function error:', error);
+        throw new Error(error.message || 'Failed to create order');
+      }
+
+      if (!data.success || !data.order) {
+        console.error('❌ Order creation failed:', data);
+        throw new Error(data.error || 'Failed to create order');
+      }
+
+      console.log('✅ Order created:', data.order.id);
+      return data.order;
     } catch (error) {
       console.error('❌ Error creating order:', error);
       throw error;
