@@ -1,3 +1,4 @@
+import { supabase } from '@config/supabase';
 import { supabaseService } from './supabaseService';
 
 export interface RazorpayConfig {
@@ -9,6 +10,14 @@ export interface PaymentResponse {
   razorpay_payment_id: string;
   razorpay_order_id: string;
   razorpay_signature: string;
+}
+
+export interface PaymentVerificationResult {
+  success: boolean;
+  message: string;
+  payment_id?: string;
+  subscription_expires_at?: string;
+  error?: string;
 }
 
 class RazorpayPaymentService {
@@ -49,53 +58,56 @@ class RazorpayPaymentService {
   }
 
   /**
-   * Verify payment signature (client-side basic check)
-   * In production, signature verification MUST be done on the backend
-   */
-  verifySignature(response: PaymentResponse): boolean {
-    try {
-      const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = response;
-
-      // For now, just check if all required fields are present
-      // In production, you MUST verify the signature on your backend
-      const isValid = !!(razorpay_order_id && razorpay_payment_id && razorpay_signature);
-      console.log(isValid ? '✅ Payment data received' : '❌ Incomplete payment data');
-      return isValid;
-    } catch (error) {
-      console.error('❌ Error verifying signature:', error);
-      return false;
-    }
-  }
-
-  /**
-   * Process subscription payment and update user in Supabase
+   * Verify payment and process subscription via Supabase Edge Function
+   * This provides secure server-side verification with HMAC signature validation
    */
   async processSubscription(
     clerkUserId: string,
     paymentResponse: PaymentResponse,
     amount: number = 499 // ₹499/month default
-  ): Promise<boolean> {
+  ): Promise<PaymentVerificationResult> {
     try {
-      // Verify signature first
-      if (!this.verifySignature(paymentResponse)) {
-        throw new Error('Payment verification failed');
+      console.log('🔐 Sending payment for verification...');
+
+      // Get current session for auth
+      const { data: { session } } = await supabase.auth.getSession();
+
+      if (!session) {
+        throw new Error('No active session. Please sign in again.');
       }
 
-      // Calculate expiry date (30 days from now)
-      const expiryDate = new Date();
-      expiryDate.setDate(expiryDate.getDate() + 30);
+      // Generate idempotency key to prevent duplicate processing
+      const idempotencyKey = `${paymentResponse.razorpay_payment_id}_${Date.now()}`;
 
-      // Update user in Supabase
-      await supabaseService.updateUserSubscription(clerkUserId, {
-        is_premium: true,
-        subscription_status: 'active',
-        subscription_expires_at: expiryDate.toISOString(),
-        stripe_customer_id: paymentResponse.razorpay_payment_id,
-        stripe_subscription_id: paymentResponse.razorpay_order_id,
+      // Call Supabase Edge Function for secure verification
+      const { data, error } = await supabase.functions.invoke('verify-payment', {
+        body: {
+          razorpay_payment_id: paymentResponse.razorpay_payment_id,
+          razorpay_order_id: paymentResponse.razorpay_order_id,
+          razorpay_signature: paymentResponse.razorpay_signature,
+          idempotency_key: idempotencyKey,
+        },
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
       });
 
-      console.log('✅ Subscription activated for user:', clerkUserId);
-      return true;
+      if (error) {
+        console.error('❌ Edge Function error:', error);
+        throw new Error(error.message || 'Payment verification failed');
+      }
+
+      const result = data as PaymentVerificationResult;
+
+      if (!result.success) {
+        console.error('❌ Payment verification failed:', result.error);
+        throw new Error(result.error || 'Payment verification failed');
+      }
+
+      console.log('✅ Payment verified successfully!');
+      console.log('📅 Subscription expires at:', result.subscription_expires_at);
+
+      return result;
     } catch (error) {
       console.error('❌ Error processing subscription:', error);
       throw error;

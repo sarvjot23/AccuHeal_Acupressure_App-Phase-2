@@ -11,6 +11,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '@contexts/AuthContext';
 import { Colors, Typography, Spacing, BorderRadius, Shadows } from '@constants';
 import { RootStackParamList } from '@types';
@@ -30,7 +31,10 @@ export const TopNavigationBar: React.FC<TopNavigationBarProps> = ({
 }) => {
   const navigation = useNavigation<NavigationProp>();
   const { isAuthenticated, user } = useAuth();
+  const { i18n } = useTranslation();
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+
+  const currentLanguage = i18n.language || 'en';
 
   const handleLogoPress = () => {
     navigation.navigate('Main');
@@ -40,6 +44,11 @@ export const TopNavigationBar: React.FC<TopNavigationBarProps> = ({
     if (searchQuery.trim()) {
       navigation.navigate('Search', { initialQuery: searchQuery });
     }
+  };
+
+  const toggleLanguage = () => {
+    const newLang = currentLanguage === 'en' ? 'hi' : 'en';
+    i18n.changeLanguage(newLang);
   };
 
   return (
@@ -91,8 +100,50 @@ export const TopNavigationBar: React.FC<TopNavigationBarProps> = ({
           </View>
         </View>
 
-        {/* Right Section: Auth Buttons */}
+        {/* Right Section: Navigation & Auth Buttons */}
         <View style={styles.rightSection}>
+          {/* Guide Button */}
+          <Pressable
+            onPress={() => navigation.navigate('BeginnerGuide')}
+            style={({ pressed, hovered }: any) => [
+              styles.navButton,
+              hovered && styles.navButtonHovered,
+              pressed && styles.buttonPressed,
+            ]}
+          >
+            <Ionicons name="book-outline" size={18} color={Colors.neutral[600]} />
+            <Text style={styles.navButtonText}>Guide</Text>
+          </Pressable>
+
+          {/* Language Selector */}
+          <Pressable
+            onPress={toggleLanguage}
+            style={({ pressed, hovered }: any) => [
+              styles.navButton,
+              styles.languageButton,
+              hovered && styles.navButtonHovered,
+              pressed && styles.buttonPressed,
+            ]}
+          >
+            <Ionicons name="language-outline" size={18} color={Colors.neutral[600]} />
+            <Text style={styles.navButtonText}>
+              {currentLanguage === 'en' ? 'EN' : 'हि'}
+            </Text>
+          </Pressable>
+
+          {/* Pricing Button */}
+          <Pressable
+            onPress={() => navigation.navigate('Subscription')}
+            style={({ pressed, hovered }: any) => [
+              styles.navButton,
+              hovered && styles.navButtonHovered,
+              pressed && styles.buttonPressed,
+            ]}
+          >
+            <Ionicons name="pricetag-outline" size={18} color={Colors.neutral[600]} />
+            <Text style={styles.navButtonText}>Pricing</Text>
+          </Pressable>
+
           {isAuthenticated ? (
             <>
               <Pressable
@@ -247,6 +298,34 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.sm,
+  },
+  navButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
+    borderRadius: BorderRadius.md,
+    backgroundColor: 'transparent',
+    ...Platform.select({
+      web: {
+        cursor: 'pointer' as any,
+        transition: 'all 0.2s ease' as any,
+      },
+    }),
+  },
+  navButtonHovered: {
+    backgroundColor: Colors.neutral[100],
+  },
+  navButtonText: {
+    ...Typography.body2,
+    color: Colors.neutral[700],
+    fontWeight: '500',
+    fontSize: 14,
+  },
+  languageButton: {
+    minWidth: 60,
+    justifyContent: 'center',
   },
   authButton: {
     flexDirection: 'row',

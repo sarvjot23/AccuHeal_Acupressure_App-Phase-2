@@ -1,10 +1,10 @@
 /**
  * Razorpay Checkout Handler
  * Handles Razorpay payment flow for web and mobile
+ * Now with secure server-side verification via Supabase Edge Functions
  */
 
-import { razorpayService, type PaymentResponse } from './razorpayService';
-import { supabaseService } from './supabaseService';
+import { razorpayService, type PaymentResponse, type PaymentVerificationResult } from './razorpayService';
 import { Alert } from 'react-native';
 
 declare global {
@@ -59,23 +59,60 @@ export const openRazorpayCheckout = async (options: CheckoutOptions): Promise<bo
       },
       handler: async (response: PaymentResponse) => {
         try {
-          // Process payment on server
-          const success = await razorpayService.processSubscription(clerkUserId, response, amount);
-          
-          if (success) {
+          console.log('💳 Payment completed, verifying...');
+
+          // Process payment with secure server-side verification
+          const result: PaymentVerificationResult = await razorpayService.processSubscription(
+            clerkUserId,
+            response,
+            amount
+          );
+
+          if (result.success) {
+            const expiryDate = new Date(result.subscription_expires_at!);
+            const formattedDate = expiryDate.toLocaleDateString('en-IN', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric'
+            });
+
             Alert.alert(
-              '✅ Payment Successful',
-              'Your subscription is now active! You now have access to all 89 acupressure points.',
+              '🎉 Payment Successful!',
+              `Your subscription is now active! You now have access to all 89 acupressure points.\n\nExpires on: ${formattedDate}`,
               [{ text: 'Continue', onPress: () => {} }]
             );
             return true;
           } else {
-            Alert.alert('❌ Payment Failed', 'Please try again');
+            // This shouldn't happen as errors are thrown, but just in case
+            Alert.alert(
+              '❌ Payment Verification Failed',
+              result.error || 'Unable to verify your payment. Please contact support.',
+              [{ text: 'OK' }]
+            );
             return false;
           }
-        } catch (error) {
+        } catch (error: any) {
           console.error('Payment processing error:', error);
-          Alert.alert('❌ Error', 'Failed to process your payment');
+
+          // User-friendly error messages based on error type
+          let errorTitle = '❌ Payment Error';
+          let errorMessage = 'Failed to process your payment. Please try again.';
+
+          if (error.message.includes('signature')) {
+            errorTitle = '🔐 Security Verification Failed';
+            errorMessage = 'Payment signature verification failed. Please try again or contact support.';
+          } else if (error.message.includes('session')) {
+            errorTitle = '🔒 Session Expired';
+            errorMessage = 'Your session has expired. Please sign in again and retry.';
+          } else if (error.message.includes('captured')) {
+            errorTitle = '💳 Payment Not Confirmed';
+            errorMessage = 'Payment was not confirmed by your bank. Please check your account and try again.';
+          } else if (error.message.includes('amount')) {
+            errorTitle = '💰 Amount Mismatch';
+            errorMessage = 'Payment amount does not match subscription price. Please try again.';
+          }
+
+          Alert.alert(errorTitle, errorMessage, [{ text: 'OK' }]);
           return false;
         }
       },
