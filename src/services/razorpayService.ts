@@ -22,12 +22,12 @@ export interface PaymentVerificationResult {
 
 class RazorpayPaymentService {
   private keyId: string = process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID || '';
-  private keySecret: string = process.env.RAZORPAY_KEY_SECRET || '';
 
   constructor() {
-    if (!this.keyId || !this.keySecret) {
-      console.warn('⚠️ Razorpay credentials not configured');
+    if (!this.keyId) {
+      console.warn('⚠️ Razorpay Key ID not configured');
     }
+    console.log('🔑 Razorpay Key ID:', this.keyId ? `${this.keyId.substring(0, 15)}...` : 'NOT SET');
   }
 
   /**
@@ -135,9 +135,10 @@ class RazorpayPaymentService {
 
   /**
    * Check if credentials are configured
+   * Note: Only keyId is checked because keySecret should only exist server-side
    */
   isConfigured(): boolean {
-    return !!(this.keyId && this.keySecret);
+    return !!this.keyId;
   }
 }
 
