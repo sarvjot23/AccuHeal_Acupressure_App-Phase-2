@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "lib": ["deno.ns", "deno.unstable", "dom", "dom.iterable", "dom.asynciterable"],
+    "allowJs": true,
+    "strict": true
+  },
+  "imports": {
+    "supabase": "https://esm.sh/@supabase/supabase-js@2",
+    "crypto": "https://deno.land/std@0.177.0/node/crypto.ts",
+    "http/server": "https://deno.land/std@0.168.0/http/server.ts"
+  }
+}
