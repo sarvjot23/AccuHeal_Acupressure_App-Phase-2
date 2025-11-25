@@ -71,12 +71,20 @@ class RazorpayPaymentService {
 
       if (error) {
         console.error('❌ Edge Function error:', error);
+        console.error('Error details:', JSON.stringify(error, null, 2));
         throw new Error(error.message || 'Failed to create order');
       }
 
+      if (!data) {
+        console.error('❌ No data returned from Edge Function');
+        throw new Error('No response from Edge Function');
+      }
+
+      console.log('📦 Edge Function response:', data);
+
       if (!data.success || !data.order) {
         console.error('❌ Order creation failed:', data);
-        throw new Error(data.error || 'Failed to create order');
+        throw new Error(data.error || data.debug || 'Failed to create order');
       }
 
       console.log('✅ Order created:', data.order.id);

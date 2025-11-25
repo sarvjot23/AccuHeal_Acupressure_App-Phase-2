@@ -85,10 +85,57 @@ serve(async (req) => {
 
     // Decode Clerk JWT to get user ID (no verification for now, just decode)
     // In production, you should verify the JWT signature with Clerk's public key
-    const parts = jwt.split('.');
-    if (parts.length !== 3) {
+    let clerkUserId: string;
+    let email: string | undefined;
+
+    try {
+      const parts = jwt.split('.');
+      if (parts.length !== 3) {
+        console.error('❌ Invalid JWT format - expected 3 parts, got:', parts.length);
+        return new Response(
+          JSON.stringify({ error: 'Invalid JWT format' }),
+          {
+            status: 401,
+            headers: {
+              'Content-Type': 'application/json',
+              ...corsHeaders,
+            }
+          }
+        );
+      }
+
+      const payload = JSON.parse(atob(parts[1]));
+      console.log('🔍 JWT payload keys:', Object.keys(payload));
+
+      clerkUserId = payload.sub; // Clerk user ID is in 'sub' claim
+      email = payload.email || payload.primary_email_address || payload.azp;
+
+      if (!clerkUserId) {
+        console.error('❌ Missing user ID in JWT payload:', payload);
+        return new Response(
+          JSON.stringify({
+            error: 'Invalid token: missing user ID',
+            debug: 'JWT payload missing sub claim'
+          }),
+          {
+            status: 401,
+            headers: {
+              'Content-Type': 'application/json',
+              ...corsHeaders,
+            }
+          }
+        );
+      }
+
+      console.log('✅ User authenticated:', clerkUserId);
+      console.log('📧 Email:', email || 'not provided');
+    } catch (decodeError) {
+      console.error('❌ Failed to decode JWT:', decodeError);
       return new Response(
-        JSON.stringify({ error: 'Invalid JWT format' }),
+        JSON.stringify({
+          error: 'Failed to decode JWT token',
+          details: decodeError.message
+        }),
         {
           status: 401,
           headers: {
@@ -98,25 +145,6 @@ serve(async (req) => {
         }
       );
     }
-
-    const payload = JSON.parse(atob(parts[1]));
-    const clerkUserId = payload.sub; // Clerk user ID is in 'sub' claim
-    const email = payload.email || payload.primary_email_address;
-
-    if (!clerkUserId) {
-      return new Response(
-        JSON.stringify({ error: 'Invalid token: missing user ID' }),
-        {
-          status: 401,
-          headers: {
-            'Content-Type': 'application/json',
-            ...corsHeaders,
-          }
-        }
-      );
-    }
-
-    console.log('✅ User authenticated:', clerkUserId);
 
     // Parse request body
     const body: CreateOrderRequest = await req.json();
