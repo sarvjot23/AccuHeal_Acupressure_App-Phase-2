@@ -83,59 +83,13 @@ serve(async (req) => {
     // Extract JWT token
     const jwt = authHeader.replace('Bearer ', '');
 
-    // Decode Clerk JWT to get user ID (no verification for now, just decode)
-    // In production, you should verify the JWT signature with Clerk's public key
-    let clerkUserId: string;
-    let email: string | undefined;
+    // Verify JWT token using Supabase (it's signed with Supabase secret via Clerk template)
+    const { data: { user }, error: authError } = await supabase.auth.getUser(jwt);
 
-    try {
-      const parts = jwt.split('.');
-      if (parts.length !== 3) {
-        console.error('❌ Invalid JWT format - expected 3 parts, got:', parts.length);
-        return new Response(
-          JSON.stringify({ error: 'Invalid JWT format' }),
-          {
-            status: 401,
-            headers: {
-              'Content-Type': 'application/json',
-              ...corsHeaders,
-            }
-          }
-        );
-      }
-
-      const payload = JSON.parse(atob(parts[1]));
-      console.log('🔍 JWT payload keys:', Object.keys(payload));
-
-      clerkUserId = payload.sub; // Clerk user ID is in 'sub' claim
-      email = payload.email || payload.primary_email_address || payload.azp;
-
-      if (!clerkUserId) {
-        console.error('❌ Missing user ID in JWT payload:', payload);
-        return new Response(
-          JSON.stringify({
-            error: 'Invalid token: missing user ID',
-            debug: 'JWT payload missing sub claim'
-          }),
-          {
-            status: 401,
-            headers: {
-              'Content-Type': 'application/json',
-              ...corsHeaders,
-            }
-          }
-        );
-      }
-
-      console.log('✅ User authenticated:', clerkUserId);
-      console.log('📧 Email:', email || 'not provided');
-    } catch (decodeError) {
-      console.error('❌ Failed to decode JWT:', decodeError);
+    if (authError || !user) {
+      console.error('❌ Auth error:', authError);
       return new Response(
-        JSON.stringify({
-          error: 'Failed to decode JWT token',
-          details: decodeError.message
-        }),
+        JSON.stringify({ error: 'Invalid or expired token' }),
         {
           status: 401,
           headers: {
@@ -145,6 +99,13 @@ serve(async (req) => {
         }
       );
     }
+
+    // Get Clerk user ID from user metadata
+    const clerkUserId = user.user_metadata?.sub || user.id;
+    const email = user.email || user.user_metadata?.email;
+
+    console.log('✅ User authenticated:', clerkUserId);
+    console.log('📧 Email:', email || 'not provided');
 
     // Parse request body
     const body: CreateOrderRequest = await req.json();

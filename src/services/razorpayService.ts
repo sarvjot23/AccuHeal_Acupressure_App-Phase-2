@@ -58,42 +58,30 @@ class RazorpayPaymentService {
         throw new Error('No active session. Please sign in again.');
       }
 
-      console.log('🔑 Token (first 50 chars):', token.substring(0, 50) + '...');
+      console.log('🔑 Using Supabase-compatible JWT from Clerk');
 
-      // Make direct fetch request to see actual error response
-      const edgeFunctionUrl = `${process.env.EXPO_PUBLIC_SUPABASE_URL}/functions/v1/create-order`;
-      console.log('🌐 Calling:', edgeFunctionUrl);
-
-      const fetchResponse = await fetch(edgeFunctionUrl, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      // Call Supabase Edge Function to create order
+      const { data, error } = await supabase.functions.invoke('create-order', {
+        body: {
           amount: amount,
           currency: currency,
-        }),
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
-      console.log('📊 Response status:', fetchResponse.status);
-      console.log('📊 Response headers:', Object.fromEntries(fetchResponse.headers.entries()));
-
-      const responseText = await fetchResponse.text();
-      console.log('📄 Response body:', responseText);
-
-      let data;
-      try {
-        data = JSON.parse(responseText);
-      } catch (e) {
-        console.error('❌ Failed to parse response as JSON');
-        throw new Error(`Invalid response from server: ${responseText}`);
+      if (error) {
+        console.error('❌ Edge Function error:', error);
+        throw new Error(error.message || 'Failed to create order');
       }
 
-      if (!fetchResponse.ok) {
-        console.error('❌ Server returned error:', data);
-        throw new Error(data.error || data.debug || `Server error: ${fetchResponse.status}`);
+      if (!data) {
+        console.error('❌ No data returned from Edge Function');
+        throw new Error('No response from Edge Function');
       }
+
+      console.log('📦 Edge Function response:', data);
 
       if (!data.success || !data.order) {
         console.error('❌ Order creation failed:', data);

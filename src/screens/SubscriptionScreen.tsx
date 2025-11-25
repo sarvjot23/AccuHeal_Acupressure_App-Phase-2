@@ -67,7 +67,7 @@ export const SubscriptionScreen = () => {
     try {
       // Get Clerk JWT token for Edge Function authentication
       console.log('🔑 Getting Clerk authentication token...');
-      const token = await getToken();
+      const token = await getToken({ template: 'supabase' });
       console.log('✅ Token obtained:', token ? 'YES' : 'NO');
 
       // Open Razorpay Checkout Modal
