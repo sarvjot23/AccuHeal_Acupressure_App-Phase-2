@@ -19,6 +19,7 @@ export interface CheckoutOptions {
   currency?: string;
   email?: string;
   name?: string;
+  authToken?: string; // Clerk JWT token for authentication
 }
 
 /**
@@ -32,11 +33,11 @@ export const openRazorpayCheckout = async (options: CheckoutOptions): Promise<bo
       email: options.email
     });
 
-    const { clerkUserId, amount = 499, currency = 'INR', email = '', name = 'AccuHeal User' } = options;
+    const { clerkUserId, amount = 499, currency = 'INR', email = '', name = 'AccuHeal User', authToken } = options;
 
     // Create order via Edge Function
     console.log('📦 Creating order...');
-    const order = await razorpayService.createOrder(amount, currency);
+    const order = await razorpayService.createOrder(amount, currency, authToken);
     console.log('✅ Order created:', order);
 
     // Load Razorpay script if not already loaded
@@ -85,7 +86,8 @@ export const openRazorpayCheckout = async (options: CheckoutOptions): Promise<bo
           const result: PaymentVerificationResult = await razorpayService.processSubscription(
             clerkUserId,
             response,
-            amount
+            amount,
+            authToken
           );
 
           if (result.success) {

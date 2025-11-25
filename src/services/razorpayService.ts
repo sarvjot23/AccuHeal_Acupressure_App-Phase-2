@@ -34,20 +34,29 @@ class RazorpayPaymentService {
    * Create a Razorpay order via Supabase Edge Function
    * This is done server-side to keep the API secret secure
    */
-  async createOrder(amount: number, currency: string = 'INR'): Promise<any> {
+  async createOrder(
+    amount: number,
+    currency: string = 'INR',
+    authToken?: string
+  ): Promise<any> {
     if (!this.keyId) {
       throw new Error('Razorpay not configured');
     }
 
     try {
-      // Get current session for auth
-      const { data: { session } } = await supabase.auth.getSession();
+      console.log('📞 Calling create-order Edge Function...');
 
-      if (!session) {
-        throw new Error('No active session. Please sign in again.');
+      // Use provided token or try to get Supabase session
+      let token = authToken;
+
+      if (!token) {
+        const { data: { session } } = await supabase.auth.getSession();
+        token = session?.access_token;
       }
 
-      console.log('📞 Calling create-order Edge Function...');
+      if (!token) {
+        throw new Error('No active session. Please sign in again.');
+      }
 
       // Call Supabase Edge Function to create order
       const { data, error } = await supabase.functions.invoke('create-order', {
@@ -56,7 +65,7 @@ class RazorpayPaymentService {
           currency: currency,
         },
         headers: {
-          Authorization: `Bearer ${session.access_token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -85,15 +94,21 @@ class RazorpayPaymentService {
   async processSubscription(
     clerkUserId: string,
     paymentResponse: PaymentResponse,
-    amount: number = 499 // ₹499/month default
+    amount: number = 499, // ₹499/month default
+    authToken?: string
   ): Promise<PaymentVerificationResult> {
     try {
       console.log('🔐 Sending payment for verification...');
 
-      // Get current session for auth
-      const { data: { session } } = await supabase.auth.getSession();
+      // Use provided token or try to get Supabase session
+      let token = authToken;
 
-      if (!session) {
+      if (!token) {
+        const { data: { session } } = await supabase.auth.getSession();
+        token = session?.access_token;
+      }
+
+      if (!token) {
         throw new Error('No active session. Please sign in again.');
       }
 
@@ -109,7 +124,7 @@ class RazorpayPaymentService {
           idempotency_key: idempotencyKey,
         },
         headers: {
-          Authorization: `Bearer ${session.access_token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 

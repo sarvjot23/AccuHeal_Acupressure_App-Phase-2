@@ -26,6 +26,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'rea
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
+import { useAuth as useClerkAuth } from '@clerk/clerk-expo';
 
 import { Colors, Typography, Spacing, BorderRadius, Shadows } from '@constants';
 import { useSubscription } from '@contexts/SubscriptionContext';
@@ -36,6 +37,7 @@ import { openRazorpayCheckout, isRazorpayConfigured } from '@services/razorpayCh
 export const SubscriptionScreen = () => {
   const navigation = useNavigation();
   const { user } = useAuth();
+  const { getToken } = useClerkAuth(); // Get Clerk's getToken function
   const { isPremium, subscriptionStatus } = useSubscription();
   const [isProcessing, setIsProcessing] = useState(false);
 
@@ -63,6 +65,11 @@ export const SubscriptionScreen = () => {
     setIsProcessing(true);
 
     try {
+      // Get Clerk JWT token for Edge Function authentication
+      console.log('🔑 Getting Clerk authentication token...');
+      const token = await getToken({ template: 'supabase' });
+      console.log('✅ Token obtained:', token ? 'YES' : 'NO');
+
       // Open Razorpay Checkout Modal
       console.log('📞 Calling openRazorpayCheckout with:', {
         clerkUserId: user?.uid,
@@ -78,6 +85,7 @@ export const SubscriptionScreen = () => {
         currency: 'INR',
         email: user?.email || '',
         name: user?.displayName || 'AccuHeal User',
+        authToken: token || undefined,
       });
 
       console.log('💳 openRazorpayCheckout result:', success);
