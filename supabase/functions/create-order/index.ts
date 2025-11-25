@@ -35,12 +35,29 @@ interface RazorpayOrderResponse {
   created_at: number;
 }
 
+// CORS headers for all responses
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+};
+
 serve(async (req) => {
+  // Handle CORS preflight requests
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', { headers: corsHeaders });
+  }
+
   // Only accept POST requests
   if (req.method !== 'POST') {
     return new Response(
       JSON.stringify({ error: 'Method not allowed' }),
-      { status: 405, headers: { 'Content-Type': 'application/json' } }
+      {
+        status: 405,
+        headers: {
+          'Content-Type': 'application/json',
+          ...corsHeaders,
+        }
+      }
     );
   }
 
@@ -50,7 +67,13 @@ serve(async (req) => {
     if (!authHeader) {
       return new Response(
         JSON.stringify({ error: 'Missing authorization header' }),
-        { status: 401, headers: { 'Content-Type': 'application/json' } }
+        {
+          status: 401,
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders,
+          }
+        }
       );
     }
 
@@ -66,7 +89,13 @@ serve(async (req) => {
     if (parts.length !== 3) {
       return new Response(
         JSON.stringify({ error: 'Invalid JWT format' }),
-        { status: 401, headers: { 'Content-Type': 'application/json' } }
+        {
+          status: 401,
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders,
+          }
+        }
       );
     }
 
@@ -77,7 +106,13 @@ serve(async (req) => {
     if (!clerkUserId) {
       return new Response(
         JSON.stringify({ error: 'Invalid token: missing user ID' }),
-        { status: 401, headers: { 'Content-Type': 'application/json' } }
+        {
+          status: 401,
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders,
+          }
+        }
       );
     }
 
@@ -91,7 +126,13 @@ serve(async (req) => {
     if (!amount || amount <= 0) {
       return new Response(
         JSON.stringify({ error: 'Invalid amount' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
+        {
+          status: 400,
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders,
+          }
+        }
       );
     }
 
@@ -142,7 +183,13 @@ serve(async (req) => {
           receipt: order.receipt,
         },
       }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          ...corsHeaders,
+        }
+      }
     );
 
   } catch (error) {
@@ -153,7 +200,13 @@ serve(async (req) => {
         error: 'Failed to create order',
         details: error.message,
       }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
+      {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          ...corsHeaders,
+        }
+      }
     );
   }
 });
