@@ -85,7 +85,9 @@ class RazorpayPaymentService {
 
       if (!data.success || !data.order) {
         console.error('❌ Order creation failed:', data);
-        throw new Error(data.error || data.debug || 'Failed to create order');
+        console.error('Error details:', data.details);
+        console.error('Error stack:', data.stack);
+        throw new Error(data.error || data.details || data.debug || 'Failed to create order');
       }
 
       console.log('✅ Order created:', data.order.id);

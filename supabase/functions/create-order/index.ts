@@ -218,11 +218,13 @@ serve(async (req) => {
 
   } catch (error) {
     console.error('❌ Order creation error:', error);
+    console.error('❌ Error stack:', error.stack);
     return new Response(
       JSON.stringify({
         success: false,
         error: 'Failed to create order',
         details: error.message,
+        stack: error.stack,
       }),
       {
         status: 500,
