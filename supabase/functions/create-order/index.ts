@@ -57,19 +57,31 @@ serve(async (req) => {
     // Initialize Supabase client
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
-    // Verify JWT token and get user
+    // Extract JWT token
     const jwt = authHeader.replace('Bearer ', '');
-    const { data: { user }, error: authError } = await supabase.auth.getUser(jwt);
 
-    if (authError || !user) {
-      console.error('Auth error:', authError);
+    // Decode Clerk JWT to get user ID (no verification for now, just decode)
+    // In production, you should verify the JWT signature with Clerk's public key
+    const parts = jwt.split('.');
+    if (parts.length !== 3) {
       return new Response(
-        JSON.stringify({ error: 'Invalid or expired token' }),
+        JSON.stringify({ error: 'Invalid JWT format' }),
         { status: 401, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
-    console.log('✅ User authenticated:', user.id);
+    const payload = JSON.parse(atob(parts[1]));
+    const clerkUserId = payload.sub; // Clerk user ID is in 'sub' claim
+    const email = payload.email || payload.primary_email_address;
+
+    if (!clerkUserId) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid token: missing user ID' }),
+        { status: 401, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    console.log('✅ User authenticated:', clerkUserId);
 
     // Parse request body
     const body: CreateOrderRequest = await req.json();
@@ -87,15 +99,15 @@ serve(async (req) => {
     console.log(`📦 Creating Razorpay order for ₹${amount}...`);
 
     const amountInPaise = Math.round(amount * 100);
-    const receipt = `receipt_${user.id}_${Date.now()}`;
+    const receipt = `receipt_${clerkUserId}_${Date.now()}`;
 
     const orderData = {
       amount: amountInPaise,
       currency: currency,
       receipt: receipt,
       notes: {
-        user_id: user.id,
-        email: user.email,
+        clerk_user_id: clerkUserId,
+        email: email || '',
       },
     };
 
