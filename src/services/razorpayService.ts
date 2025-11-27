@@ -60,34 +60,46 @@ class RazorpayPaymentService {
 
       console.log('🔑 Using Supabase-compatible JWT from Clerk');
 
-      // Call Supabase Edge Function to create order
-      const { data, error } = await supabase.functions.invoke('create-order', {
-        body: {
+      // Use direct fetch to see actual error response
+      const edgeFunctionUrl = `${process.env.EXPO_PUBLIC_SUPABASE_URL}/functions/v1/create-order`;
+      const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
+
+      const fetchResponse = await fetch(edgeFunctionUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'apikey': supabaseAnonKey || '',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           amount: amount,
           currency: currency,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        }),
       });
 
-      if (error) {
-        console.error('❌ Edge Function error:', error);
-        throw new Error(error.message || 'Failed to create order');
+      console.log('📊 Response status:', fetchResponse.status);
+
+      const responseText = await fetchResponse.text();
+      console.log('📄 Response body:', responseText);
+
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (e) {
+        console.error('❌ Failed to parse response as JSON');
+        throw new Error(`Invalid response from server: ${responseText}`);
       }
 
-      if (!data) {
-        console.error('❌ No data returned from Edge Function');
-        throw new Error('No response from Edge Function');
+      if (!fetchResponse.ok) {
+        console.error('❌ Server returned error:', data);
+        console.error('Error details:', data.details);
+        console.error('Error stack:', data.stack);
+        throw new Error(data.details || data.error || `Server error: ${fetchResponse.status}`);
       }
-
-      console.log('📦 Edge Function response:', data);
 
       if (!data.success || !data.order) {
         console.error('❌ Order creation failed:', data);
-        console.error('Error details:', data.details);
-        console.error('Error stack:', data.stack);
-        throw new Error(data.error || data.details || data.debug || 'Failed to create order');
+        throw new Error(data.error || data.details || 'Failed to create order');
       }
 
       console.log('✅ Order created:', data.order.id);
