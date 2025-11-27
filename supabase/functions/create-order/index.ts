@@ -164,7 +164,9 @@ serve(async (req) => {
     console.log(`📦 Creating Razorpay order for ₹${amount}...`);
 
     const amountInPaise = Math.round(amount * 100);
-    const receipt = `receipt_${clerkUserId}_${Date.now()}`;
+    // Receipt must be max 40 chars - use timestamp and last 8 chars of user ID
+    const userIdShort = clerkUserId.slice(-8);
+    const receipt = `rcpt_${userIdShort}_${Date.now()}`;
 
     const orderData = {
       amount: amountInPaise,
