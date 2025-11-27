@@ -156,19 +156,19 @@ async function storeIdempotencyKey(
     });
 }
 
+// CORS headers for all responses
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+};
+
 /**
  * Main handler
  */
 serve(async (req) => {
-  // CORS headers
+  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
-    return new Response(null, {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-      },
-    });
+    return new Response('ok', { headers: corsHeaders });
   }
 
   try {
@@ -180,19 +180,48 @@ serve(async (req) => {
     if (!authHeader) {
       return new Response(
         JSON.stringify({ success: false, error: 'Missing authorization' }),
-        { status: 401, headers: { 'Content-Type': 'application/json' } }
+        {
+          status: 401,
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders,
+          }
+        }
       );
     }
 
     // Extract Clerk user ID from JWT
     const token = authHeader.replace('Bearer ', '');
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    const clerkUserId = payload.sub;
+
+    let clerkUserId: string;
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      clerkUserId = payload.sub;
+      console.log('✅ User authenticated:', clerkUserId);
+    } catch (e) {
+      console.error('❌ JWT decode error:', e);
+      return new Response(
+        JSON.stringify({ success: false, error: 'Invalid token format' }),
+        {
+          status: 401,
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders,
+          }
+        }
+      );
+    }
 
     if (!clerkUserId) {
       return new Response(
-        JSON.stringify({ success: false, error: 'Invalid token' }),
-        { status: 401, headers: { 'Content-Type': 'application/json' } }
+        JSON.stringify({ success: false, error: 'Invalid token - missing user ID' }),
+        {
+          status: 401,
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders,
+          }
+        }
       );
     }
 
@@ -212,7 +241,7 @@ serve(async (req) => {
           success: false,
           error: 'Missing required fields',
         }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
+        { status: 400, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
       );
     }
 
@@ -228,7 +257,7 @@ serve(async (req) => {
         console.log('Idempotent request detected, returning cached response');
         return new Response(
           JSON.stringify(idempotencyCheck.response),
-          { status: 200, headers: { 'Content-Type': 'application/json' } }
+          { status: 200, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
         );
       }
     }
@@ -243,7 +272,7 @@ serve(async (req) => {
     if (userError || !userData) {
       return new Response(
         JSON.stringify({ success: false, error: 'User not found' }),
-        { status: 404, headers: { 'Content-Type': 'application/json' } }
+        { status: 404, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
       );
     }
 
@@ -277,7 +306,7 @@ serve(async (req) => {
           success: false,
           error: 'Failed to verify payment with Razorpay',
         }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
+        { status: 500, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
       );
     }
 
@@ -332,7 +361,7 @@ serve(async (req) => {
           success: false,
           error: errorMessage,
         }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
+        { status: 400, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
       );
     }
 
@@ -366,7 +395,7 @@ serve(async (req) => {
           success: false,
           error: 'Failed to create transaction record',
         }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
+        { status: 500, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
       );
     }
 
@@ -401,7 +430,7 @@ serve(async (req) => {
           success: false,
           error: 'Failed to update subscription status',
         }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
+        { status: 500, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
       );
     }
 
@@ -431,7 +460,7 @@ serve(async (req) => {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
+        ...corsHeaders,
       },
     });
   } catch (error) {
@@ -442,7 +471,7 @@ serve(async (req) => {
         error: 'Internal server error',
         details: error.message,
       }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
+      { status: 500, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
     );
   }
 });
