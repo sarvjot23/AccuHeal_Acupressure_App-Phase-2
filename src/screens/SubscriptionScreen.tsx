@@ -38,7 +38,7 @@ export const SubscriptionScreen = () => {
   const navigation = useNavigation();
   const { user } = useAuth();
   const { getToken } = useClerkAuth(); // Get Clerk's getToken function
-  const { isPremium, subscriptionStatus } = useSubscription();
+  const { isPremium, subscriptionStatus, subscriptionExpiresAt } = useSubscription();
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleSubscribe = async () => {
@@ -136,6 +136,18 @@ export const SubscriptionScreen = () => {
             <Text style={styles.statusLabel}>Price:</Text>
             <Text style={styles.statusValue}>₹499/month</Text>
           </View>
+          {subscriptionExpiresAt && (
+            <View style={styles.statusRow}>
+              <Text style={styles.statusLabel}>Renews on:</Text>
+              <Text style={styles.statusValue}>
+                {subscriptionExpiresAt.toLocaleDateString('en-IN', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric'
+                })}
+              </Text>
+            </View>
+          )}
         </View>
 
         <View style={styles.benefitsCard}>
