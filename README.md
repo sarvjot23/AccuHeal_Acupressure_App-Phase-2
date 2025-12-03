@@ -37,13 +37,13 @@ npx @expo/cli start
 ### Enhanced Features Complete ✅
 - **Bilingual Support**: English and Hindi with complete translations and language switching
 - **53 Acupressure Points**: Comprehensive essential points database covering all major health categories
-- **Smart Search**: Enhanced search with Typesense migration for better performance and Hindi support
+- **Smart Search**: Unified search architecture with Supabase Full-Text Search (currently active) and Typesense support for future scaling
 - **Beginner's Guide**: Interactive 5-step educational tutorial teaching acupressure fundamentals
 - **Guided Questionnaire**: Personalized recommendations based on user responses
 - **Interactive Timer Sessions**: Smart duration parsing with pause/resume/reset controls
 - **Beautiful UI Design**: Enhanced cards, animations, and modern visual effects
 - **Cross-Platform**: Works on iOS, Android, and Web
-- **Production Ready**: Firebase backend, enhanced search, complete UI/UX
+- **Production Ready**: Firebase backend, Supabase database, enhanced search, complete UI/UX
 
 ### 🎨 UI Enhancement Features (Phase 1.5) 🚀
 - **Enhanced Card Design**: Subtle gradients, improved shadows, and better visual hierarchy
@@ -66,7 +66,12 @@ npx @expo/cli start
 - **Frontend**: React Native with Expo, TypeScript
 - **Navigation**: React Navigation (Bottom Tabs + Stack)
 - **Backend**: Firebase (Firestore, Storage, Analytics)
-- **Search**: Typesense with enhanced bilingual support and performance
+- **Database**: Supabase (PostgreSQL with Full-Text Search)
+- **Search**: Unified search architecture
+  - **Current**: Supabase Full-Text Search (PostgreSQL FTS with Hindi support)
+  - **Future**: Typesense ready for production scaling when needed
+- **Authentication**: Clerk (OAuth, email)
+- **Payments**: Razorpay (subscription management)
 - **Internationalization**: react-i18next
 - **State Management**: React Context + Hooks
 
@@ -85,7 +90,8 @@ npx @expo/cli start
 ### ✅ Phase 1: Database Expansion (COMPLETED - January 2025)
 - **Major Content Expansion**: 53 essential acupressure points (from 24 to 53)
 - **Enhanced Health Coverage**: 190+ symptoms and conditions covered
-- **Typesense Migration**: Improved search performance and scalability with Hindi search support
+- **Supabase Migration**: PostgreSQL database with Full-Text Search for bilingual search support
+- **Unified Search Architecture**: Flexible search backend supporting both Supabase FTS (current) and Typesense (future)
 - **Beginner's Guide**: Comprehensive 5-step interactive educational tutorial
 - **Language Enhancement**: Complete bilingual UI with working language switcher
 - **UI/UX Improvements**: Fixed scrollability issues, button functionality, and enhanced user experience
@@ -121,7 +127,8 @@ npx @expo/cli start
 
 ### Setup Guides
 - **[Firebase Setup](guides/FIREBASE_SETUP_GUIDE.md)** - Complete Firebase project configuration
-- **[Typesense Setup](docs/TYPESENSE_SETUP_GUIDE.md)** - Search service configuration and migration
+- **[Supabase Setup](docs/SUPABASE_SETUP_GUIDE.md)** - Database and Full-Text Search configuration
+- **[Typesense Setup](docs/TYPESENSE_SETUP_GUIDE.md)** - Optional search service for future scaling
 - **[Android Testing](guides/ANDROID_TESTING_GUIDE.md)** - Comprehensive Android testing guide
 - **[iOS Deployment](guides/IOS_DEPLOYMENT_GUIDE.md)** - iOS development and App Store submission
 - **[Troubleshooting](guides/TROUBLESHOOTING_GUIDE.md)** - Common issues and solutions
@@ -129,11 +136,14 @@ npx @expo/cli start
 ### Key Files for Development
 - `src/data/samplePoints.ts` - Acupressure point data structure
 - `src/services/firebase.ts` - Firebase configuration
-- `src/services/typesense.ts` - Enhanced search service configuration
+- `src/services/supabaseService.ts` - Supabase database and search service
+- `src/services/searchService.ts` - Unified search architecture (switches between Supabase/Typesense)
+- `src/services/typesense.ts` - Typesense search service (for future production use)
 - `src/localization/` - English and Hindi translations
 - `src/screens/BeginnerGuideScreen.tsx` - Interactive educational tutorial
 - `src/contexts/LanguageContext.tsx` - Language switching functionality
 - `app.json` - Expo configuration
+- `.env` - Environment variables (search backend selection)
 - `CLAUDE.md` - Project memories and context
 
 ## 🎨 Design Guidelines
@@ -181,12 +191,48 @@ npm run lint                # Run ESLint
 npm run type-check          # Run TypeScript checks
 ```
 
+## 🔍 Search Architecture
+
+AccuHeal uses a unified search architecture that supports multiple search backends:
+
+### Current Implementation: Supabase Full-Text Search (FTS)
+- **Technology**: PostgreSQL Full-Text Search with `websearch_to_tsquery`
+- **Benefits**:
+  - Free tier available (no additional costs)
+  - Integrated with existing Supabase database
+  - Supports bilingual search (English and Hindi)
+  - Good performance for current dataset (53 points)
+- **Configuration**: Set `EXPO_PUBLIC_SEARCH_BACKEND=supabase` in `.env` (default)
+
+### Future Option: Typesense
+- **Status**: Implementation complete, ready for production when needed
+- **When to Switch**: Consider migrating to Typesense when:
+  - Dataset grows beyond 100+ points
+  - Need advanced typo tolerance and relevance tuning
+  - Require sub-millisecond search latency
+  - Want dedicated search infrastructure
+- **Hosting Options**:
+  - Self-hosted (Oracle Cloud free tier, home server)
+  - Typesense Cloud (paid service)
+- **Configuration**: Set `EXPO_PUBLIC_SEARCH_BACKEND=typesense` in `.env`
+
+### Switching Between Backends
+The app automatically uses the configured backend via the unified `searchService`:
+```typescript
+// In .env file
+EXPO_PUBLIC_SEARCH_BACKEND=supabase  # or 'typesense'
+```
+
+No code changes required - the search service handles backend selection automatically with fallback support.
+
 ## ⚠️ Important Notes for Development
 
 ### Environment Setup Required
 1. **Firebase Configuration**: Update `.env` with production Firebase credentials
-2. **Typesense Configuration**: Update `.env` with Typesense server and API keys
-3. **Dependencies**: Run `npm install --force` if encountering Metro bundler issues
+2. **Supabase Configuration**: Update `.env` with Supabase URL and anon key
+3. **Search Backend Selection**: Set `EXPO_PUBLIC_SEARCH_BACKEND` to either `supabase` (default) or `typesense`
+4. **Typesense Configuration** (Optional): Update `.env` with Typesense server and API keys for future production use
+5. **Dependencies**: Run `npm install --force` if encountering Metro bundler issues
 
 ### Common Commands for Issues
 ```bash
