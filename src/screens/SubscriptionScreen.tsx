@@ -106,10 +106,14 @@ export const SubscriptionScreen = () => {
 
   if (isPremium) {
     return (
+      <View style={styles.container}>
       <ScrollView
-        style={styles.container}
+        style={styles.scrollView}
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
+        bounces={true}
+        alwaysBounceVertical={true}
+        nestedScrollEnabled={true}
       >
         <LinearGradient
           colors={[Colors.primary[500], Colors.primary[700]]}
@@ -168,14 +172,19 @@ export const SubscriptionScreen = () => {
           }}
         />
       </ScrollView>
+      </View>
     );
   }
 
   return (
+    <View style={styles.container}>
     <ScrollView
-      style={styles.container}
+      style={styles.scrollView}
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
+      bounces={true}
+      alwaysBounceVertical={true}
+      nestedScrollEnabled={true}
     >
       <LinearGradient
         colors={[Colors.primary[50], Colors.primary[100]]}
@@ -251,6 +260,7 @@ export const SubscriptionScreen = () => {
         </View>
       </View>
     </ScrollView>
+    </View>
   );
 };
 
@@ -269,12 +279,31 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8fafb',
-    overflow: 'scroll',
+    ...Platform.select({
+      web: {
+        height: '100vh',
+        overflow: 'hidden',
+      } as any,
+    }),
+  },
+  scrollView: {
+    flex: 1,
+    ...Platform.select({
+      web: {
+        overflow: 'auto',
+        height: '100%',
+      } as any,
+    }),
   },
   content: {
     padding: Spacing.lg,
     paddingBottom: 120,
     flexGrow: 1,
+    ...Platform.select({
+      web: {
+        minHeight: '100%',
+      } as any,
+    }),
   },
   premiumBanner: {
     padding: Spacing.xl,

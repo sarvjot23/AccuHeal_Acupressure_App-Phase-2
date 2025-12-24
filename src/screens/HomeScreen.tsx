@@ -117,8 +117,11 @@ const HomeScreen: React.FC = () => {
       />
       <ScrollView
         style={styles.scrollView}
-        showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+        bounces={true}
+        alwaysBounceVertical={true}
+        nestedScrollEnabled={true}
       >
         <View style={styles.content}>
         {/* Welcome Section */}
@@ -185,14 +188,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background.secondary,
+    ...Platform.select({
+      web: {
+        height: '100vh',
+        overflow: 'hidden',
+      } as any,
+    }),
   },
   scrollView: {
     flex: 1,
-    overflow: 'scroll',
+    ...Platform.select({
+      web: {
+        overflow: 'auto',
+        height: '100%',
+      } as any,
+    }),
   },
   scrollContent: {
     paddingBottom: 120,
     flexGrow: 1,
+    ...Platform.select({
+      web: {
+        minHeight: '100%',
+      } as any,
+    }),
   },
   content: {
     padding: Spacing.lg,
