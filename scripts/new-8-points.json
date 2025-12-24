@@ -1,0 +1,405 @@
+[
+  {
+    "id": "lu4",
+    "code": "LU4",
+    "name": {
+      "en": "Lung 4 - Xiabai",
+      "hi": "लंग 4 - शियाबाई"
+    },
+    "chineseName": {
+      "traditional": "俠白",
+      "pinyin": "Xiábái"
+    },
+    "location": {
+      "en": "On the inner side of your upper arm, about 4 finger widths below your armpit crease, along the outer edge of the biceps muscle. To locate it, sit with your arm relaxed and measure down from the front of your armpit fold.",
+      "hi": "आपकी ऊपरी बांह की आंतरिक ओर, आपकी बगल की क्रीज़ से लगभग 4 अंगुल नीचे, बाइसेप्स मांसपेशी के बाहरी किनारे के साथ। इसे खोजने के लिए, अपनी बांह को आराम से बैठें और अपनी बगल की तह के सामने से नीचे मापें।"
+    },
+    "meridian": {
+      "name": { "en": "Lung", "hi": "फेफड़े" },
+      "code": "LU",
+      "element": "Metal",
+      "polarity": "Yin"
+    },
+    "indications": [
+      { "en": "Cough and shortness of breath", "hi": "खांसी और सांस की तकलीफ" },
+      { "en": "Chest pain and tightness", "hi": "सीने में दर्द और जकड़न" },
+      { "en": "Upper arm pain and tension", "hi": "ऊपरी बांह में दर्द और तनाव" },
+      { "en": "Respiratory discomfort", "hi": "श्वसन संबंधी असुविधा" }
+    ],
+    "contraindications": {
+      "en": "Avoid during pregnancy. Use gentle to moderate pressure on the arm. This point treats local arm pain and respiratory symptoms. Avoid if you have acute arm injury or inflammation.",
+      "hi": "गर्भावस्था के दौरान बचें। बांह पर हल्के से मध्यम दबाव का उपयोग करें। यह बिंदु स्थानीय बांह के दर्द और श्वसन लक्षणों का इलाज करता है। यदि आपको तीव्र बांह की चोट या सूजन है तो बचें।"
+    },
+    "technique": {
+      "en": "Sit comfortably with your arm relaxed at your side. Use your opposite hand's thumb to press firmly into the muscle for 1-2 minutes. You may feel tenderness - this is normal. Breathe deeply while applying pressure.",
+      "hi": "अपनी बांह को आराम से अपनी तरफ रखते हुए आराम से बैठें। 1-2 मिनट के लिए मांसपेशियों में दृढ़ता से दबाने के लिए अपने विपरीत हाथ के अंगूठे का उपयोग करें। आपको कोमलता महसूस हो सकती है - यह सामान्य है। दबाव लगाते समय गहरी सांस लें।"
+    },
+    "duration": "1-2 minutes",
+    "pressure": "Moderate",
+    "bodyPart": ["arm", "upper arm"],
+    "symptoms": ["cough", "shortness of breath", "chest pain", "chest tightness", "upper arm pain", "arm tension", "respiratory discomfort"],
+    "difficulty": "Intermediate",
+    "category": "Classical",
+    "popularity": 3,
+    "method": {
+      "en": "Sit comfortably with your arm relaxed at your side. Use your opposite hand's thumb to press firmly into the muscle for 1-2 minutes. You may feel tenderness - this is normal. Breathe deeply while applying pressure.",
+      "hi": "अपनी बांह को आराम से अपनी तरफ रखते हुए आराम से बैठें। 1-2 मिनट के लिए मांसपेशियों में दृढ़ता से दबाने के लिए अपने विपरीत हाथ के अंगूठे का उपयोग करें। आपको कोमलता महसूस हो सकती है - यह सामान्य है। दबाव लगाते समय गहरी सांस लें।"
+    },
+    "conditions": ["cough", "shortness of breath", "chest pain", "chest tightness", "upper arm pain", "arm tension", "respiratory discomfort"],
+    "images": []
+  },
+  {
+    "id": "pc4",
+    "code": "PC4",
+    "name": {
+      "en": "Pericardium 4 - Ximen",
+      "hi": "पेरिकार्डियम 4 - शिमेन"
+    },
+    "chineseName": {
+      "traditional": "郄門",
+      "pinyin": "Xìmén"
+    },
+    "location": {
+      "en": "On your inner forearm, about 5 finger widths (5 cun) above your wrist crease, between the two visible tendons. To find it, flex your hand slightly and locate the point between the palmaris longus and flexor carpi radialis tendons.",
+      "hi": "आपकी आंतरिक अग्रबाहु पर, आपकी कलाई की क्रीज़ से लगभग 5 अंगुल (5 सुन) ऊपर, दो दिखाई देने वाली कण्डराओं के बीच। इसे खोजने के लिए, अपने हाथ को थोड़ा मोड़ें और पामारिस लोंगस और फ्लेक्सर कार्पी रेडियलिस टेंडन के बीच बिंदु का पता लगाएं।"
+    },
+    "meridian": {
+      "name": { "en": "Pericardium", "hi": "पेरिकार्डियम" },
+      "code": "PC",
+      "element": "Fire",
+      "polarity": "Yin"
+    },
+    "indications": [
+      { "en": "Heart palpitations and chest pain", "hi": "दिल की धड़कन और सीने में दर्द" },
+      { "en": "Anxiety and fear", "hi": "चिंता और डर" },
+      { "en": "Depression and grief", "hi": "अवसाद और शोक" },
+      { "en": "Acute cardiac discomfort", "hi": "तीव्र हृदय संबंधी असुविधा" },
+      { "en": "Emotional disturbances", "hi": "भावनात्मक गड़बड़ी" }
+    ],
+    "contraindications": {
+      "en": "Avoid during pregnancy. This is a Xi-Cleft point for acute conditions. Use moderate pressure. If you experience severe chest pain or cardiac symptoms, seek immediate medical attention. This point is for supportive care only.",
+      "hi": "गर्भावस्था के दौरान बचें। यह तीव्र स्थितियों के लिए एक शि-क्लेफ्ट बिंदु है। मध्यम दबाव का उपयोग करें। यदि आपको गंभीर सीने में दर्द या हृदय संबंधी लक्षण हैं, तो तुरंत चिकित्सा सहायता लें। यह बिंदु केवल सहायक देखभाल के लिए है।"
+    },
+    "technique": {
+      "en": "Sit with your arm extended, palm facing up. Use your opposite thumb to press firmly between the tendons for 1-2 minutes. You may feel a tender or achy sensation. Breathe slowly and deeply while pressing.",
+      "hi": "अपनी बांह को फैलाकर बैठें, हथेली ऊपर की ओर। 1-2 मिनट के लिए टेंडन के बीच दृढ़ता से दबाने के लिए अपने विपरीत अंगूठे का उपयोग करें। आपको एक कोमल या दर्द भरी सनसनी महसूस हो सकती है। दबाते समय धीरे-धीरे और गहरी सांस लें।"
+    },
+    "duration": "1-2 minutes",
+    "pressure": "Moderate",
+    "bodyPart": ["arm", "forearm"],
+    "symptoms": ["heart palpitations", "chest pain", "anxiety", "fear", "depression", "grief", "cardiac discomfort", "emotional disturbance"],
+    "difficulty": "Intermediate",
+    "category": "Classical",
+    "popularity": 3,
+    "method": {
+      "en": "Sit with your arm extended, palm facing up. Use your opposite thumb to press firmly between the tendons for 1-2 minutes. You may feel a tender or achy sensation. Breathe slowly and deeply while pressing.",
+      "hi": "अपनी बांह को फैलाकर बैठें, हथेली ऊपर की ओर। 1-2 मिनट के लिए टेंडन के बीच दृढ़ता से दबाने के लिए अपने विपरीत अंगूठे का उपयोग करें। आपको एक कोमल या दर्द भरी सनसनी महसूस हो सकती है। दबाते समय धीरे-धीरे और गहरी सांस लें।"
+    },
+    "conditions": ["heart palpitations", "chest pain", "anxiety", "fear", "depression", "grief", "cardiac discomfort", "emotional disturbance"],
+    "images": []
+  },
+  {
+    "id": "ht4",
+    "code": "HT4",
+    "name": {
+      "en": "Heart 4 - Lingdao",
+      "hi": "हार्ट 4 - लिंगदाओ"
+    },
+    "chineseName": {
+      "traditional": "靈道",
+      "pinyin": "Língdào"
+    },
+    "location": {
+      "en": "On your inner forearm, about 1.5 finger widths (1.5 cun) above your wrist crease, on the thumb side of the flexor carpi ulnaris tendon. Locate it by flexing your pinky finger slightly and finding the tendon on the inner wrist.",
+      "hi": "आपकी आंतरिक अग्रबाहु पर, आपकी कलाई की क्रीज़ से लगभग 1.5 अंगुल (1.5 सुन) ऊपर, फ्लेक्सर कार्पी अलनारिस कण्डरा के अंगूठे की ओर। अपनी छोटी उंगली को थोड़ा मोड़कर और भीतरी कलाई पर कण्डरा खोजकर इसे खोजें।"
+    },
+    "meridian": {
+      "name": { "en": "Heart", "hi": "हृदय" },
+      "code": "HT",
+      "element": "Fire",
+      "polarity": "Yin"
+    },
+    "indications": [
+      { "en": "Speech problems and stuttering", "hi": "बोलने की समस्याएं और हकलाना" },
+      { "en": "Anxiety and restlessness", "hi": "चिंता और बेचैनी" },
+      { "en": "Insomnia and disturbed sleep", "hi": "अनिद्रा और बिगड़ी हुई नींद" },
+      { "en": "Sudden loss of voice", "hi": "अचानक आवाज का खोना" },
+      { "en": "Emotional fluctuations", "hi": "भावनात्मक उतार-चढ़ाव" }
+    ],
+    "contraindications": {
+      "en": "Avoid during pregnancy. Use gentle to moderate pressure. This point calms the spirit and regulates emotions. If speech problems persist or worsen, consult a healthcare provider or speech therapist.",
+      "hi": "गर्भावस्था के दौरान बचें। हल्के से मध्यम दबाव का उपयोग करें। यह बिंदु आत्मा को शांत करता है और भावनाओं को नियंत्रित करता है। यदि बोलने की समस्याएं बनी रहती हैं या बिगड़ती हैं, तो स्वास्थ्य सेवा प्रदाता या स्पीच थेरेपिस्ट से परामर्श लें।"
+    },
+    "technique": {
+      "en": "Sit with your arm extended, palm facing up. Use your opposite thumb to press gently on the radial side of the tendon for 1-2 minutes. Apply steady, calming pressure. This point is excellent for calming anxiety and supporting clear speech.",
+      "hi": "अपनी बांह को फैलाकर बैठें, हथेली ऊपर की ओर। 1-2 मिनट के लिए कण्डरा की रेडियल साइड पर धीरे से दबाने के लिए अपने विपरीत अंगूठे का उपयोग करें। स्थिर, शांत दबाव लगाएं। यह बिंदु चिंता को शांत करने और स्पष्ट भाषण का समर्थन करने के लिए उत्कृष्ट है।"
+    },
+    "duration": "1-2 minutes",
+    "pressure": "Gentle",
+    "bodyPart": ["arm", "forearm", "wrist"],
+    "symptoms": ["speech problems", "stuttering", "anxiety", "restlessness", "insomnia", "disturbed sleep", "loss of voice", "emotional fluctuations"],
+    "difficulty": "Intermediate",
+    "category": "Classical",
+    "popularity": 3,
+    "method": {
+      "en": "Sit with your arm extended, palm facing up. Use your opposite thumb to press gently on the radial side of the tendon for 1-2 minutes. Apply steady, calming pressure. This point is excellent for calming anxiety and supporting clear speech.",
+      "hi": "अपनी बांह को फैलाकर बैठें, हथेली ऊपर की ओर। 1-2 मिनट के लिए कण्डरा की रेडियल साइड पर धीरे से दबाने के लिए अपने विपरीत अंगूठे का उपयोग करें। स्थिर, शांत दबाव लगाएं। यह बिंदु चिंता को शांत करने और स्पष्ट भाषण का समर्थन करने के लिए उत्कृष्ट है।"
+    },
+    "conditions": ["speech problems", "stuttering", "anxiety", "restlessness", "insomnia", "disturbed sleep", "loss of voice", "emotional fluctuations"],
+    "images": []
+  },
+  {
+    "id": "si18",
+    "code": "SI18",
+    "name": {
+      "en": "Small Intestine 18 - Quanliao",
+      "hi": "स्मॉल इंटेस्टाइन 18 - क्वानलियाओ"
+    },
+    "chineseName": {
+      "traditional": "顴髎",
+      "pinyin": "Quánliáo"
+    },
+    "location": {
+      "en": "On your cheekbone, directly below the outer corner of your eye, in the depression on the lower border of your cheekbone (zygomatic bone). You can feel a small hollow when you press gently.",
+      "hi": "आपकी गाल की हड्डी पर, आपकी आंख के बाहरी कोने के ठीक नीचे, आपकी गाल की हड्डी (जाइगोमैटिक हड्डी) की निचली सीमा पर अवसाद में। जब आप धीरे से दबाते हैं तो आप एक छोटा सा खोखला महसूस कर सकते हैं।"
+    },
+    "meridian": {
+      "name": { "en": "Small Intestine", "hi": "छोटी आंत" },
+      "code": "SI",
+      "element": "Fire",
+      "polarity": "Yang"
+    },
+    "indications": [
+      { "en": "Facial pain and trigeminal neuralgia", "hi": "चेहरे का दर्द और ट्राइजेमिनल न्यूराल्जिया" },
+      { "en": "Toothache (upper jaw)", "hi": "दांत दर्द (ऊपरी जबड़ा)" },
+      { "en": "Facial paralysis and Bell's palsy", "hi": "चेहरे का पक्षाघात और बेल्स पाल्सी" },
+      { "en": "Facial muscle twitching", "hi": "चेहरे की मांसपेशियों में मरोड़" },
+      { "en": "Eyelid spasms", "hi": "पलक की ऐंठन" }
+    ],
+    "contraindications": {
+      "en": "Use very gentle pressure on the face. This is a sensitive facial point - never press hard. Avoid if you have facial skin conditions or recent facial surgery. This point is excellent for facial nerve pain and paralysis. For severe facial pain, consult a healthcare provider.",
+      "hi": "चेहरे पर बहुत हल्का दबाव का उपयोग करें। यह एक संवेदनशील चेहरे का बिंदु है - कभी भी जोर से दबाव न डालें। यदि आपके पास चेहरे की त्वचा की स्थिति या हाल ही में चेहरे की सर्जरी है तो बचें। यह बिंदु चेहरे की तंत्रिका दर्द और पक्षाघात के लिए उत्कृष्ट है। गंभीर चेहरे के दर्द के लिए, स्वास्थ्य सेवा प्रदाता से परामर्श लें।"
+    },
+    "technique": {
+      "en": "Use your index or middle finger to apply very light circular massage for 1-2 minutes on each side. Use gentle, upward circular motions. This point responds well to light stimulation. Can be used multiple times daily for facial nerve issues.",
+      "hi": "प्रत्येक पक्ष पर 1-2 मिनट के लिए बहुत हल्की गोलाकार मालिश लगाने के लिए अपनी तर्जनी या मध्यमा उंगली का उपयोग करें। कोमल, ऊपर की ओर गोलाकार गति का उपयोग करें। यह बिंदु हल्की उत्तेजना के लिए अच्छी प्रतिक्रिया देता है। चेहरे की तंत्रिका समस्याओं के लिए दिन में कई बार उपयोग किया जा सकता है।"
+    },
+    "duration": "1-2 minutes",
+    "pressure": "Light",
+    "bodyPart": ["face", "cheek"],
+    "symptoms": ["facial pain", "trigeminal neuralgia", "toothache", "upper jaw pain", "facial paralysis", "bells palsy", "facial muscle twitching", "eyelid spasms"],
+    "difficulty": "Beginner",
+    "category": "Classical",
+    "popularity": 3,
+    "method": {
+      "en": "Use your index or middle finger to apply very light circular massage for 1-2 minutes on each side. Use gentle, upward circular motions. This point responds well to light stimulation. Can be used multiple times daily for facial nerve issues.",
+      "hi": "प्रत्येक पक्ष पर 1-2 मिनट के लिए बहुत हल्की गोलाकार मालिश लगाने के लिए अपनी तर्जनी या मध्यमा उंगली का उपयोग करें। कोमल, ऊपर की ओर गोलाकार गति का उपयोग करें। यह बिंदु हल्की उत्तेजना के लिए अच्छी प्रतिक्रिया देता है। चेहरे की तंत्रिका समस्याओं के लिए दिन में कई बार उपयोग किया जा सकता है।"
+    },
+    "conditions": ["facial pain", "trigeminal neuralgia", "toothache", "upper jaw pain", "facial paralysis", "bells palsy", "facial muscle twitching", "eyelid spasms"],
+    "images": [],
+    "isFree": true
+  },
+  {
+    "id": "gb2",
+    "code": "GB2",
+    "name": {
+      "en": "Gallbladder 2 - Tinghui",
+      "hi": "गॉलब्लैडर 2 - टिंगहुई"
+    },
+    "chineseName": {
+      "traditional": "聽會",
+      "pinyin": "Tīnghuì"
+    },
+    "location": {
+      "en": "Just in front of your ear, in the depression between your ear and jaw joint. To find it, open your mouth slightly - you'll feel a depression appear just in front of the small flap of your ear (tragus). Locate with mouth open.",
+      "hi": "आपके कान के ठीक सामने, आपके कान और जबड़े के जोड़ के बीच अवसाद में। इसे खोजने के लिए, अपना मुंह थोड़ा खोलें - आप अपने कान (ट्रैगस) के छोटे फ्लैप के ठीक सामने एक अवसाद महसूस करेंगे। खुले मुंह के साथ खोजें।"
+    },
+    "meridian": {
+      "name": { "en": "Gallbladder", "hi": "पित्ताशय" },
+      "code": "GB",
+      "element": "Wood",
+      "polarity": "Yang"
+    },
+    "indications": [
+      { "en": "Tinnitus and ear ringing", "hi": "टिनिटस और कान में घंटी बजना" },
+      { "en": "Hearing problems and deafness", "hi": "सुनने की समस्याएं और बहरापन" },
+      { "en": "TMJ pain and jaw disorders", "hi": "टीएमजे दर्द और जबड़े के विकार" },
+      { "en": "Ear pain and infections", "hi": "कान दर्द और संक्रमण" },
+      { "en": "Facial paralysis", "hi": "चेहरे का पक्षाघात" }
+    ],
+    "contraindications": {
+      "en": "Use very gentle pressure near the ear. This is a sensitive area with delicate structures. Avoid if you have acute ear infection, recent ear surgery, or TMJ inflammation. For persistent ear problems or hearing loss, consult an ENT specialist.",
+      "hi": "कान के पास बहुत हल्का दबाव का उपयोग करें। यह नाजुक संरचनाओं वाला एक संवेदनशील क्षेत्र है। यदि आपको तीव्र कान संक्रमण, हाल ही में कान की सर्जरी, या टीएमजे सूजन है तो बचें। लगातार कान की समस्याओं या सुनवाई हानि के लिए, ईएनटी विशेषज्ञ से परामर्श लें।"
+    },
+    "technique": {
+      "en": "Open your mouth slightly to locate the depression. Use your index finger to apply very gentle circular massage for 1-2 minutes. Use light, small circular motions. This point is often used with SI 19 for ear conditions. Close your mouth after locating the point - can press with mouth closed.",
+      "hi": "अवसाद का पता लगाने के लिए अपना मुंह थोड़ा खोलें। 1-2 मिनट के लिए बहुत हल्की गोलाकार मालिश लगाने के लिए अपनी तर्जनी का उपयोग करें। हल्की, छोटी गोलाकार गति का उपयोग करें। यह बिंदु अक्सर कान की स्थितियों के लिए एसआई 19 के साथ उपयोग किया जाता है। बिंदु का पता लगाने के बाद अपना मुंह बंद करें - मुंह बंद करके दबाया जा सकता है।"
+    },
+    "duration": "1-2 minutes",
+    "pressure": "Light",
+    "bodyPart": ["ear", "face", "jaw"],
+    "symptoms": ["tinnitus", "ear ringing", "hearing problems", "deafness", "tmj pain", "jaw disorders", "ear pain", "ear infections", "facial paralysis"],
+    "difficulty": "Beginner",
+    "category": "Classical",
+    "popularity": 3,
+    "method": {
+      "en": "Open your mouth slightly to locate the depression. Use your index finger to apply very gentle circular massage for 1-2 minutes. Use light, small circular motions. This point is often used with SI 19 for ear conditions. Close your mouth after locating the point - can press with mouth closed.",
+      "hi": "अवसाद का पता लगाने के लिए अपना मुंह थोड़ा खोलें। 1-2 मिनट के लिए बहुत हल्की गोलाकार मालिश लगाने के लिए अपनी तर्जनी का उपयोग करें। हल्की, छोटी गोलाकार गति का उपयोग करें। यह बिंदु अक्सर कान की स्थितियों के लिए एसआई 19 के साथ उपयोग किया जाता है। बिंदु का पता लगाने के बाद अपना मुंह बंद करें - मुंह बंद करके दबाया जा सकता है।"
+    },
+    "conditions": ["tinnitus", "ear ringing", "hearing problems", "deafness", "tmj pain", "jaw disorders", "ear pain", "ear infections", "facial paralysis"],
+    "images": [],
+    "isFree": true
+  },
+  {
+    "id": "li14",
+    "code": "LI14",
+    "name": {
+      "en": "Large Intestine 14 - Binao",
+      "hi": "लार्ज इंटेस्टाइन 14 - बिनाओ"
+    },
+    "chineseName": {
+      "traditional": "臂臑",
+      "pinyin": "Bìnào"
+    },
+    "location": {
+      "en": "On the outer side of your upper arm, about 7 finger widths above your elbow crease, where your deltoid muscle (shoulder muscle) inserts into your arm bone. To locate it, raise your arm and feel for the lower edge of the deltoid muscle.",
+      "hi": "आपकी ऊपरी बांह की बाहरी ओर, आपकी कोहनी की क्रीज़ से लगभग 7 अंगुल ऊपर, जहां आपकी डेल्टोइड मांसपेशी (कंधे की मांसपेशी) आपकी बांह की हड्डी में डाली जाती है। इसे खोजने के लिए, अपनी बांह उठाएं और डेल्टोइड मांसपेशी के निचले किनारे को महसूस करें।"
+    },
+    "meridian": {
+      "name": { "en": "Large Intestine", "hi": "बड़ी आंत" },
+      "code": "LI",
+      "element": "Metal",
+      "polarity": "Yang"
+    },
+    "indications": [
+      { "en": "Shoulder pain and frozen shoulder", "hi": "कंधे में दर्द और जमी हुई कंधे" },
+      { "en": "Upper arm pain and weakness", "hi": "ऊपरी बांह में दर्द और कमजोरी" },
+      { "en": "Tennis elbow and arm strain", "hi": "टेनिस एल्बो और बांह में खिंचाव" },
+      { "en": "Eye redness and swelling", "hi": "आंख की लालिमा और सूजन" },
+      { "en": "Difficulty raising the arm", "hi": "बांह उठाने में कठिनाई" }
+    ],
+    "contraindications": {
+      "en": "Avoid during pregnancy. Use moderate pressure on the muscle. This is a local point for shoulder and arm disorders. Avoid if you have acute shoulder injury, severe inflammation, or rotator cuff tear. For persistent shoulder pain, consult a healthcare provider.",
+      "hi": "गर्भावस्था के दौरान बचें। मांसपेशी पर मध्यम दबाव का उपयोग करें। यह कंधे और बांह के विकारों के लिए एक स्थानीय बिंदु है। यदि आपको तीव्र कंधे की चोट, गंभीर सूजन, या रोटेटर कफ आंसू है तो बचें। लगातार कंधे के दर्द के लिए, स्वास्थ्य सेवा प्रदाता से परामर्श लें।"
+    },
+    "technique": {
+      "en": "Sit or stand comfortably with your arm relaxed at your side. Use your opposite hand's thumb to press firmly into the muscle for 1-2 minutes. You may feel tenderness or achiness. Can combine with gentle arm movements for better results.",
+      "hi": "अपनी बांह को आराम से अपनी तरफ रखते हुए आराम से बैठें या खड़े हों। 1-2 मिनट के लिए मांसपेशियों में दृढ़ता से दबाने के लिए अपने विपरीत हाथ के अंगूठे का उपयोग करें। आपको कोमलता या दर्द महसूस हो सकता है। बेहतर परिणामों के लिए कोमल बांह आंदोलनों के साथ जोड़ा जा सकता है।"
+    },
+    "duration": "1-2 minutes",
+    "pressure": "Moderate",
+    "bodyPart": ["shoulder", "arm", "upper arm"],
+    "symptoms": ["shoulder pain", "frozen shoulder", "upper arm pain", "arm weakness", "tennis elbow", "arm strain", "eye redness", "eye swelling", "difficulty raising arm"],
+    "difficulty": "Beginner",
+    "category": "Classical",
+    "popularity": 3,
+    "method": {
+      "en": "Sit or stand comfortably with your arm relaxed at your side. Use your opposite hand's thumb to press firmly into the muscle for 1-2 minutes. You may feel tenderness or achiness. Can combine with gentle arm movements for better results.",
+      "hi": "अपनी बांह को आराम से अपनी तरफ रखते हुए आराम से बैठें या खड़े हों। 1-2 मिनट के लिए मांसपेशियों में दृढ़ता से दबाने के लिए अपने विपरीत हाथ के अंगूठे का उपयोग करें। आपको कोमलता या दर्द महसूस हो सकता है। बेहतर परिणामों के लिए कोमल बांह आंदोलनों के साथ जोड़ा जा सकता है।"
+    },
+    "conditions": ["shoulder pain", "frozen shoulder", "upper arm pain", "arm weakness", "tennis elbow", "arm strain", "eye redness", "eye swelling", "difficulty raising arm"],
+    "images": [],
+    "isFree": true
+  },
+  {
+    "id": "st43",
+    "code": "ST43",
+    "name": {
+      "en": "Stomach 43 - Xiangu",
+      "hi": "स्टमक 43 - शियांगू"
+    },
+    "chineseName": {
+      "traditional": "陷谷",
+      "pinyin": "Xiàngǔ"
+    },
+    "location": {
+      "en": "On the top of your foot, in the depression between the second and third toes, where the bones meet (between the 2nd and 3rd metatarsal bones). You can feel a natural hollow when you press gently.",
+      "hi": "आपके पैर के ऊपर, दूसरे और तीसरे पैर की उंगलियों के बीच अवसाद में, जहां हड्डियां मिलती हैं (2वीं और 3वीं मेटाटार्सल हड्डियों के बीच)। जब आप धीरे से दबाते हैं तो आप एक प्राकृतिक खोखला महसूस कर सकते हैं।"
+    },
+    "meridian": {
+      "name": { "en": "Stomach", "hi": "पेट" },
+      "code": "ST",
+      "element": "Earth",
+      "polarity": "Yang"
+    },
+    "indications": [
+      { "en": "Facial pain and facial swelling", "hi": "चेहरे का दर्द और चेहरे की सूजन" },
+      { "en": "Abdominal pain and bloating", "hi": "पेट दर्द और सूजन" },
+      { "en": "Digestive disturbances", "hi": "पाचन संबंधी गड़बड़ी" },
+      { "en": "Foot pain and swelling", "hi": "पैर दर्द और सूजन" },
+      { "en": "Edema and water retention", "hi": "सूजन और पानी की अवधारण" }
+    ],
+    "contraindications": {
+      "en": "Avoid during pregnancy. Use gentle to moderate pressure on the foot. This point clears heat from the stomach channel. Avoid if you have acute foot injury, broken bones, or foot infection. For persistent digestive or facial swelling, consult a healthcare provider.",
+      "hi": "गर्भावस्था के दौरान बचें। पैर पर हल्के से मध्यम दबाव का उपयोग करें। यह बिंदु पेट की चैनल से गर्मी को साफ करता है। यदि आपको तीव्र पैर की चोट, टूटी हड्डियां, या पैर संक्रमण है तो बचें। लगातार पाचन या चेहरे की सूजन के लिए, स्वास्थ्य सेवा प्रदाता से परामर्श लें।"
+    },
+    "technique": {
+      "en": "Sit comfortably with your foot accessible. Use your thumb to press firmly into the depression between the toe bones for 1-2 minutes. You may feel a tender or achy sensation. Use circular massage or steady pressure.",
+      "hi": "अपने पैर को सुलभ बनाकर आराम से बैठें। 1-2 मिनट के लिए पैर की उंगलियों की हड्डियों के बीच अवसाद में दृढ़ता से दबाने के लिए अपने अंगूठे का उपयोग करें। आपको एक कोमल या दर्द भरी सनसनी महसूस हो सकती है। गोलाकार मालिश या स्थिर दबाव का उपयोग करें।"
+    },
+    "duration": "1-2 minutes",
+    "pressure": "Moderate",
+    "bodyPart": ["foot"],
+    "symptoms": ["facial pain", "facial swelling", "abdominal pain", "abdominal bloating", "digestive disturbances", "foot pain", "foot swelling", "edema", "water retention"],
+    "difficulty": "Beginner",
+    "category": "Classical",
+    "popularity": 3,
+    "method": {
+      "en": "Sit comfortably with your foot accessible. Use your thumb to press firmly into the depression between the toe bones for 1-2 minutes. You may feel a tender or achy sensation. Use circular massage or steady pressure.",
+      "hi": "अपने पैर को सुलभ बनाकर आराम से बैठें। 1-2 मिनट के लिए पैर की उंगलियों की हड्डियों के बीच अवसाद में दृढ़ता से दबाने के लिए अपने अंगूठे का उपयोग करें। आपको एक कोमल या दर्द भरी सनसनी महसूस हो सकती है। गोलाकार मालिश या स्थिर दबाव का उपयोग करें।"
+    },
+    "conditions": ["facial pain", "facial swelling", "abdominal pain", "abdominal bloating", "digestive disturbances", "foot pain", "foot swelling", "edema", "water retention"],
+    "images": []
+  },
+  {
+    "id": "bl18",
+    "code": "BL18",
+    "name": {
+      "en": "Bladder 18 - Ganshu",
+      "hi": "ब्लैडर 18 - गानशू"
+    },
+    "chineseName": {
+      "traditional": "肝俞",
+      "pinyin": "Gānshū"
+    },
+    "location": {
+      "en": "On your mid-back, about 1.5 finger widths to the side of your spine, level with the space between the 9th and 10th thoracic vertebrae (below your shoulder blades, mid-back level). Best located with assistance.",
+      "hi": "आपकी मध्य पीठ पर, आपकी रीढ़ की हड्डी के बगल में लगभग 1.5 अंगुल, 9वीं और 10वीं थोरेसिक कशेरुकाओं के बीच की जगह के स्तर पर (आपके कंधे के ब्लेड के नीचे, मध्य पीठ स्तर)। सहायता के साथ सबसे अच्छा स्थित।"
+    },
+    "meridian": {
+      "name": { "en": "Bladder", "hi": "मूत्राशय" },
+      "code": "BL",
+      "element": "Water",
+      "polarity": "Yang"
+    },
+    "indications": [
+      { "en": "Eye strain and vision problems", "hi": "आंखों में तनाव और दृष्टि समस्याएं" },
+      { "en": "Anger and irritability", "hi": "क्रोध और चिड़चिड़ापन" },
+      { "en": "Depression and emotional stress", "hi": "अवसाद और भावनात्मक तनाव" },
+      { "en": "Liver-related issues", "hi": "यकृत से संबंधित मुद्दे" },
+      { "en": "Mid-back pain and tension", "hi": "मध्य पीठ दर्द और तनाव" },
+      { "en": "Hypochondriac pain (side rib pain)", "hi": "हाइपोकॉन्ड्रिअक दर्द (पार्श्व पसली दर्द)" }
+    ],
+    "contraindications": {
+      "en": "Best treated by a professional or with partner assistance. Use moderate pressure. This is the Liver Back-Shu point - excellent for liver function and eye health. Avoid if you have acute back injury, skin conditions, or recent back surgery. This point works well with regular treatment.",
+      "hi": "पेशेवर द्वारा या साथी सहायता के साथ सबसे अच्छा इलाज किया जाता है। मध्यम दबाव का उपयोग करें। यह लिवर बैक-शू पॉइंट है - लिवर फंक्शन और आंखों के स्वास्थ्य के लिए उत्कृष्ट। यदि आपको तीव्र पीठ की चोट, त्वचा की स्थिति, या हाल ही में पीठ की सर्जरी है तो बचें। यह बिंदु नियमित उपचार के साथ अच्छा काम करता है।"
+    },
+    "technique": {
+      "en": "Have a partner press firmly with their thumbs on both sides of your spine simultaneously for 2-3 minutes. Alternatively, lie on tennis balls or a massage tool. This point 'brightens the eyes' and calms emotional stress. Best used regularly for chronic eye strain or anger issues.",
+      "hi": "एक साथी को अपनी रीढ़ के दोनों तरफ एक साथ 2-3 मिनट के लिए अपने अंगूठे से दृढ़ता से दबाने के लिए कहें। वैकल्पिक रूप से, टेनिस गेंदों या मालिश उपकरण पर लेटें। यह बिंदु 'आंखों को उज्ज्वल करता है' और भावनात्मक तनाव को शांत करता है। पुरानी आंखों के तनाव या क्रोध के मुद्दों के लिए नियमित रूप से उपयोग करने पर सबसे अच्छा।"
+    },
+    "duration": "2-3 minutes",
+    "pressure": "Moderate",
+    "bodyPart": ["back", "spine", "torso"],
+    "symptoms": ["eye strain", "vision problems", "anger", "irritability", "depression", "emotional stress", "liver issues", "mid-back pain", "back tension", "hypochondriac pain", "side rib pain"],
+    "difficulty": "Intermediate",
+    "category": "Classical",
+    "popularity": 3,
+    "method": {
+      "en": "Have a partner press firmly with their thumbs on both sides of your spine simultaneously for 2-3 minutes. Alternatively, lie on tennis balls or a massage tool. This point 'brightens the eyes' and calms emotional stress. Best used regularly for chronic eye strain or anger issues.",
+      "hi": "एक साथी को अपनी रीढ़ के दोनों तरफ एक साथ 2-3 मिनट के लिए अपने अंगूठे से दृढ़ता से दबाने के लिए कहें। वैकल्पिक रूप से, टेनिस गेंदों या मालिश उपकरण पर लेटें। यह बिंदु 'आंखों को उज्ज्वल करता है' और भावनात्मक तनाव को शांत करता है। पुरानी आंखों के तनाव या क्रोध के मुद्दों के लिए नियमित रूप से उपयोग करने पर सबसे अच्छा।"
+    },
+    "conditions": ["eye strain", "vision problems", "anger", "irritability", "depression", "emotional stress", "liver issues", "mid-back pain", "back tension", "hypochondriac pain", "side rib pain"],
+    "images": []
+  }
+]
