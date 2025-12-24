@@ -1,16 +1,17 @@
 # AccuHeal - Acupressure Points Inventory
 
-*Last Updated: September 4, 2025*
+*Last Updated: December 24, 2025*
 
 This document maintains a comprehensive list of all acupressure points included in the AccuHeal app for easy reference and context management.
 
 ## Total Points: 89
 
-### Classical Points (78)
+### Classical Points (86)
 
 #### Large Intestine Meridian
 - **LI4** (li4) - Hegu - Hand webbing, stress relief, headaches
-- **LI11** (li11) - Quchi - Elbow, inflammation, high blood pressure  
+- **LI11** (li11) - Quchi - Elbow, inflammation, high blood pressure
+- **LI14** (li14) - Binao - Upper arm, arm pain, shoulder stiffness (FREE)
 - **LI15** (li15) - Jianyu - Shoulder depression, shoulder pain and stiffness
 - **LI20** (li20) - Yingxiang - Nose sides, nasal congestion
 - **LI1** (li1) - Shangyang - Index fingertip, toothache, sore throat
@@ -41,6 +42,7 @@ This document maintains a comprehensive list of all acupressure points included 
 - **SP1** (sp1) - Yinbai - Big toe, menstrual support, digestive regulation
 
 #### Pericardium Meridian
+- **PC4** (pc4) - Ximen - Inner forearm, chest pain, anxiety, heart regulation (PREMIUM)
 - **PC6** (pc6) - Neiguan - Inner wrist, nausea, anxiety, heart palpitations
 - **PC8** (pc8) - Laogong - Palm center, emotional balance, heart calming
 
@@ -50,11 +52,13 @@ This document maintains a comprehensive list of all acupressure points included 
 - **ST8** (st8) - Touwei - Forehead corner, temporal headaches, eye disorders
 - **ST25** (st25) - Tianshu - Abdomen sides, digestive issues, constipation
 - **ST12** (st12) - Quepen - Above collarbone, respiratory congestion, throat
+- **ST43** (st43) - Xiangu - Foot, digestive issues, facial edema, ankle pain (PREMIUM)
 - **ST6-C** (st6_cold) - Enhanced Jiache - Cold symptoms, facial congestion, sinus pressure
 
 #### Bladder Meridian
 - **BL2** (bl2) - Zanzhu - Inner eyebrow, eye strain, frontal headaches
 - **BL13** (bl13) - Feishu - Upper back, respiratory problems, cough
+- **BL18** (bl18) - Ganshu - Back, liver support, digestive issues, eye problems (PREMIUM)
 - **BL23** (bl23) - Shenshu - Lower back, kidney support, lower back pain
 - **BL40** (bl40) - Weizhong - Behind knee, back pain, leg circulation
 - **BL60** (bl60) - Kunlun - Ankle back, ankle pain, headaches
@@ -68,8 +72,9 @@ This document maintains a comprehensive list of all acupressure points included 
 - **TH21** (th21) - Ermen - Front of ear, hearing loss, tinnitus, TMJ
 
 #### Heart Meridian
-- **HT7** (ht7) - Shenmen - Wrist crease, anxiety, insomnia, heart calming
 - **HT3** (ht3) - Shaohai - Inner elbow, heart regulation, arm pain
+- **HT4** (ht4) - Lingdao - Inner forearm, heart palpitations, anxiety, speech disorders (PREMIUM)
+- **HT7** (ht7) - Shenmen - Wrist crease, anxiety, insomnia, heart calming
 - **HT9** (ht9) - Shaochong - Little finger, mental clarity, heart regulation
 
 #### Kidney Meridian
@@ -81,24 +86,27 @@ This document maintains a comprehensive list of all acupressure points included 
 - **KI16** (ki16) - Huangshu - Lateral to navel, abdominal pain, digestive support
 
 #### Lung Meridian
-- **LU9** (lu9) - Taiyuan - Wrist pulse, respiratory health, circulation
 - **LU1** (lu1) - Zhongfu - Upper chest, breathing difficulties, cough
+- **LU4** (lu4) - Xiabai - Upper arm, cough, chest pain, respiratory discomfort (PREMIUM)
 - **LU5** (lu5) - Chize - Elbow thumb side, cough, throat problems
 - **LU7** (lu7) - Lieque - Forearm thumb side, asthma, bronchitis, wrist pain
+- **LU9** (lu9) - Taiyuan - Wrist pulse, respiratory health, circulation
 - **LU11** (lu11) - Shaoshang - Thumb, respiratory support, immune boost
 
 #### Gallbladder Meridian
-- **GB20** (gb20) - Fengchi - Base of skull, neck tension, headaches
+- **GB2** (gb2) - Tinghui - In front of ear, hearing loss, tinnitus, TMJ disorders (FREE)
 - **GB14** (gb14) - Yangbai - Above eyebrow, frontal headaches, eye strain
+- **GB20** (gb20) - Fengchi - Base of skull, neck tension, headaches
 - **GB21** (gb21) - Jianjing - Shoulder top, shoulder tension, neck pain
 - **GB34** (gb34) - Yanglingquan - Outer knee, decision making, joint flexibility
 - **GB39** (gb39) - Xuanzhong - Outer ankle, bone health, marrow support
 
 #### Small Intestine Meridian
-- **SI3** (si3) - Houxi - Hand edge, back pain, neck stiffness
-- **SI19** (si19) - Tinggong - Front of ear, hearing problems, tinnitus
-- **SI8** (si8) - Xiaohai - Inner elbow, elbow pain, arm numbness, mental restlessness
 - **SI1** (si1) - Shaoze - Little finger, lactation support, mental alertness
+- **SI3** (si3) - Houxi - Hand edge, back pain, neck stiffness
+- **SI8** (si8) - Xiaohai - Inner elbow, elbow pain, arm numbness, mental restlessness
+- **SI18** (si18) - Quanliao - Below cheekbone, facial pain, facial paralysis, toothache (FREE)
+- **SI19** (si19) - Tinggong - Front of ear, hearing problems, tinnitus
 
 #### Conception Vessel
 - **CV17** (cv17) - Danzhong - Chest center, emotional release, breathing
@@ -143,25 +151,37 @@ This document maintains a comprehensive list of all acupressure points included 
 - **Extra**: 11 points (Non-meridian specific points)
 - **Everyday Essential**: 5 points (Modern lifestyle focused)
 
-## Recent Updates (September 4, 2025)
+## Recent Updates (December 24, 2025)
+
+### New Points Added (8 Total)
+- **LU4** (Xiabai) - Upper arm respiratory support, cough relief (PREMIUM)
+- **PC4** (Ximen) - Chest pain, heart regulation, anxiety (PREMIUM)
+- **HT4** (Lingdao) - Heart palpitations, speech disorders (PREMIUM)
+- **SI18** (Quanliao) - Facial pain, toothache (FREE)
+- **GB2** (Tinghui) - Hearing loss, tinnitus, TMJ (FREE)
+- **LI14** (Binao) - Arm pain, shoulder stiffness (FREE)
+- **ST43** (Xiangu) - Digestive issues, ankle pain (PREMIUM)
+- **BL18** (Ganshu) - Liver support, eye problems (PREMIUM)
+
+### Meridian System Completion
+- **Lung Meridian**: Now at 100% coverage with LU4 addition
+- **Heart Meridian**: Enhanced with HT4 for speech and anxiety
+- **Pericardium Meridian**: Strengthened with PC4 for chest pain
+- **Gallbladder Meridian**: Added GB2 for hearing support
+- **FREE Tier**: Added 3 new accessible points (SI18, GB2, LI14)
+
+## Previous Updates (September 4, 2025)
 
 ### Duplicate Removal
 - Removed 5 duplicate point entries (bl2, gb34, li20, pc8, st25)
 - Cleaned database from 94 to 89 total points
 
-### New Essential Daily Life Points Added
+### Essential Daily Life Points Added
 - **SP1** (Yinbai) - Menstrual support and digestive regulation
-- **LU11** (Shaoshang) - Respiratory support and immune boost  
+- **LU11** (Shaoshang) - Respiratory support and immune boost
 - **BL67** (Zhiyin) - Sleep quality and anxiety relief
 - **HT9** (Shaochong) - Mental clarity and heart regulation
 - **SI1** (Shaoze) - Lactation support and mental alertness
-
-### Focus Areas Enhanced
-- **Women's Health**: Enhanced menstrual and lactation support
-- **Mental Performance**: Added clarity and focus points
-- **Sleep Quality**: Better insomnia and anxiety management
-- **Immune Support**: Strengthened respiratory and immune points
-- **Modern Wellness**: Points specifically for daily life challenges
 
 ## Modern Lifestyle Categories
 
