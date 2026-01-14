@@ -2375,7 +2375,7 @@ export const samplePoints: AcupressurePoint[] = [
       "study headaches"
     ],
     "images": [
-      "ex21_location.jpg"
+      "@assets/acupressure_points/Sishencong_EX-HN1.jpg"
     ]
   },
   {
