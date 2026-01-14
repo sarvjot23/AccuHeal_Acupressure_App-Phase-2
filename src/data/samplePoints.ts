@@ -156,7 +156,7 @@ export const samplePoints: AcupressurePoint[] = [
       "headache"
     ],
     "images": [
-      "@assets/acupressure_points/GV20_Baihui_crown_intersection_point_0794ad19.png"
+      "@assets/acupressure_points/GV20_Baihui_corrected.jpg"
     ],
     "isFree": true
   },
@@ -3479,7 +3479,7 @@ export const samplePoints: AcupressurePoint[] = [
       "ear infection"
     ],
     "images": [
-      "si19_location.jpg"
+      "@assets/acupressure_points/SI19_Tinggong_corrected.jpg"
     ]
   },
   {
@@ -3727,7 +3727,7 @@ export const samplePoints: AcupressurePoint[] = [
       "sleep disorders"
     ],
     "images": [
-      "anmian_location.jpg"
+      "@assets/acupressure_points/Anmian_EX-HN16_Peaceful_Sleep.jpg"
     ]
   },
   {
