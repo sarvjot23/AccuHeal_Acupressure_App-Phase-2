@@ -29,11 +29,16 @@ const CV4_Guanyuan = require('../../assets/acupressure_points/CV4_Guanyuan_abdom
 const Taiyang_temple = require('../../assets/acupressure_points/Taiyang_temple_acupressure_point_31a4ee19.png');
 const Yintang_forehead = require('../../assets/acupressure_points/Yintang_forehead_acupressure_point_2e369548.png');
 
+// Newly added corrected images
+const Anmian_EX_HN16 = require('../../assets/acupressure_points/Anmian_EX-HN16_Peaceful_Sleep.jpg');
+const GV20_Baihui_corrected = require('../../assets/acupressure_points/GV20_Baihui_corrected.jpg');
+const SI19_Tinggong = require('../../assets/acupressure_points/SI19_Tinggong_corrected.jpg');
+
 // Export mapping object for acupressure point images
 export const acupressurePointImages: Record<string, any> = {
   // Main acupressure points
   'li4': LI4_Hegu,
-  'gv20': GV20_Baihui,
+  'gv20': GV20_Baihui_corrected,  // Updated to corrected image
   'lv3': LV3_Taichong,
   'sp6': SP6_Sanyinjiao,
   'pc6': PC6_Neiguan,
@@ -58,6 +63,10 @@ export const acupressurePointImages: Record<string, any> = {
   'cv4': CV4_Guanyuan,
   'taiyang': Taiyang_temple,
   'yintang': Yintang_forehead,
+
+  // Newly added corrected images
+  'anmian': Anmian_EX_HN16,
+  'si19': SI19_Tinggong,
 };
 
 // Helper function to get image for a point
