@@ -7084,6 +7084,103 @@ export const samplePoints: AcupressurePoint[] = [
     ]
   },
   {
+    "id": "st44",
+    "code": "ST44",
+    "name": {
+      "en": "Stomach 44 - Neiting",
+      "hi": "स्टमक 44 - नेइटिंग"
+    },
+    "chineseName": {
+      "traditional": "內庭",
+      "pinyin": "Nèitíng"
+    },
+    "location": {
+      "en": "On the top of your foot, in the web between your second and third toes. Find the point where the toes meet the foot, right in the center of the webbing. It's easily accessible when sitting.",
+      "hi": "आपके पैर के ऊपर, आपकी दूसरी और तीसरी उंगलियों के बीच की झिल्ली में। वह बिंदु खोजें जहां पैर की उंगलियां पैर से मिलती हैं, झिल्ली के ठीक बीच में। बैठते समय यह आसानी से सुलभ है।"
+    },
+    "meridian": {
+      "name": {
+        "en": "Stomach",
+        "hi": "पेट"
+      },
+      "code": "ST",
+      "element": "Earth",
+      "polarity": "Yang"
+    },
+    "indications": [
+      {
+        "en": "Fever and heat symptoms",
+        "hi": "बुखार और गर्मी के लक्षण"
+      },
+      {
+        "en": "Toothache and dental pain",
+        "hi": "दांत दर्द और दंत दर्द"
+      },
+      {
+        "en": "Facial pain and swelling",
+        "hi": "चेहरे का दर्द और सूजन"
+      },
+      {
+        "en": "Acid reflux and stomach heat",
+        "hi": "एसिड रिफ्लक्स और पेट की गर्मी"
+      },
+      {
+        "en": "Foot pain and swelling",
+        "hi": "पैर दर्द और सूजन"
+      },
+      {
+        "en": "Nosebleeds",
+        "hi": "नकसीर"
+      }
+    ],
+    "contraindications": {
+      "en": "Avoid during pregnancy. Use gentle to moderate pressure on this sensitive area. This point is excellent for clearing excess heat from the body. If fever persists or is very high, seek medical care.",
+      "hi": "गर्भावस्था के दौरान बचें। इस संवेदनशील क्षेत्र पर हल्के से मध्यम दबाव का उपयोग करें। यह बिंदु शरीर से अतिरिक्त गर्मी को साफ करने के लिए उत्कृष्ट है। यदि बुखार बना रहता है या बहुत अधिक है, तो चिकित्सा देखभाल लें।"
+    },
+    "technique": {
+      "en": "Sit comfortably and hold your foot. Use your thumb and index finger to pinch the webbing between your toes for 1-2 minutes on each foot. Apply steady pressure or use a gentle massage motion. This point may feel tender when pressed.",
+      "hi": "आराम से बैठें और अपना पैर पकड़ें। प्रत्येक पैर पर 1-2 मिनट के लिए अपने अंगूठे और तर्जनी से अपनी उंगलियों के बीच की झिल्ली को चुटकी में लें। स्थिर दबाव लगाएं या हल्की मालिश गति का उपयोग करें। दबाने पर यह बिंदु कोमल महसूस हो सकता है।"
+    },
+    "duration": "1-2 minutes",
+    "pressure": "Moderate",
+    "bodyPart": [
+      "foot",
+      "toe"
+    ],
+    "symptoms": [
+      "fever",
+      "heat symptoms",
+      "toothache",
+      "dental pain",
+      "facial pain",
+      "facial swelling",
+      "acid reflux",
+      "stomach heat",
+      "foot pain",
+      "nosebleeds"
+    ],
+    "difficulty": "Beginner",
+    "category": "Classical",
+    "popularity": 4,
+    "method": {
+      "en": "Sit comfortably and hold your foot. Use your thumb and index finger to pinch the webbing between your toes for 1-2 minutes on each foot. Apply steady pressure or use a gentle massage motion. This point may feel tender when pressed.",
+      "hi": "आराम से बैठें और अपना पैर पकड़ें। प्रत्येक पैर पर 1-2 मिनट के लिए अपने अंगूठे और तर्जनी से अपनी उंगलियों के बीच की झिल्ली को चुटकी में लें। स्थिर दबाव लगाएं या हल्की मालिश गति का उपयोग करें। दबाने पर यह बिंदु कोमल महसूस हो सकता है।"
+    },
+    "conditions": [
+      "fever",
+      "heat symptoms",
+      "toothache",
+      "dental pain",
+      "facial pain",
+      "facial swelling",
+      "acid reflux",
+      "stomach heat",
+      "foot pain",
+      "nosebleeds"
+    ],
+    "images": []
+  },
+  {
     "id": "bl18",
     "code": "BL18",
     "name": {
