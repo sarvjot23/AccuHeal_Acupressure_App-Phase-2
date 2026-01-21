@@ -34,6 +34,12 @@ const Anmian_EX_HN16 = require('../../assets/acupressure_points/Anmian_EX-HN16_P
 const GV20_Baihui_corrected = require('../../assets/acupressure_points/GV20_Baihui_corrected.jpg');
 const SI19_Tinggong = require('../../assets/acupressure_points/SI19_Tinggong_corrected.jpg');
 const Sishencong_EX_HN1 = require('../../assets/acupressure_points/Sishencong_EX-HN1.jpg');
+const SP1_Yinbai = require('../../assets/acupressure_points/SP1_Yinbai.jpg');
+const SP2_Dadu = require('../../assets/acupressure_points/SP2_Dadu.jpg');
+const SP3_Taibai = require('../../assets/acupressure_points/SP3_Taibai.jpg');
+const SP4_Enhanced = require('../../assets/acupressure_points/SP4_Enhanced_Diarrhea.jpg');
+const ST43_Xiangu = require('../../assets/acupressure_points/ST43_Xiangu.jpg');
+const KI1_Yongquan_Corrected = require('../../assets/acupressure_points/KI1_Yongquan_Bubbling_Spring.png');
 
 // Export mapping object for acupressure point images
 export const acupressurePointImages: Record<string, any> = {
@@ -69,6 +75,12 @@ export const acupressurePointImages: Record<string, any> = {
   'anmian': Anmian_EX_HN16,
   'si19': SI19_Tinggong,
   'ex21': Sishencong_EX_HN1,  // Sishencong (Four Alert Spirit)
+  'sp1': SP1_Yinbai,
+  'sp2': SP2_Dadu,
+  'sp3': SP3_Taibai,
+  'sp4_diarrhea': SP4_Enhanced,
+  'st43': ST43_Xiangu,
+  'yongquan': KI1_Yongquan_Corrected,
 };
 
 // Helper function to get image for a point

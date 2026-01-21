@@ -1192,7 +1192,7 @@ export const samplePoints: AcupressurePoint[] = [
       "abdominal pain"
     ],
     "images": [
-      "sp3_location.jpg"
+      "@assets/acupressure_points/SP3_Taibai.jpg"
     ]
   },
   {
@@ -4152,7 +4152,7 @@ export const samplePoints: AcupressurePoint[] = [
       "stress"
     ],
     "images": [
-      "yongquan_location.jpg"
+      "@assets/acupressure_points/KI1_Yongquan_Bubbling_Spring.png"
     ]
   },
   {
@@ -5323,7 +5323,7 @@ export const samplePoints: AcupressurePoint[] = [
       "stomach heat"
     ],
     "images": [
-      "sp2_location.jpg"
+      "@assets/acupressure_points/SP2_Dadu.jpg"
     ]
   },
   {
@@ -5955,7 +5955,7 @@ export const samplePoints: AcupressurePoint[] = [
       "digestive weakness"
     ],
     "images": [
-      "sp4_diarrhea_location.jpg"
+      "@assets/acupressure_points/SP4_Enhanced_Diarrhea.jpg"
     ]
   },
   {
@@ -6118,7 +6118,7 @@ export const samplePoints: AcupressurePoint[] = [
       "bloating"
     ],
     "images": [
-      "sp1_location.jpg"
+      "@assets/acupressure_points/SP1_Yinbai.jpg"
     ]
   },
   {
@@ -7079,7 +7079,9 @@ export const samplePoints: AcupressurePoint[] = [
       "edema",
       "water retention"
     ],
-    "images": []
+    "images": [
+      "@assets/acupressure_points/ST43_Xiangu.jpg"
+    ]
   },
   {
     "id": "bl18",
